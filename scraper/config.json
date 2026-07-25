@@ -1,26 +1,724 @@
 {
-  "_หมายเหตุ": "ใส่ URL หน้าสินค้าจริงและ CSS selector ของราคา — JIB/Advice เป็นเว็บ JS-render ต้องใช้ method playwright",
-  "stores": {
-    "JIB": { "method": "playwright" },
-    "Advice": { "method": "playwright" }
+ "_หมายเหตุ": "โหมด jib = ค้นหาจากหน้า search ของ JIB อัตโนมัติ (แนะนำ) | สินค้าที่ไม่มี jib (เช่น เครื่องเกม) จะไม่ถูกอัปเดต จนกว่าจะเพิ่มแหล่งข้อมูล",
+ "stores": {
+  "JIB": {
+   "method": "requests"
+  }
+ },
+ "products": [
+  {
+   "id": "rtx5060",
+   "name": "GeForce RTX 5060 8GB",
+   "category": "gpu",
+   "specs": {
+    "tdp": 145
+   },
+   "affiliate_url": "https://s.shopee.co.th/AAFqYOAKLp",
+   "jib": {
+    "keyword": "VGA RTX 5060 8GB",
+    "must": [
+     "RTX 5060",
+     "8GB"
+    ],
+    "not": [
+     "TI"
+    ]
+   }
   },
-  "products": [
-    {
-      "id": "rtx5070",
-      "name": "GeForce RTX 5070 12GB",
-      "category": "gpu",
-      "specs": { "tdp": 250 },
-      "affiliate_url": "https://s.shopee.co.th/YOUR_AFFILIATE_LINK",
-      "sources": {
-        "JIB": {
-          "url": "https://www.jib.co.th/web/product/readProduct/XXXXX",
-          "selector": ".price-product"
-        },
-        "Advice": {
-          "url": "https://www.advice.co.th/product/XXXXX",
-          "selector": ".sale-price"
-        }
-      }
-    }
-  ]
+  {
+   "id": "rtx5060ti",
+   "name": "GeForce RTX 5060 Ti 16GB",
+   "category": "gpu",
+   "specs": {
+    "tdp": 180
+   },
+   "affiliate_url": "https://s.shopee.co.th/AKZGkh9h0s",
+   "jib": {
+    "keyword": "VGA RTX 5060 TI 16GB",
+    "must": [
+     "RTX 5060 TI",
+     "16GB"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "rtx5070",
+   "name": "GeForce RTX 5070 12GB",
+   "category": "gpu",
+   "specs": {
+    "tdp": 250
+   },
+   "affiliate_url": "https://s.shopee.co.th/AUsgx093fv",
+   "jib": {
+    "keyword": "VGA RTX 5070 12GB",
+    "must": [
+     "RTX 5070",
+     "12GB"
+    ],
+    "not": [
+     "TI"
+    ]
+   }
+  },
+  {
+   "id": "rtx5070ti",
+   "name": "GeForce RTX 5070 Ti 16GB",
+   "category": "gpu",
+   "specs": {
+    "tdp": 300
+   },
+   "affiliate_url": "https://s.shopee.co.th/9KgjYrDV2i",
+   "jib": {
+    "keyword": "VGA RTX 5070 TI 16GB",
+    "must": [
+     "RTX 5070 TI",
+     "16GB"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "rtx5080",
+   "name": "GeForce RTX 5080 16GB",
+   "category": "gpu",
+   "specs": {
+    "tdp": 360
+   },
+   "affiliate_url": "https://s.shopee.co.th/9V09lACrhl",
+   "jib": {
+    "keyword": "VGA RTX 5080 16GB",
+    "must": [
+     "RTX 5080",
+     "16GB"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "rtx5090",
+   "name": "GeForce RTX 5090 32GB",
+   "category": "gpu",
+   "specs": {
+    "tdp": 575
+   },
+   "affiliate_url": "https://s.shopee.co.th/9V09lJjFi0",
+   "jib": {
+    "keyword": "VGA RTX 5090 32GB",
+    "must": [
+     "RTX 5090",
+     "32GB"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "rx9060xt",
+   "name": "Radeon RX 9060 XT 16GB",
+   "category": "gpu",
+   "specs": {
+    "tdp": 160
+   },
+   "affiliate_url": "https://s.shopee.co.th/9KgjZ0jt2z",
+   "jib": {
+    "keyword": "VGA RX 9060 XT 16GB",
+    "must": [
+     "RX 9060 XT",
+     "16GB"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "rx9070",
+   "name": "Radeon RX 9070 16GB",
+   "category": "gpu",
+   "specs": {
+    "tdp": 220
+   },
+   "affiliate_url": "https://s.shopee.co.th/9pd09vhz26",
+   "jib": {
+    "keyword": "VGA RX 9070 16GB",
+    "must": [
+     "RX 9070",
+     "16GB"
+    ],
+    "not": [
+     "XT"
+    ]
+   }
+  },
+  {
+   "id": "rx9070xt",
+   "name": "Radeon RX 9070 XT 16GB",
+   "category": "gpu",
+   "specs": {
+    "tdp": 304
+   },
+   "affiliate_url": "https://s.shopee.co.th/9fJZxcicN5",
+   "jib": {
+    "keyword": "VGA RX 9070 XT 16GB",
+    "must": [
+     "RX 9070 XT",
+     "16GB"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "arcb580",
+   "name": "Intel Arc B580 12GB",
+   "category": "gpu",
+   "specs": {
+    "tdp": 190
+   },
+   "affiliate_url": "https://s.shopee.co.th/6AjhnBvwTQ",
+   "jib": {
+    "keyword": "VGA INTEL ARC B580",
+    "must": [
+     "ARC",
+     "B580"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "r55600",
+   "name": "AMD Ryzen 5 5600",
+   "category": "cpu",
+   "specs": {
+    "socket": "AM4",
+    "tdp": 65
+   },
+   "affiliate_url": "https://s.shopee.co.th/2BDZ1s58as",
+   "jib": {
+    "keyword": "CPU AMD RYZEN 5 5600",
+    "must": [
+     "RYZEN 5 5600 "
+    ],
+    "not": [
+     "5600X",
+     "5600G",
+     "5600XT"
+    ]
+   }
+  },
+  {
+   "id": "r59600x",
+   "name": "AMD Ryzen 5 9600X",
+   "category": "cpu",
+   "specs": {
+    "socket": "AM5",
+    "tdp": 105
+   },
+   "affiliate_url": "https://s.shopee.co.th/20u8pZ5lvr",
+   "jib": {
+    "keyword": "CPU AMD RYZEN 5 9600X",
+    "must": [
+     "RYZEN 5 9600X"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "r79800x3d",
+   "name": "AMD Ryzen 7 9800X3D",
+   "category": "cpu",
+   "specs": {
+    "socket": "AM5",
+    "tdp": 120
+   },
+   "affiliate_url": "https://s.shopee.co.th/W5L2oBTya",
+   "jib": {
+    "keyword": "CPU AMD RYZEN 7 9800X3D",
+    "must": [
+     "RYZEN 7 9800X3D"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "i514400f",
+   "name": "Intel Core i5-14400F",
+   "category": "cpu",
+   "specs": {
+    "socket": "LGA1700",
+    "tdp": 65
+   },
+   "affiliate_url": "https://s.shopee.co.th/LluqVC7JZ",
+   "jib": {
+    "keyword": "CPU INTEL CORE I5-14400F",
+    "must": [
+     "I5-14400F"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "cu5245k",
+   "name": "Intel Core Ultra 5 245K",
+   "category": "cpu",
+   "specs": {
+    "socket": "LGA1851",
+    "tdp": 125
+   },
+   "affiliate_url": "https://s.shopee.co.th/BSUeCCkeY",
+   "jib": {
+    "keyword": "CPU INTEL CORE ULTRA 5 245K",
+    "must": [
+     "ULTRA 5 245K"
+    ],
+    "not": [
+     "245KF"
+    ]
+   }
+  },
+  {
+   "id": "i914900k",
+   "name": "Intel Core i9-14900K",
+   "category": "cpu",
+   "specs": {
+    "socket": "LGA1700",
+    "tdp": 125
+   },
+   "affiliate_url": "https://s.shopee.co.th/111bdkiZwU",
+   "jib": {
+    "keyword": "CPU INTEL CORE I9-14900K",
+    "must": [
+     "I9-14900K"
+    ],
+    "not": [
+     "14900KF",
+     "14900KS"
+    ]
+   }
+  },
+  {
+   "id": "b550m",
+   "name": "MSI B550M PRO-VDH WIFI",
+   "category": "mainboard",
+   "specs": {
+    "socket": "AM4",
+    "ram": "DDR4"
+   },
+   "affiliate_url": "https://s.shopee.co.th/1BL1q3hwbX",
+   "jib": {
+    "keyword": "MAINBOARD MSI B550M PRO-VDH",
+    "must": [
+     "B550M PRO-VDH"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "b650m",
+   "name": "ASUS PRIME B650M-A II",
+   "category": "mainboard",
+   "specs": {
+    "socket": "AM5",
+    "ram": "DDR5"
+   },
+   "affiliate_url": "https://s.shopee.co.th/1LeS2MhJGa",
+   "jib": {
+    "keyword": "MAINBOARD ASUS PRIME B650M-A",
+    "must": [
+     "PRIME B650M-A"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "x870",
+   "name": "MSI X870 GAMING PLUS WIFI",
+   "category": "mainboard",
+   "specs": {
+    "socket": "AM5",
+    "ram": "DDR5"
+   },
+   "affiliate_url": "https://s.shopee.co.th/1VxsEfgfvd",
+   "jib": {
+    "keyword": "MAINBOARD X870 GAMING PLUS",
+    "must": [
+     "X870",
+     "GAMING PLUS"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "b760m",
+   "name": "GIGABYTE B760M DS3H DDR4",
+   "category": "mainboard",
+   "specs": {
+    "socket": "LGA1700",
+    "ram": "DDR4"
+   },
+   "affiliate_url": "https://s.shopee.co.th/1gHIQyg2ag",
+   "jib": {
+    "keyword": "MAINBOARD B760M DS3H",
+    "must": [
+     "B760M",
+     "DS3H"
+    ],
+    "not": [
+     "DDR5"
+    ]
+   }
+  },
+  {
+   "id": "b860m",
+   "name": "ASUS TUF GAMING B860M-PLUS",
+   "category": "mainboard",
+   "specs": {
+    "socket": "LGA1851",
+    "ram": "DDR5"
+   },
+   "affiliate_url": "https://s.shopee.co.th/9pd0A0ajsc",
+   "jib": {
+    "keyword": "MAINBOARD ASUS TUF GAMING B860M-PLUS",
+    "must": [
+     "B860M-PLUS"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "fury16d4",
+   "name": "Kingston FURY Beast 16GB (2x8) DDR4 3200",
+   "category": "ram",
+   "specs": {
+    "ram": "DDR4"
+   },
+   "affiliate_url": "https://s.shopee.co.th/9fJZxhbNDb",
+   "jib": {
+    "keyword": "KINGSTON FURY BEAST DDR4 3200 16GB",
+    "must": [
+     "FURY",
+     "DDR4",
+     "16GB"
+    ],
+    "not": [
+     "32GB",
+     "64GB"
+    ]
+   }
+  },
+  {
+   "id": "fury32d5",
+   "name": "Kingston FURY Beast 32GB (2x16) DDR5 5600",
+   "category": "ram",
+   "specs": {
+    "ram": "DDR5"
+   },
+   "affiliate_url": "https://s.shopee.co.th/6AjhnGohJw",
+   "jib": {
+    "keyword": "KINGSTON FURY BEAST DDR5 5600 32GB",
+    "must": [
+     "FURY",
+     "DDR5",
+     "32GB"
+    ],
+    "not": [
+     "64GB"
+    ]
+   }
+  },
+  {
+   "id": "veng32d5",
+   "name": "Corsair Vengeance 32GB (2x16) DDR5 6000",
+   "category": "ram",
+   "specs": {
+    "ram": "DDR5"
+   },
+   "affiliate_url": "https://s.shopee.co.th/60QHaxpKev",
+   "jib": {
+    "keyword": "CORSAIR VENGEANCE DDR5 6000 32GB",
+    "must": [
+     "VENGEANCE",
+     "DDR5",
+     "32GB",
+     "6000"
+    ],
+    "not": [
+     "64GB"
+    ]
+   }
+  },
+  {
+   "id": "tz64d5",
+   "name": "G.SKILL Trident Z5 64GB (2x32) DDR5 6400",
+   "category": "ram",
+   "specs": {
+    "ram": "DDR5"
+   },
+   "affiliate_url": "https://s.shopee.co.th/6VMYBsnQe2",
+   "jib": {
+    "keyword": "GSKILL TRIDENT Z5 64GB",
+    "must": [
+     "TRIDENT",
+     "64GB"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "nv3",
+   "name": "Kingston NV3 1TB NVMe Gen4",
+   "category": "ssd",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/8V7cZZsTMP",
+   "jib": {
+    "keyword": "KINGSTON NV3",
+    "must": [
+     "NV3",
+     "1 TB"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "sn580",
+   "name": "WD Blue SN580 1TB NVMe Gen4",
+   "category": "ssd",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/80BLyeuNNK",
+   "jib": {
+    "keyword": "WD BLUE SN580",
+    "must": [
+     "SN580",
+     "1 TB"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "990pro",
+   "name": "Samsung 990 PRO 1TB NVMe Gen4",
+   "category": "ssd",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/8AUmAxtk2N",
+   "jib": {
+    "keyword": "SAMSUNG 990 PRO",
+    "must": [
+     "990 PRO",
+     "1 TB"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "sn850x2",
+   "name": "WD Black SN850X 2TB NVMe Gen4",
+   "category": "ssd",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/903tAUqZLY",
+   "jib": {
+    "keyword": "WD BLACK SN850X",
+    "must": [
+     "SN850X",
+     "2 TB"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "cv650",
+   "name": "Corsair CV650 650W 80+ Bronze",
+   "category": "psu",
+   "specs": {
+    "watt": 650
+   },
+   "affiliate_url": "https://s.shopee.co.th/9ANJMnpw0b",
+   "jib": {
+    "keyword": "CORSAIR CV650",
+    "must": [
+     "CV650"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "bx750",
+   "name": "Thermaltake Smart BX1 750W 80+ Bronze",
+   "category": "psu",
+   "specs": {
+    "watt": 750
+   },
+   "affiliate_url": "https://s.shopee.co.th/8KoCNIARJR",
+   "jib": {
+    "keyword": "THERMALTAKE SMART BX1 750W",
+    "must": [
+     "BX1",
+     "750W"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "rm850e",
+   "name": "Corsair RM850e 850W 80+ Gold",
+   "category": "psu",
+   "specs": {
+    "watt": 850
+   },
+   "affiliate_url": "https://s.shopee.co.th/8AUmAzB4eQ",
+   "jib": {
+    "keyword": "CORSAIR RM850E",
+    "must": [
+     "RM850E"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "tuf1000",
+   "name": "ASUS TUF Gaming 1000W 80+ Gold",
+   "category": "psu",
+   "specs": {
+    "watt": 1000
+   },
+   "affiliate_url": "https://s.shopee.co.th/80BLygBhzP",
+   "jib": {
+    "keyword": "ASUS TUF GAMING 1000W",
+    "must": [
+     "TUF",
+     "1000W"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "air903",
+   "name": "Montech AIR 903 MAX",
+   "category": "case",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/9ANJMp7Gce",
+   "jib": {
+    "keyword": "MONTECH AIR 903 MAX",
+    "must": [
+     "AIR 903"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "lancool216",
+   "name": "Lian Li LANCOOL 216",
+   "category": "case",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/903tAW7txd",
+   "jib": {
+    "keyword": "LIAN LI LANCOOL 216",
+    "must": [
+     "LANCOOL 216"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "h5flow",
+   "name": "NZXT H5 Flow",
+   "category": "case",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/8AUmB0SCTR",
+   "jib": {
+    "keyword": "NZXT H5 FLOW",
+    "must": [
+     "H5 FLOW"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "view270",
+   "name": "Thermaltake View 270 TG",
+   "category": "case",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/8KoCNJRZ8U",
+   "jib": {
+    "keyword": "THERMALTAKE VIEW 270",
+    "must": [
+     "VIEW 270"
+    ],
+    "not": []
+   }
+  },
+  {
+   "id": "ps5slim",
+   "name": "PlayStation 5 Slim (Disc)",
+   "category": "console",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/8V7cZcQvnX"
+  },
+  {
+   "id": "ps5pro",
+   "name": "PlayStation 5 Pro",
+   "category": "console",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/8fR2lvQISa"
+  },
+  {
+   "id": "psportal",
+   "name": "PlayStation Portal",
+   "category": "console",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/8pkSyEPf7d"
+  },
+  {
+   "id": "xsx",
+   "name": "Xbox Series X 1TB",
+   "category": "console",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/4AydPg7YlX"
+  },
+  {
+   "id": "xss",
+   "name": "Xbox Series S 512GB",
+   "category": "console",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/50XkPD4O4i"
+  },
+  {
+   "id": "switch2",
+   "name": "Nintendo Switch 2",
+   "category": "console",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/5ArAbW3kjl"
+  },
+  {
+   "id": "switcholed",
+   "name": "Nintendo Switch OLED",
+   "category": "console",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/4fuu0b5ekg"
+  },
+  {
+   "id": "steamdeck",
+   "name": "Steam Deck OLED 512GB",
+   "category": "console",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/4qEKCu51Pj"
+  },
+  {
+   "id": "allyx",
+   "name": "ASUS ROG Ally X",
+   "category": "console",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/Lluqehbsz"
+  },
+  {
+   "id": "legiongos",
+   "name": "Lenovo Legion Go S",
+   "category": "console",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/BSUeLiFDy"
+  },
+  {
+   "id": "quest3s",
+   "name": "Meta Quest 3S 128GB",
+   "category": "console",
+   "specs": {},
+   "affiliate_url": "https://s.shopee.co.th/194S2isYx"
+  }
+ ]
 }

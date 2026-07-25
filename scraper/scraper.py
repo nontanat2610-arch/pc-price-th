@@ -11,7 +11,7 @@ GPU Price TH — scraper ดึงราคาการ์ดจอรายว�
 ดึงด้วย requests ตรงๆ ไม่ได้ ต้องใช้ Playwright (ติดตั้ง: pip install playwright && playwright install chromium)
 script นี้รองรับทั้ง 2 วิธี — ตั้งค่า "method": "requests" หรือ "playwright" ต่อร้านใน config.json
 """
-import json, re, sys, argparse, random, datetime, urllib.request
+import json, re, sys, argparse, random, datetime, urllib.request, urllib.parse
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -57,6 +57,37 @@ def fetch_playwright(url, selector):
         return price
 
 
+def jib_search(keyword, must, must_not):
+    """ค้นหาสินค้าใน JIB (หน้า search เป็น server-rendered) คืนราคาถูกสุดที่ชื่อตรงเงื่อนไข"""
+    from bs4 import BeautifulSoup
+    url = "https://www.jib.co.th/web/product/product_search/0?str_search=" + urllib.parse.quote(keyword)
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"})
+    html = urllib.request.urlopen(req, timeout=45).read().decode("utf-8", "ignore")
+    soup = BeautifulSoup(html, "html.parser")
+    best = None
+    for a in soup.select('a[href*="readProduct"]'):
+        name = " ".join(a.get_text().split()).upper()
+        if len(name) < 15 or "COMPUTER SET" in name or "NOTEBOOK" in name:
+            continue
+        if not all(t.upper() in name for t in must):
+            continue
+        if any(t.upper() in name for t in must_not):
+            continue
+        box, price = a, None
+        for _ in range(6):
+            if box is None:
+                break
+            prices = [int(m.group(1).replace(",", ""))
+                      for m in re.finditer(r"([\d,]{5,9})\.-", box.get_text())]
+            if prices:
+                price = min(prices)
+                break
+            box = box.parent
+        if price and price > 500 and (best is None or price < best):
+            best = price
+    return best
+
+
 def scrape(config, data):
     products = {p["id"]: p for p in data["products"]}
     for item in config["products"]:
@@ -74,6 +105,18 @@ def scrape(config, data):
             p["image"] = item["image"]
         if item.get("affiliate_url"):
             p["affiliate_url"] = item["affiliate_url"]
+        # โหมดค้นหา JIB (แนะนำ): "jib": {"keyword": "...", "must": [...], "not": [...]}
+        if item.get("jib"):
+            j = item["jib"]
+            try:
+                price = jib_search(j["keyword"], j.get("must", []), j.get("not", []))
+            except Exception as e:
+                print(f"  ! {item['id']}@JIB: {e}")
+                price = None
+            if price:
+                append_price(p, "JIB", price)
+                p.pop("estimate", None)
+                print(f"  ✓ {item['id']}@JIB: {price:,} ฿")
         for store, src in item.get("sources", {}).items():
             method = config["stores"].get(store, {}).get("method", "requests")
             try:
