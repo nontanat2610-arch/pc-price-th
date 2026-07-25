@@ -123,7 +123,7 @@ footer{color:var(--muted);font-size:.82rem;padding:24px 0;border-top:1px solid v
 </div>
 
 <footer>
-  ราคาปัจจุบันอ้างอิงจากร้านค้าจริง (JIB) · กราฟย้อนหลังก่อน 25/07/2026 เป็นข้อมูลจำลองเพื่อการแสดงผล · สินค้าที่มีเครื่องหมาย ⚠ เป็นราคาโดยประมาณ<br>
+  ราคากลาง = ค่าเฉลี่ยราคาปัจจุบันจาก JIB และ Advice · กราฟย้อนหลังก่อน 25/07/2026 เป็นข้อมูลจำลองเพื่อการแสดงผล · สินค้าที่มีเครื่องหมาย ⚠ เป็นราคาโดยประมาณ<br>
   ลิงก์ "ซื้อ" เป็นลิงก์ affiliate — เจ้าของเว็บได้รับค่าคอมมิชชั่นโดยผู้ซื้อไม่เสียเพิ่ม<br>
   PC Price TH — สร้างเพื่อคนไทยที่รอของลดราคา
 </footer>
@@ -142,22 +142,27 @@ const fmt = n => n.toLocaleString('th-TH') + ' ฿';
 const charts = {};
 let page = location.hash.replace('#','') || 'gpu';
 
+// ราคากลาง = ค่าเฉลี่ยราคาปัจจุบันของทุกร้าน
 function currentBest(p){
-  let best = null;
-  for (const [store, series] of Object.entries(p.history)){
-    const last = series[series.length-1];
-    if (!best || last.price < best.price) best = {store, price:last.price};
-  }
-  return best;
+  const now = Object.entries(p.history).map(([store, s]) => ({store, price: s[s.length-1].price}));
+  const mid = Math.round(now.reduce((a,b)=>a+b.price,0) / now.length);
+  const cheapest = now.reduce((a,b)=>b.price<a.price?b:a);
+  return {store: cheapest.store, price: mid, mid, stores: now, cheapest};
 }
 function weekChange(p){
-  const b = currentBest(p);
-  const s = p.history[b.store];
-  return b.price - s[Math.max(0, s.length-8)].price;
+  const series = Object.values(p.history);
+  const now = Math.round(series.reduce((a,s)=>a+s[s.length-1].price,0)/series.length);
+  const then = Math.round(series.reduce((a,s)=>a+s[Math.max(0,s.length-8)].price,0)/series.length);
+  return now - then;
 }
 function min30(p){
+  const series = Object.values(p.history);
+  const len = Math.min(...series.map(s=>s.length));
   let m = Infinity;
-  for (const s of Object.values(p.history)) for (const pt of s) m = Math.min(m, pt.price);
+  for (let i=0;i<len;i++){
+    const avg = Math.round(series.reduce((a,s)=>a+s[s.length-len+i].price,0)/series.length);
+    m = Math.min(m, avg);
+  }
   return m;
 }
 function getAlerts(){ try{return JSON.parse(localStorage.getItem('gpuAlerts')||'[]')}catch(e){return []} }
@@ -207,11 +212,12 @@ function renderCat(){
         onerror="this.src='images/${p.category}.svg';this.className='ph'"></div>
       <h3>${p.name}</h3>
       <div class="pricebox">
-        <span class="price">${fmt(best.price)}</span>
-        <span class="store">ถูกสุดที่ ${best.store}</span>
+        <span class="price">${fmt(best.mid)}</span>
+        <span class="store">ราคากลาง</span>
         <span class="chg ${cls}">${sign} ${Math.abs(chg).toLocaleString('th-TH')} ฿ / 7 วัน</span>
       </div>
-      <div class="meta">ต่ำสุดใน 30 วัน: ${fmt(min30(p))}</div>
+      <div class="meta">${best.stores.map(s=>`${s.store} ${fmt(s.price)}`).join(' · ')} — ถูกสุดที่ ${best.cheapest.store}</div>
+      <div class="meta">ราคากลางต่ำสุดใน 30 วัน: ${fmt(min30(p))}</div>
       ${p.estimate?'<div class="meta" style="color:var(--yellow)">⚠ ราคาโดยประมาณ — ยังไม่เชื่อมข้อมูลร้านค้า</div>':''}
       <div class="chartbox"><canvas id="c-${p.id}"></canvas></div>
       <div class="rowbtn">
