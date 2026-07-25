@@ -1,0 +1,35 @@
+name: Update GPU prices daily
+
+on:
+  schedule:
+    - cron: "0 22 * * 5"  # ทุกวันเสาร์ 05:00 น. เวลาไทย (ศุกร์ 22:00 UTC)
+  workflow_dispatch:        # กดรันเองได้จากหน้า Actions
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install beautifulsoup4 playwright
+          playwright install --with-deps chromium
+
+      - name: Run scraper
+        run: python scraper/scraper.py
+
+      - name: Commit updated prices
+        run: |
+          git config user.name "price-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/
+          git diff --staged --quiet || git commit -m "update prices $(date +%F)"
+          git push
