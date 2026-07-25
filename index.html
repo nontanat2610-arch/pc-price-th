@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PC Price TH — เช็คราคาอุปกรณ์คอมในไทย + จัดสเปค</title>
+<meta name="description" content="เช็คราคาการ์ดจอ CPU แรม SSD เมนบอร์ด PSU เคส จากร้านค้าไทย กราฟราคาย้อนหลัง แจ้งเตือนลดราคา และจัดสเปคคอมพร้อมเช็คความเข้ากันได้">
+<meta name="theme-color" content="#0d1117">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script src="data/prices.js"></script>
+<style>
+:root{
+  --bg:#0d1117; --card:#161b22; --card2:#1c2330; --border:#2d3748;
+  --text:#e6edf3; --muted:#8b949e; --accent:#58e08c; --accent2:#4dabf7;
+  --red:#ff6b6b; --yellow:#ffd43b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',Tahoma,sans-serif;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:16px}
+header{padding:24px 0 10px}
+h1{font-size:1.6rem}
+h1 span{color:var(--accent)}
+.sub{color:var(--muted);font-size:.92rem;margin-top:4px}
+nav{display:flex;gap:6px;overflow-x:auto;padding:12px 0;position:sticky;top:0;background:var(--bg);z-index:10;-webkit-overflow-scrolling:touch}
+nav button{white-space:nowrap;background:var(--card);border:1px solid var(--border);color:var(--muted);padding:8px 14px;border-radius:20px;font-size:.92rem;cursor:pointer}
+nav button.on{background:var(--accent);color:#0d1117;font-weight:700;border-color:var(--accent)}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.toolbar input,.toolbar select{background:var(--card);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:8px;font-size:.95rem}
+.toolbar input{flex:1;min-width:180px}
+.alertbar{background:#2b1d0e;border:1px solid var(--yellow);color:var(--yellow);padding:10px 14px;border-radius:8px;margin-bottom:14px;display:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.card h3{font-size:1rem}
+.imgbox{height:110px;background:var(--card2);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.imgbox img{max-height:100%;max-width:100%;object-fit:contain}
+.imgbox img.ph{height:80%;opacity:.9}
+.pricebox{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.price{font-size:1.45rem;font-weight:700;color:var(--accent)}
+.store{color:var(--muted);font-size:.85rem}
+.chg{font-size:.83rem;padding:2px 8px;border-radius:20px}
+.chg.down{background:#12301f;color:var(--accent)}
+.chg.up{background:#331a1a;color:var(--red)}
+.chg.flat{background:var(--card2);color:var(--muted)}
+.meta{color:var(--muted);font-size:.83rem}
+.chartbox{height:105px}
+.rowbtn{display:flex;gap:8px;margin-top:2px}
+.btn{flex:1;text-align:center;padding:9px 10px;border-radius:8px;font-size:.9rem;cursor:pointer;border:none;text-decoration:none}
+.btn.buy{background:var(--accent);color:#0d1117;font-weight:700}
+.btn.alert{background:var(--card2);color:var(--accent2);border:1px solid var(--border)}
+.alertform{display:none;gap:8px;margin-top:4px}
+.alertform input{flex:1;background:var(--card2);border:1px solid var(--border);color:var(--text);padding:8px 10px;border-radius:8px;width:100%}
+.alertform button{background:var(--accent2);border:none;color:#0d1117;font-weight:700;padding:8px 12px;border-radius:8px;cursor:pointer}
+/* builder */
+.builder{display:grid;gap:12px;margin-top:6px}
+.brow{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;display:grid;grid-template-columns:110px 1fr auto;gap:10px;align-items:center}
+.brow label{color:var(--muted);font-size:.9rem}
+.brow select{width:100%;background:var(--card2);border:1px solid var(--border);color:var(--text);padding:9px 10px;border-radius:8px;font-size:.92rem}
+.brow .p{font-weight:700;color:var(--accent);white-space:nowrap}
+.bsum{background:var(--card);border:1px solid var(--accent);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.bsum .total{font-size:1.6rem;font-weight:700;color:var(--accent)}
+.warn{color:var(--yellow);font-size:.9rem}
+.ok{color:var(--accent);font-size:.9rem}
+.err{color:var(--red);font-size:.9rem}
+.bbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.bbtns .btn{flex:none;padding:9px 16px}
+@media(max-width:560px){.brow{grid-template-columns:1fr;gap:6px}.brow .p{text-align:right}}
+.myalerts table{width:100%;border-collapse:collapse;font-size:.92rem}
+.myalerts th,.myalerts td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--border)}
+.myalerts .hit{color:var(--accent);font-weight:700}
+.myalerts .del{color:var(--red);cursor:pointer;background:none;border:none;font-size:.9rem}
+footer{color:var(--muted);font-size:.82rem;padding:24px 0;border-top:1px solid var(--border);margin-top:26px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>PC Price <span>TH</span> ⚡</h1>
+  <div class="sub">เช็คราคาอุปกรณ์คอมจากร้านไทย · อัปเดตล่าสุด: <span id="updated">—</span></div>
+  <button id="installbtn" style="display:none;margin-top:10px" class="btn buy">📲 ติดตั้งแอปลงเครื่อง</button>
+</header>
+
+<nav id="nav"></nav>
+<div class="alertbar" id="alertbar"></div>
+
+<!-- หน้าหมวดสินค้า -->
+<div id="page-cat">
+  <div class="toolbar">
+    <input id="search" type="text" placeholder="ค้นหารุ่น...">
+    <select id="sort">
+      <option value="price">เรียง: ราคาต่ำ→สูง</option>
+      <option value="drop">เรียง: ลดราคามากสุด (7 วัน)</option>
+      <option value="name">เรียง: ชื่อรุ่น</option>
+    </select>
+  </div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<!-- หน้าจัดสเปค -->
+<div id="page-builder" style="display:none">
+  <div class="builder" id="brows"></div>
+  <div class="bsum" style="margin-top:12px">
+    <div>ราคารวม: <span class="total" id="btotal">0 ฿</span></div>
+    <div class="meta" id="bwatt"></div>
+    <div id="bchecks"></div>
+    <div class="bbtns">
+      <button class="btn buy" id="bcopy">📋 คัดลอกสเปค</button>
+      <button class="btn alert" id="breset">ล้างสเปค</button>
+    </div>
+  </div>
+</div>
+
+<!-- หน้าแจ้งเตือน -->
+<div id="page-alerts" style="display:none" class="myalerts">
+  <table>
+    <thead><tr><th>สินค้า</th><th>เตือนเมื่อต่ำกว่า</th><th>ราคาปัจจุบัน</th><th>สถานะ</th><th></th></tr></thead>
+    <tbody id="alertrows"></tbody>
+  </table>
+</div>
+
+<footer>
+  ราคาที่แสดงเป็นข้อมูลตัวอย่าง (prototype) · ลิงก์ "ซื้อ" เป็นลิงก์ affiliate — เจ้าของเว็บได้รับค่าคอมมิชชั่นโดยผู้ซื้อไม่เสียเพิ่ม<br>
+  PC Price TH — สร้างเพื่อคนไทยที่รอของลดราคา
+</footer>
+</div>
+
+<script>
+const DATA = window.PRICE_DATA;
+const CATS = [
+  ["gpu","🎮 การ์ดจอ"], ["cpu","🧠 ซีพียู"], ["mainboard","🔲 เมนบอร์ด"],
+  ["ram","📏 แรม"], ["ssd","💾 SSD"], ["psu","🔌 PSU"], ["case","🖥️ เคส"],
+  ["console","⭐ Special เครื่องเกม"],
+  ["builder","🛠️ จัดสเปค"], ["alerts","🔔 เตือน"],
+];
+const CATNAME = Object.fromEntries(CATS);
+const fmt = n => n.toLocaleString('th-TH') + ' ฿';
+const charts = {};
+let page = location.hash.replace('#','') || 'gpu';
+
+function currentBest(p){
+  let best = null;
+  for (const [store, series] of Object.entries(p.history)){
+    const last = series[series.length-1];
+    if (!best || last.price < best.price) best = {store, price:last.price};
+  }
+  return best;
+}
+function weekChange(p){
+  const b = currentBest(p);
+  const s = p.history[b.store];
+  return b.price - s[Math.max(0, s.length-8)].price;
+}
+function min30(p){
+  let m = Infinity;
+  for (const s of Object.values(p.history)) for (const pt of s) m = Math.min(m, pt.price);
+  return m;
+}
+function getAlerts(){ try{return JSON.parse(localStorage.getItem('gpuAlerts')||'[]')}catch(e){return []} }
+function saveAlerts(a){ localStorage.setItem('gpuAlerts', JSON.stringify(a)); renderAlerts(); }
+function getBuild(){ try{return JSON.parse(localStorage.getItem('pcBuild')||'{}')}catch(e){return {}} }
+function saveBuild(b){ localStorage.setItem('pcBuild', JSON.stringify(b)); renderBuilder(); }
+
+/* ---------- เมนู ---------- */
+function renderNav(){
+  const nav = document.getElementById('nav');
+  nav.innerHTML = CATS.map(([id,name]) =>
+    `<button class="${id===page?'on':''}" data-p="${id}">${name}</button>`).join('');
+  nav.querySelectorAll('button').forEach(b => b.onclick = () => { location.hash = b.dataset.p; });
+}
+window.addEventListener('hashchange', () => { page = location.hash.replace('#','')||'gpu'; show(); });
+
+function show(){
+  renderNav();
+  document.getElementById('page-cat').style.display = (page!=='builder'&&page!=='alerts')?'block':'none';
+  document.getElementById('page-builder').style.display = page==='builder'?'block':'none';
+  document.getElementById('page-alerts').style.display = page==='alerts'?'block':'none';
+  if (page==='builder') renderBuilder();
+  else if (page==='alerts') renderAlerts();
+  else renderCat();
+}
+
+/* ---------- หน้าหมวดสินค้า ---------- */
+function renderCat(){
+  const q = document.getElementById('search').value.toLowerCase();
+  const sort = document.getElementById('sort').value;
+  let items = DATA.products.filter(p => p.category===page && p.name.toLowerCase().includes(q));
+  if (sort==='price') items.sort((a,b)=>currentBest(a).price-currentBest(b).price);
+  if (sort==='drop') items.sort((a,b)=>weekChange(a)-weekChange(b));
+  if (sort==='name') items.sort((a,b)=>a.name.localeCompare(b.name));
+
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  for (const p of items){
+    const best = currentBest(p), chg = weekChange(p);
+    const cls = chg<0?'down':chg>0?'up':'flat';
+    const sign = chg<0?'▼':chg>0?'▲':'—';
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="imgbox"><img src="${p.image || 'images/'+p.category+'.svg'}" alt="${p.name}"
+        class="${p.image?'':'ph'}" loading="lazy"
+        onerror="this.src='images/${p.category}.svg';this.className='ph'"></div>
+      <h3>${p.name}</h3>
+      <div class="pricebox">
+        <span class="price">${fmt(best.price)}</span>
+        <span class="store">ถูกสุดที่ ${best.store}</span>
+        <span class="chg ${cls}">${sign} ${Math.abs(chg).toLocaleString('th-TH')} ฿ / 7 วัน</span>
+      </div>
+      <div class="meta">ต่ำสุดใน 30 วัน: ${fmt(min30(p))}</div>
+      <div class="chartbox"><canvas id="c-${p.id}"></canvas></div>
+      <div class="rowbtn">
+        <a class="btn buy" href="${p.affiliate_url}" target="_blank" rel="nofollow noopener">🛒 ซื้อเลย</a>
+        <button class="btn alert" data-id="${p.id}">🔔 ตั้งเตือน</button>
+      </div>
+      <div class="alertform" id="f-${p.id}">
+        <input type="number" placeholder="เตือนเมื่อต่ำกว่า (บาท)" id="t-${p.id}">
+        <button data-set="${p.id}">บันทึก</button>
+      </div>`;
+    grid.appendChild(card);
+    drawChart(p);
+  }
+  grid.querySelectorAll('.btn.alert').forEach(b => b.onclick = () => {
+    const f = document.getElementById('f-'+b.dataset.id);
+    f.style.display = f.style.display==='flex'?'none':'flex';
+  });
+  grid.querySelectorAll('[data-set]').forEach(b => b.onclick = () => {
+    const id = b.dataset.set;
+    const val = parseInt(document.getElementById('t-'+id).value);
+    if (!val) return alert('กรุณากรอกราคาเป้าหมาย');
+    const alerts = getAlerts().filter(a=>a.id!==id);
+    alerts.push({id, target:val});
+    saveAlerts(alerts);
+    document.getElementById('f-'+id).style.display='none';
+    alert('ตั้งเตือนแล้ว — ดูได้ที่แท็บ 🔔 เตือน');
+  });
+}
+
+function drawChart(p){
+  const ctx = document.getElementById('c-'+p.id);
+  if (charts[p.id]) charts[p.id].destroy();
+  const colors = {JIB:'#58e08c', Advice:'#4dabf7'};
+  const labels = Object.values(p.history)[0].map(pt=>pt.date.slice(5));
+  charts[p.id] = new Chart(ctx, {
+    type:'line',
+    data:{ labels, datasets: Object.entries(p.history).map(([store,s])=>({
+      label:store, data:s.map(pt=>pt.price),
+      borderColor:colors[store]||'#aaa', borderWidth:1.6, pointRadius:0, tension:.25
+    }))},
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#8b949e',boxWidth:10,font:{size:10}}}},
+      scales:{ x:{display:false}, y:{ticks:{color:'#8b949e',font:{size:10},callback:v=>(v/1000)+'k'},grid:{color:'#21262d'}}}}
+  });
+}
+
+/* ---------- หน้าจัดสเปค ---------- */
+const BPARTS = [["cpu","ซีพียู"],["mainboard","เมนบอร์ด"],["ram","แรม"],["gpu","การ์ดจอ"],["ssd","SSD"],["psu","PSU"],["case","เคส"]];
+
+function renderBuilder(){
+  const build = getBuild();
+  const rows = document.getElementById('brows');
+  rows.innerHTML = BPARTS.map(([cat,label]) => {
+    const opts = DATA.products.filter(p=>p.category===cat)
+      .sort((a,b)=>currentBest(a).price-currentBest(b).price)
+      .map(p=>`<option value="${p.id}" ${build[cat]===p.id?'selected':''}>${p.name} — ${fmt(currentBest(p).price)}</option>`).join('');
+    const sel = DATA.products.find(p=>p.id===build[cat]);
+    return `<div class="brow">
+      <label>${label}</label>
+      <select data-cat="${cat}"><option value="">— ยังไม่เลือก —</option>${opts}</select>
+      <span class="p">${sel?fmt(currentBest(sel).price):''}</span>
+    </div>`;
+  }).join('');
+  rows.querySelectorAll('select').forEach(s => s.onchange = () => {
+    const b = getBuild();
+    if (s.value) b[s.dataset.cat] = s.value; else delete b[s.dataset.cat];
+    saveBuild(b);
+  });
+
+  // ราคารวม + วัตต์ + ความเข้ากันได้
+  const picked = Object.fromEntries(Object.entries(build)
+    .map(([cat,id])=>[cat, DATA.products.find(p=>p.id===id)]).filter(([,p])=>p));
+  let total = 0;
+  for (const p of Object.values(picked)) total += currentBest(p).price;
+  document.getElementById('btotal').textContent = fmt(total);
+
+  const cpuW = picked.cpu?.specs.tdp||0, gpuW = picked.gpu?.specs.tdp||0;
+  const est = cpuW+gpuW ? cpuW+gpuW+150 : 0;
+  document.getElementById('bwatt').textContent = est ? `กินไฟโดยประมาณ: ${est} W (รวมเผื่อ 150W)` : '';
+
+  const checks = [];
+  if (picked.cpu && picked.mainboard){
+    checks.push(picked.cpu.specs.socket===picked.mainboard.specs.socket
+      ? {t:'ok', m:`✓ ซีพียู (${picked.cpu.specs.socket}) เข้ากับเมนบอร์ดได้`}
+      : {t:'err', m:`✗ ซีพียู ${picked.cpu.specs.socket} ใส่เมนบอร์ด ${picked.mainboard.specs.socket} ไม่ได้!`});
+  }
+  if (picked.ram && picked.mainboard){
+    checks.push(picked.ram.specs.ram===picked.mainboard.specs.ram
+      ? {t:'ok', m:`✓ แรม ${picked.ram.specs.ram} เข้ากับเมนบอร์ดได้`}
+      : {t:'err', m:`✗ แรม ${picked.ram.specs.ram} ใส่เมนบอร์ด ${picked.mainboard.specs.ram} ไม่ได้!`});
+  }
+  if (picked.psu && est){
+    const w = picked.psu.specs.watt;
+    checks.push(w>=est
+      ? {t:'ok', m:`✓ PSU ${w}W เพียงพอ`}
+      : {t:'warn', m:`⚠ PSU ${w}W อาจไม่พอ (ต้องการ ~${est}W) — แนะนำ ${Math.ceil(est/50)*50}W ขึ้นไป`});
+  }
+  document.getElementById('bchecks').innerHTML =
+    checks.map(c=>`<div class="${c.t}">${c.m}</div>`).join('') ||
+    '<div class="meta">เลือกชิ้นส่วนแล้วระบบจะเช็คความเข้ากันได้ให้อัตโนมัติ</div>';
+
+  document.getElementById('bcopy').onclick = () => {
+    const lines = BPARTS.filter(([c])=>picked[c])
+      .map(([c,l])=>`${l}: ${picked[c].name} — ${fmt(currentBest(picked[c]).price)} (${currentBest(picked[c]).store})`);
+    lines.push(`รวม: ${fmt(total)}`);
+    navigator.clipboard.writeText(lines.join('\n')).then(()=>alert('คัดลอกสเปคแล้ว!'));
+  };
+  document.getElementById('breset').onclick = () => { localStorage.removeItem('pcBuild'); renderBuilder(); };
+}
+
+/* ---------- หน้าแจ้งเตือน ---------- */
+function renderAlerts(){
+  const rows = document.getElementById('alertrows');
+  const alerts = getAlerts();
+  const bar = document.getElementById('alertbar');
+  if (!alerts.length){
+    rows.innerHTML = '<tr><td colspan="5" style="color:var(--muted)">ยังไม่มีการตั้งเตือน — กดปุ่ม "ตั้งเตือน" ที่การ์ดสินค้า</td></tr>';
+    bar.style.display='none'; return;
+  }
+  let hits = [];
+  rows.innerHTML = alerts.map(a=>{
+    const p = DATA.products.find(x=>x.id===a.id);
+    if (!p) return '';
+    const best = currentBest(p);
+    const hit = best.price <= a.target;
+    if (hit) hits.push(`${p.name} เหลือ ${fmt(best.price)}`);
+    return `<tr>
+      <td>${p.name}</td><td>${fmt(a.target)}</td><td>${fmt(best.price)}</td>
+      <td class="${hit?'hit':''}">${hit?'🎉 ถึงราคาเป้าแล้ว!':'รออยู่...'}</td>
+      <td><button class="del" data-del="${a.id}">ลบ</button></td></tr>`;
+  }).join('');
+  rows.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>saveAlerts(getAlerts().filter(a=>a.id!==b.dataset.del)));
+  if (hits.length){
+    bar.style.display='block';
+    bar.textContent = '🎉 ราคาถึงเป้าหมาย: ' + hits.join(' · ');
+  } else bar.style.display='none';
+}
+
+/* ---------- เริ่มต้น ---------- */
+document.getElementById('updated').textContent = DATA.updated;
+document.getElementById('search').oninput = renderCat;
+document.getElementById('sort').onchange = renderCat;
+show();
+renderAlerts();
+
+/* ---------- PWA ---------- */
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  navigator.serviceWorker.register('sw.js');
+}
+let deferredPrompt = null;
+const installBtn = document.getElementById('installbtn');
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault(); deferredPrompt = e; installBtn.style.display = 'inline-block';
+});
+installBtn.onclick = async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt(); await deferredPrompt.userChoice;
+  deferredPrompt = null; installBtn.style.display = 'none';
+};
+window.addEventListener('appinstalled', () => installBtn.style.display = 'none');
+</script>
+</body>
+</html>
