@@ -1,5 +1,5 @@
 // GPU Price TH — service worker: ทำให้เปิดออฟไลน์ได้ + โหลดเร็ว
-const CACHE = "pcpriceth-v5";
+const CACHE = "pcpriceth-v6";
 const ASSETS = [
   "./index.html",
   "./manifest.json",
@@ -31,7 +31,7 @@ self.addEventListener("fetch", (e) => {
   const url = e.request.url;
   if (url.includes("prices.js") || url.includes("prices.json")) {
     e.respondWith(
-      fetch(e.request)
+      fetch(e.request, { cache: "no-store" })   // ข้อมูลราคาเอาสดเสมอ ไม่ใช้ HTTP cache
         .then((res) => {
           const copy = res.clone();
           caches.open(CACHE).then((c) => c.put(e.request, copy));
