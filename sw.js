@@ -1,5 +1,5 @@
 // GPU Price TH — service worker: ทำให้เปิดออฟไลน์ได้ + โหลดเร็ว
-const CACHE = "pcpriceth-v4";
+const CACHE = "pcpriceth-v5";
 const ASSETS = [
   "./index.html",
   "./manifest.json",

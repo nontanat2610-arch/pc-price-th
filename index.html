@@ -47,6 +47,9 @@ nav button.on{background:var(--accent);color:#0d1117;font-weight:700;border-colo
 .chg.up{background:#331a1a;color:var(--red)}
 .chg.flat{background:var(--card2);color:var(--muted)}
 .meta{color:var(--muted);font-size:.83rem}
+.stores{background:var(--card2);border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;gap:4px}
+.srow{display:flex;justify-content:space-between;font-size:.86rem;color:var(--muted)}
+.srow.cheap{color:var(--accent);font-weight:700}
 .chartbox{height:105px}
 .rowbtn{display:flex;gap:8px;margin-top:2px}
 .btn{flex:1;text-align:center;padding:9px 10px;border-radius:8px;font-size:.9rem;cursor:pointer;border:none;text-decoration:none}
@@ -96,6 +99,8 @@ footer{color:var(--muted);font-size:.82rem;padding:24px 0;border-top:1px solid v
       <option value="drop">เรียง: ลดราคามากสุด (7 วัน)</option>
       <option value="name">เรียง: ชื่อรุ่น</option>
     </select>
+    <select id="f1" style="display:none"></select>
+    <select id="f2" style="display:none"></select>
   </div>
   <div class="grid" id="grid"></div>
 </div>
@@ -123,7 +128,7 @@ footer{color:var(--muted);font-size:.82rem;padding:24px 0;border-top:1px solid v
 </div>
 
 <footer>
-  ราคากลาง = ค่าเฉลี่ยราคาปัจจุบันจาก JIB และ Advice · กราฟย้อนหลังก่อน 25/07/2026 เป็นข้อมูลจำลองเพื่อการแสดงผล · สินค้าที่มีเครื่องหมาย ⚠ เป็นราคาโดยประมาณ<br>
+  ราคาที่แสดง = ค่าเฉลี่ยจากร้านที่มีข้อมูล (JIB · Advice · iHAVECPU) พร้อมรายละเอียดราคาแยกรายร้าน · กราฟย้อนหลังก่อน 25/07/2026 เป็นข้อมูลจำลอง · สินค้าที่มีเครื่องหมาย ⚠ เป็นราคาโดยประมาณ<br>
   ลิงก์ "ซื้อ" เป็นลิงก์ affiliate — เจ้าของเว็บได้รับค่าคอมมิชชั่นโดยผู้ซื้อไม่เสียเพิ่ม<br>
   PC Price TH — สร้างเพื่อคนไทยที่รอของลดราคา
 </footer>
@@ -186,14 +191,45 @@ function show(){
   document.getElementById('page-alerts').style.display = page==='alerts'?'block':'none';
   if (page==='builder') renderBuilder();
   else if (page==='alerts') renderAlerts();
-  else renderCat();
+  else { buildFilters(); renderCat(); }
 }
 
 /* ---------- หน้าหมวดสินค้า ---------- */
+// ตัวกรองเฉพาะหมวด: [key ใน specs, ป้ายกำกับ, ฟังก์ชันแปลงข้อความ]
+const FILTERS = {
+  gpu:       [['vram','แรมการ์ดจอ', v=>v+' GB']],
+  cpu:       [['socket','ซ็อกเก็ต', v=>v]],
+  mainboard: [['socket','ซ็อกเก็ต', v=>v], ['ram','รองรับแรม', v=>v]],
+  ram:       [['ram','ชนิดแรม', v=>v], ['bus','บัส', v=>v+' MHz']],
+  psu:       [['watt','กำลังไฟ', v=>v+'W']],
+};
+function buildFilters(){
+  const defs = FILTERS[page] || [];
+  [0,1].forEach(i => {
+    const el = document.getElementById('f'+(i+1));
+    const def = defs[i];
+    if (!def){ el.style.display='none'; el.dataset.key=''; return; }
+    const [key,label,fmtv] = def;
+    const vals = [...new Set(DATA.products.filter(p=>p.category===page && p.specs?.[key]!=null)
+      .map(p=>p.specs[key]))].sort((a,b)=> typeof a==='number' ? a-b : String(a).localeCompare(String(b)));
+    if (!vals.length){ el.style.display='none'; el.dataset.key=''; return; }
+    const prev = el.dataset.key===key ? el.value : '';
+    el.dataset.key = key;
+    el.innerHTML = `<option value="">${label}: ทั้งหมด</option>` +
+      vals.map(v=>`<option value="${v}" ${String(v)===prev?'selected':''}>${fmtv(v)}</option>`).join('');
+    el.style.display = 'block';
+  });
+}
+
 function renderCat(){
   const q = document.getElementById('search').value.toLowerCase();
   const sort = document.getElementById('sort').value;
+  const f1 = document.getElementById('f1'), f2 = document.getElementById('f2');
   let items = DATA.products.filter(p => p.category===page && p.name.toLowerCase().includes(q));
+  for (const el of [f1,f2]){
+    if (el.dataset.key && el.value)
+      items = items.filter(p => String(p.specs?.[el.dataset.key]) === el.value);
+  }
   if (sort==='price') items.sort((a,b)=>currentBest(a).price-currentBest(b).price);
   if (sort==='drop') items.sort((a,b)=>weekChange(a)-weekChange(b));
   if (sort==='name') items.sort((a,b)=>a.name.localeCompare(b.name));
@@ -213,10 +249,13 @@ function renderCat(){
       <h3>${p.name}</h3>
       <div class="pricebox">
         <span class="price">${fmt(best.mid)}</span>
-        <span class="store">ราคากลาง</span>
+        <span class="store">ราคาเฉลี่ย ${best.stores.length} ร้าน</span>
         <span class="chg ${cls}">${sign} ${Math.abs(chg).toLocaleString('th-TH')} ฿ / 7 วัน</span>
       </div>
-      <div class="meta">${best.stores.map(s=>`${s.store} ${fmt(s.price)}`).join(' · ')} — ถูกสุดที่ ${best.cheapest.store}</div>
+      <div class="stores">
+        ${best.stores.sort((a,b)=>a.price-b.price).map((s,i)=>
+          `<div class="srow${i===0?' cheap':''}"><span>${s.store}${i===0?' 🏆 ถูกสุด':''}</span><span>${fmt(s.price)}</span></div>`).join('')}
+      </div>
       <div class="meta">ราคากลางต่ำสุดใน 30 วัน: ${fmt(min30(p))}</div>
       ${p.estimate?'<div class="meta" style="color:var(--yellow)">⚠ ราคาโดยประมาณ — ยังไม่เชื่อมข้อมูลร้านค้า</div>':''}
       <div class="chartbox"><canvas id="c-${p.id}"></canvas></div>
@@ -250,7 +289,7 @@ function renderCat(){
 function drawChart(p){
   const ctx = document.getElementById('c-'+p.id);
   if (charts[p.id]) charts[p.id].destroy();
-  const colors = {JIB:'#58e08c', Advice:'#4dabf7'};
+  const colors = {JIB:'#58e08c', Advice:'#4dabf7', iHAVECPU:'#ffd43b'};
   const labels = Object.values(p.history)[0].map(pt=>pt.date.slice(5));
   charts[p.id] = new Chart(ctx, {
     type:'line',
@@ -360,6 +399,8 @@ function renderAlerts(){
 document.getElementById('updated').textContent = DATA.updated;
 document.getElementById('search').oninput = renderCat;
 document.getElementById('sort').onchange = renderCat;
+document.getElementById('f1').onchange = renderCat;
+document.getElementById('f2').onchange = renderCat;
 show();
 renderAlerts();
 
