@@ -1,0 +1,8 @@
+{
+  "_หมายเหตุ": "ใส่ Discord webhook URL ของคุณ แล้วเพิ่มกฎแจ้งเตือน — สร้าง webhook ได้ที่ Discord > Server Settings > Integrations > Webhooks",
+  "webhook": "",
+  "rules": [
+    { "id": "rtx5070", "target": 21000 },
+    { "id": "rx9070xt", "target": 28000 }
+  ]
+}

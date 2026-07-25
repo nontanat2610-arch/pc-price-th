@@ -1,0 +1,26 @@
+{
+  "_หมายเหตุ": "ใส่ URL หน้าสินค้าจริงและ CSS selector ของราคา — JIB/Advice เป็นเว็บ JS-render ต้องใช้ method playwright",
+  "stores": {
+    "JIB": { "method": "playwright" },
+    "Advice": { "method": "playwright" }
+  },
+  "products": [
+    {
+      "id": "rtx5070",
+      "name": "GeForce RTX 5070 12GB",
+      "category": "gpu",
+      "specs": { "tdp": 250 },
+      "affiliate_url": "https://s.shopee.co.th/YOUR_AFFILIATE_LINK",
+      "sources": {
+        "JIB": {
+          "url": "https://www.jib.co.th/web/product/readProduct/XXXXX",
+          "selector": ".price-product"
+        },
+        "Advice": {
+          "url": "https://www.advice.co.th/product/XXXXX",
+          "selector": ".sale-price"
+        }
+      }
+    }
+  ]
+}
