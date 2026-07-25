@@ -123,7 +123,8 @@ footer{color:var(--muted);font-size:.82rem;padding:24px 0;border-top:1px solid v
 </div>
 
 <footer>
-  ราคาที่แสดงเป็นข้อมูลตัวอย่าง (prototype) · ลิงก์ "ซื้อ" เป็นลิงก์ affiliate — เจ้าของเว็บได้รับค่าคอมมิชชั่นโดยผู้ซื้อไม่เสียเพิ่ม<br>
+  ราคาปัจจุบันอ้างอิงจากร้านค้าจริง (JIB) · กราฟย้อนหลังก่อน 25/07/2026 เป็นข้อมูลจำลองเพื่อการแสดงผล · สินค้าที่มีเครื่องหมาย ⚠ เป็นราคาโดยประมาณ<br>
+  ลิงก์ "ซื้อ" เป็นลิงก์ affiliate — เจ้าของเว็บได้รับค่าคอมมิชชั่นโดยผู้ซื้อไม่เสียเพิ่ม<br>
   PC Price TH — สร้างเพื่อคนไทยที่รอของลดราคา
 </footer>
 </div>
@@ -211,6 +212,7 @@ function renderCat(){
         <span class="chg ${cls}">${sign} ${Math.abs(chg).toLocaleString('th-TH')} ฿ / 7 วัน</span>
       </div>
       <div class="meta">ต่ำสุดใน 30 วัน: ${fmt(min30(p))}</div>
+      ${p.estimate?'<div class="meta" style="color:var(--yellow)">⚠ ราคาโดยประมาณ — ยังไม่เชื่อมข้อมูลร้านค้า</div>':''}
       <div class="chartbox"><canvas id="c-${p.id}"></canvas></div>
       <div class="rowbtn">
         <a class="btn buy" href="${p.affiliate_url}" target="_blank" rel="nofollow noopener">🛒 ซื้อเลย</a>
