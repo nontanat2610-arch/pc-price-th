@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pricespec-th.github.io/sitemap.xml
+Sitemap: https://pricespec.vercel.app/sitemap.xml
