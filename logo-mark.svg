@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="PriceSpec logo">
+  <title>PriceSpec</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#141b25"/>
+      <stop offset="1" stop-color="#080b10"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0.15" y1="0" x2="0.85" y2="1">
+      <stop offset="0" stop-color="#2b3646"/>
+      <stop offset="0.45" stop-color="#1b2331"/>
+      <stop offset="1" stop-color="#121821"/>
+    </linearGradient>
+    <linearGradient id="die" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#111925"/>
+      <stop offset="1" stop-color="#070a0f"/>
+    </linearGradient>
+    <linearGradient id="pin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8ff5b8"/>
+      <stop offset="0.5" stop-color="#58e08c"/>
+      <stop offset="1" stop-color="#2c9159"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9dfbc4"/>
+      <stop offset="0.6" stop-color="#58e08c"/>
+      <stop offset="1" stop-color="#31b06c"/>
+    </linearGradient>
+    <linearGradient id="bolt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe680"/>
+      <stop offset="1" stop-color="#f5a623"/>
+    </linearGradient>
+    <linearGradient id="gloss" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0.03"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#58e08c" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#58e08c" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+    <filter id="drop" x="-30%" y="-30%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+
+  <!-- ขาชิป: มีเงาใต้ขาให้ดูนูน -->
+  <g>
+    <g fill="#0a0f16" opacity="0.85">
+      <rect x="52" y="182" width="48" height="26" rx="10"/>
+      <rect x="52" y="249" width="48" height="26" rx="10"/>
+      <rect x="52" y="316" width="48" height="26" rx="10"/>
+      <rect x="412" y="182" width="48" height="26" rx="10"/>
+      <rect x="412" y="249" width="48" height="26" rx="10"/>
+      <rect x="412" y="316" width="48" height="26" rx="10"/>
+    </g>
+    <g fill="url(#pin)">
+      <rect x="52" y="176" width="48" height="26" rx="10"/>
+      <rect x="52" y="243" width="48" height="26" rx="10"/>
+      <rect x="52" y="310" width="48" height="26" rx="10"/>
+      <rect x="412" y="176" width="48" height="26" rx="10"/>
+      <rect x="412" y="243" width="48" height="26" rx="10"/>
+      <rect x="412" y="310" width="48" height="26" rx="10"/>
+    </g>
+  </g>
+
+  <!-- ความหนาของชิป (ด้านข้าง) -->
+  <rect x="96" y="132" width="320" height="272" rx="44" fill="#0b1017"/>
+  <rect x="96" y="126" width="320" height="272" rx="44" fill="#161d28"/>
+
+  <!-- ตัวชิปด้านบน -->
+  <g filter="url(#drop)">
+    <rect x="96" y="112" width="320" height="272" rx="44" fill="url(#body)" stroke="#3b485c" stroke-width="3"/>
+  </g>
+  <!-- ขอบสว่างด้านบน = แสงตกกระทบ -->
+  <path d="M140 116 h232 a40 40 0 0 1 40 40 v6 a40 40 0 0 0 -40 -40 h-232 a40 40 0 0 0 -40 40 v-6 a40 40 0 0 1 40 -40 z" fill="#ffffff" opacity="0.22"/>
+  <rect x="96" y="112" width="320" height="272" rx="44" fill="url(#gloss)"/>
+
+  <!-- ไดย์ด้านใน (จม) -->
+  <rect x="140" y="156" width="232" height="184" rx="26" fill="url(#die)" stroke="#0a0e14" stroke-width="8"/>
+  <rect x="144" y="160" width="224" height="176" rx="23" fill="none" stroke="#2a3a4d" stroke-width="2"/>
+
+  <!-- แสงเรืองของกราฟ -->
+  <ellipse cx="250" cy="248" rx="120" ry="86" fill="url(#glow)" filter="url(#soft)"/>
+
+  <!-- กราฟราคาลดลง -->
+  <polyline points="172,198 222,246 268,216 322,284" fill="none" stroke="#0a0e14" stroke-width="30"
+            stroke-linecap="round" stroke-linejoin="round" opacity="0.6" transform="translate(0,7)"/>
+  <polyline points="172,198 222,246 268,216 322,284" fill="none" stroke="url(#line)" stroke-width="22"
+            stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M322 312 L299 268 L345 268 Z" fill="url(#line)"/>
+  <circle cx="172" cy="198" r="16" fill="#4dabf7"/>
+  <circle cx="167" cy="193" r="6" fill="#bfe4ff" opacity="0.9"/>
+
+  <!-- สายฟ้า -->
+  <path d="M356 348 L326 400 L348 400 L334 440 L374 384 L350 384 L368 348 Z" fill="#0a0e14" opacity="0.7" transform="translate(0,6)"/>
+  <path d="M356 348 L326 400 L348 400 L334 440 L374 384 L350 384 L368 348 Z" fill="url(#bolt)"/>
+</svg>
