@@ -1,8 +1,14 @@
 {
- "_หมายเหตุ": "โหมด jib = ค้นหาจากหน้า search ของ JIB อัตโนมัติ (แนะนำ) | สินค้าที่ไม่มี jib (เช่น เครื่องเกม) จะไม่ถูกอัปเดต จนกว่าจะเพิ่มแหล่งข้อมูล",
+ "_หมายเหตุ": "jib=requests | advice, ihavecpu=Playwright | เว็บแสดงราคาเฉลี่ยของร้านที่มีข้อมูล + รายละเอียดรายร้าน",
  "stores": {
   "JIB": {
    "method": "requests"
+  },
+  "Advice": {
+   "method": "playwright"
+  },
+  "iHAVECPU": {
+   "method": "playwright"
   }
  },
  "products": [
@@ -16,6 +22,26 @@
    "affiliate_url": "https://s.shopee.co.th/AAFqYOAKLp",
    "jib": {
     "keyword": "VGA RTX 5060 8GB",
+    "must": [
+     "RTX 5060",
+     "8GB"
+    ],
+    "not": [
+     "TI"
+    ]
+   },
+   "advice": {
+    "keyword": "rtx 5060",
+    "must": [
+     "RTX 5060",
+     "8GB"
+    ],
+    "not": [
+     "TI"
+    ]
+   },
+   "ihavecpu": {
+    "keyword": "rtx 5060",
     "must": [
      "RTX 5060",
      "8GB"
@@ -40,6 +66,22 @@
      "16GB"
     ],
     "not": []
+   },
+   "advice": {
+    "keyword": "rtx 5060 ti",
+    "must": [
+     "RTX 5060 TI",
+     "16GB"
+    ],
+    "not": []
+   },
+   "ihavecpu": {
+    "keyword": "rtx 5060 ti 16gb",
+    "must": [
+     "RTX 5060 TI",
+     "16GB"
+    ],
+    "not": []
    }
   },
   {
@@ -52,6 +94,27 @@
    "affiliate_url": "https://s.shopee.co.th/AUsgx093fv",
    "jib": {
     "keyword": "VGA RTX 5070 12GB",
+    "must": [
+     "RTX 5070",
+     "12GB"
+    ],
+    "not": [
+     "TI"
+    ]
+   },
+   "advice": {
+    "keyword": "rtx 5070",
+    "must": [
+     "RTX 5070",
+     "12GB"
+    ],
+    "not": [
+     "TI",
+     " T1"
+    ]
+   },
+   "ihavecpu": {
+    "keyword": "rtx 5070",
     "must": [
      "RTX 5070",
      "12GB"
@@ -76,6 +139,22 @@
      "16GB"
     ],
     "not": []
+   },
+   "advice": {
+    "keyword": "rtx 5070 ti",
+    "must": [
+     "RTX 5070 TI",
+     "16GB"
+    ],
+    "not": []
+   },
+   "ihavecpu": {
+    "keyword": "rtx 5070 ti",
+    "must": [
+     "RTX 5070 TI",
+     "16GB"
+    ],
+    "not": []
    }
   },
   {
@@ -88,6 +167,22 @@
    "affiliate_url": "https://s.shopee.co.th/9V09lACrhl",
    "jib": {
     "keyword": "VGA RTX 5080 16GB",
+    "must": [
+     "RTX 5080",
+     "16GB"
+    ],
+    "not": []
+   },
+   "advice": {
+    "keyword": "rtx 5080",
+    "must": [
+     "RTX 5080",
+     "16GB"
+    ],
+    "not": []
+   },
+   "ihavecpu": {
+    "keyword": "rtx 5080",
     "must": [
      "RTX 5080",
      "16GB"
@@ -110,6 +205,22 @@
      "32GB"
     ],
     "not": []
+   },
+   "advice": {
+    "keyword": "rtx 5090",
+    "must": [
+     "RTX 5090",
+     "32GB"
+    ],
+    "not": []
+   },
+   "ihavecpu": {
+    "keyword": "rtx 5090",
+    "must": [
+     "RTX 5090",
+     "32GB"
+    ],
+    "not": []
    }
   },
   {
@@ -122,6 +233,22 @@
    "affiliate_url": "https://s.shopee.co.th/9KgjZ0jt2z",
    "jib": {
     "keyword": "VGA RX 9060 XT 16GB",
+    "must": [
+     "RX 9060 XT",
+     "16GB"
+    ],
+    "not": []
+   },
+   "advice": {
+    "keyword": "rx 9060 xt 16gb",
+    "must": [
+     "RX 9060 XT",
+     "16GB"
+    ],
+    "not": []
+   },
+   "ihavecpu": {
+    "keyword": "rx 9060 xt",
     "must": [
      "RX 9060 XT",
      "16GB"
@@ -146,6 +273,17 @@
     "not": [
      "XT"
     ]
+   },
+   "ihavecpu": {
+    "keyword": "rx 9070 xt",
+    "must": [
+     "RX 9070",
+     "16GB"
+    ],
+    "not": [
+     "XT",
+     "GRE"
+    ]
    }
   },
   {
@@ -158,6 +296,22 @@
    "affiliate_url": "https://s.shopee.co.th/9fJZxcicN5",
    "jib": {
     "keyword": "VGA RX 9070 XT 16GB",
+    "must": [
+     "RX 9070 XT",
+     "16GB"
+    ],
+    "not": []
+   },
+   "advice": {
+    "keyword": "rx 9070",
+    "must": [
+     "RX 9070 XT",
+     "16GB"
+    ],
+    "not": []
+   },
+   "ihavecpu": {
+    "keyword": "rx 9070 xt",
     "must": [
      "RX 9070 XT",
      "16GB"
@@ -201,6 +355,26 @@
      "5600G",
      "5600XT"
     ]
+   },
+   "advice": {
+    "keyword": "ryzen 5600",
+    "must": [
+     "RYZEN 5 5600 "
+    ],
+    "not": [
+     "5600X",
+     "5600G"
+    ]
+   },
+   "ihavecpu": {
+    "keyword": "ryzen 5 5600",
+    "must": [
+     "RYZEN 5 5600 "
+    ],
+    "not": [
+     "5600X",
+     "5600G"
+    ]
    }
   },
   {
@@ -214,6 +388,13 @@
    "affiliate_url": "https://s.shopee.co.th/20u8pZ5lvr",
    "jib": {
     "keyword": "CPU AMD RYZEN 5 9600X",
+    "must": [
+     "RYZEN 5 9600X"
+    ],
+    "not": []
+   },
+   "advice": {
+    "keyword": "ryzen 9600x",
     "must": [
      "RYZEN 5 9600X"
     ],
@@ -235,6 +416,20 @@
      "RYZEN 7 9800X3D"
     ],
     "not": []
+   },
+   "advice": {
+    "keyword": "ryzen 7 9800x3d",
+    "must": [
+     "9800X3D"
+    ],
+    "not": []
+   },
+   "ihavecpu": {
+    "keyword": "9800x3d",
+    "must": [
+     "9800X3D"
+    ],
+    "not": []
    }
   },
   {
@@ -250,6 +445,20 @@
     "keyword": "CPU INTEL CORE I5-14400F",
     "must": [
      "I5-14400F"
+    ],
+    "not": []
+   },
+   "advice": {
+    "keyword": "i5-14400f",
+    "must": [
+     "14400F"
+    ],
+    "not": []
+   },
+   "ihavecpu": {
+    "keyword": "i5-14400f",
+    "must": [
+     "14400F"
     ],
     "not": []
    }
@@ -271,6 +480,15 @@
     "not": [
      "245KF"
     ]
+   },
+   "advice": {
+    "keyword": "ultra 5 245k",
+    "must": [
+     "245K"
+    ],
+    "not": [
+     "245KF"
+    ]
    }
   },
   {
@@ -286,6 +504,26 @@
     "keyword": "CPU INTEL CORE I9-14900K",
     "must": [
      "I9-14900K"
+    ],
+    "not": [
+     "14900KF",
+     "14900KS"
+    ]
+   },
+   "advice": {
+    "keyword": "i9-14900k",
+    "must": [
+     "14900K"
+    ],
+    "not": [
+     "14900KF",
+     "14900KS"
+    ]
+   },
+   "ihavecpu": {
+    "keyword": "i9-14900k",
+    "must": [
+     "14900K"
     ],
     "not": [
      "14900KF",
@@ -325,6 +563,13 @@
      "PRIME B650M-A"
     ],
     "not": []
+   },
+   "advice": {
+    "keyword": "prime b650m-a",
+    "must": [
+     "PRIME B650M-A"
+    ],
+    "not": []
    }
   },
   {
@@ -347,7 +592,7 @@
   },
   {
    "id": "b760m",
-   "name": "GIGABYTE B760M DS3H DDR4",
+   "name": "ASRock B760M-HDV/M.2 D4 (DDR4)",
    "category": "mainboard",
    "specs": {
     "socket": "LGA1700",
@@ -355,14 +600,11 @@
    },
    "affiliate_url": "https://s.shopee.co.th/1gHIQyg2ag",
    "jib": {
-    "keyword": "MAINBOARD B760M DS3H",
+    "keyword": "MAINBOARD ASROCK B760M-HDV D4",
     "must": [
-     "B760M",
-     "DS3H"
+     "B760M-HDV"
     ],
-    "not": [
-     "DDR5"
-    ]
+    "not": []
    }
   },
   {
@@ -401,6 +643,15 @@
      "32GB",
      "64GB"
     ]
+   },
+   "ihavecpu": {
+    "keyword": "fury beast ddr4 16gb",
+    "must": [
+     "FURY BEAST",
+     "16GB",
+     "DDR4"
+    ],
+    "not": []
    }
   },
   {
@@ -421,6 +672,27 @@
     "not": [
      "64GB"
     ]
+   },
+   "advice": {
+    "keyword": "fury beast ddr5 5600",
+    "must": [
+     "FURY BEAST",
+     "32GB",
+     "5600"
+    ],
+    "not": [
+     "RGB",
+     "WHITE"
+    ]
+   },
+   "ihavecpu": {
+    "keyword": "fury beast ddr5",
+    "must": [
+     "FURY BEAST",
+     "32GB",
+     "5600"
+    ],
+    "not": []
    }
   },
   {
@@ -442,6 +714,24 @@
     "not": [
      "64GB"
     ]
+   },
+   "advice": {
+    "keyword": "vengeance ddr5 6000 32gb",
+    "must": [
+     "VENGEANCE",
+     "32GB",
+     "6000"
+    ],
+    "not": []
+   },
+   "ihavecpu": {
+    "keyword": "vengeance ddr5 6000",
+    "must": [
+     "VENGEANCE",
+     "32GB",
+     "6000"
+    ],
+    "not": []
    }
   },
   {
@@ -474,18 +764,26 @@
      "1 TB"
     ],
     "not": []
+   },
+   "ihavecpu": {
+    "keyword": "kingston nv3 1tb",
+    "must": [
+     "NV3",
+     "1TB"
+    ],
+    "not": []
    }
   },
   {
    "id": "sn580",
-   "name": "WD Blue SN580 1TB NVMe Gen4",
+   "name": "WD Blue SN5000 1TB NVMe Gen4",
    "category": "ssd",
    "specs": {},
    "affiliate_url": "https://s.shopee.co.th/80BLyeuNNK",
    "jib": {
-    "keyword": "WD BLUE SN580",
+    "keyword": "SSD WD BLUE SN5000 1TB",
     "must": [
-     "SN580",
+     "SN5000",
      "1 TB"
     ],
     "not": []
@@ -502,6 +800,22 @@
     "must": [
      "990 PRO",
      "1 TB"
+    ],
+    "not": []
+   },
+   "advice": {
+    "keyword": "990 pro 1tb",
+    "must": [
+     "990 PRO",
+     "1TB"
+    ],
+    "not": []
+   },
+   "ihavecpu": {
+    "keyword": "990 pro 1tb",
+    "must": [
+     "990 PRO",
+     "1TB"
     ],
     "not": []
    }
@@ -523,16 +837,16 @@
   },
   {
    "id": "cv650",
-   "name": "Corsair CV650 650W 80+ Bronze",
+   "name": "Corsair CX650 650W 80+ Bronze",
    "category": "psu",
    "specs": {
     "watt": 650
    },
    "affiliate_url": "https://s.shopee.co.th/9ANJMnpw0b",
    "jib": {
-    "keyword": "CORSAIR CV650",
+    "keyword": "POWER SUPPLY CORSAIR CX650",
     "must": [
-     "CV650"
+     "CX650"
     ],
     "not": []
    }
@@ -547,6 +861,14 @@
    "affiliate_url": "https://s.shopee.co.th/8KoCNIARJR",
    "jib": {
     "keyword": "THERMALTAKE SMART BX1 750W",
+    "must": [
+     "BX1",
+     "750W"
+    ],
+    "not": []
+   },
+   "advice": {
+    "keyword": "thermaltake bx1 750w",
     "must": [
      "BX1",
      "750W"
@@ -568,6 +890,20 @@
      "RM850E"
     ],
     "not": []
+   },
+   "advice": {
+    "keyword": "corsair rm850e",
+    "must": [
+     "RM850E"
+    ],
+    "not": []
+   },
+   "ihavecpu": {
+    "keyword": "corsair rm850e",
+    "must": [
+     "RM850E"
+    ],
+    "not": []
    }
   },
   {
@@ -585,34 +921,47 @@
      "1000W"
     ],
     "not": []
+   },
+   "advice": {
+    "keyword": "tuf gaming 1000w",
+    "must": [
+     "TUF",
+     "1000W"
+    ],
+    "not": []
    }
   },
   {
    "id": "air903",
-   "name": "Montech AIR 903 MAX",
+   "name": "Montech AIR 1000 LITE (ATX)",
    "category": "case",
    "specs": {},
    "affiliate_url": "https://s.shopee.co.th/9ANJMp7Gce",
    "jib": {
-    "keyword": "MONTECH AIR 903 MAX",
+    "keyword": "CASE MONTECH AIR 1000 LITE",
     "must": [
-     "AIR 903"
+     "AIR 1000 LITE"
     ],
-    "not": []
+    "not": [
+     "WHITE"
+    ]
    }
   },
   {
    "id": "lancool216",
-   "name": "Lian Li LANCOOL 216",
+   "name": "Lian Li LANCOOL 217 (E-ATX)",
    "category": "case",
    "specs": {},
    "affiliate_url": "https://s.shopee.co.th/903tAW7txd",
    "jib": {
-    "keyword": "LIAN LI LANCOOL 216",
+    "keyword": "CASE LIAN LI LANCOOL 217",
     "must": [
-     "LANCOOL 216"
+     "LANCOOL 217"
     ],
-    "not": []
+    "not": [
+     "WHITE",
+     "INF"
+    ]
    }
   },
   {
@@ -623,6 +972,13 @@
    "affiliate_url": "https://s.shopee.co.th/8AUmB0SCTR",
    "jib": {
     "keyword": "NZXT H5 FLOW",
+    "must": [
+     "H5 FLOW"
+    ],
+    "not": []
+   },
+   "ihavecpu": {
+    "keyword": "nzxt h5 flow",
     "must": [
      "H5 FLOW"
     ],
