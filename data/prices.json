@@ -11679,7 +11679,9 @@
      }
     ]
    },
-   "estimate": true
+   "estimate": true,
+   "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/PlayStation_5_and_DualSense_with_transparent_background.png/500px-PlayStation_5_and_DualSense_with_transparent_background.png",
+   "image_credit": "Wikimedia Commons"
   },
   {
    "id": "ps5pro",
@@ -11949,7 +11951,9 @@
      }
     ]
    },
-   "estimate": true
+   "estimate": true,
+   "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/PlayStation_5_and_DualSense_with_transparent_background.png/500px-PlayStation_5_and_DualSense_with_transparent_background.png",
+   "image_credit": "Wikimedia Commons"
   },
   {
    "id": "psportal",
@@ -12219,7 +12223,9 @@
      }
     ]
    },
-   "estimate": true
+   "estimate": true,
+   "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/PlayStation_Portal.jpg/500px-PlayStation_Portal.jpg",
+   "image_credit": "Wikimedia Commons"
   },
   {
    "id": "xsx",
@@ -12489,7 +12495,9 @@
      }
     ]
    },
-   "estimate": true
+   "estimate": true,
+   "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Xbox_Series_X_mit_Controller_%28transparent_background%29.png/500px-Xbox_Series_X_mit_Controller_%28transparent_background%29.png",
+   "image_credit": "Wikimedia Commons"
   },
   {
    "id": "xss",
@@ -12759,7 +12767,9 @@
      }
     ]
    },
-   "estimate": true
+   "estimate": true,
+   "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Xbox_Series_S_with_controller_%28transparent_background%29.png/500px-Xbox_Series_S_with_controller_%28transparent_background%29.png",
+   "image_credit": "Wikimedia Commons"
   },
   {
    "id": "switch2",
@@ -13029,7 +13039,9 @@
      }
     ]
    },
-   "estimate": true
+   "estimate": true,
+   "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Nintendo_Switch_2_20250605_HOF4745_RAW-Export_%28cropped%29.png/500px-Nintendo_Switch_2_20250605_HOF4745_RAW-Export_%28cropped%29.png",
+   "image_credit": "Wikimedia Commons"
   },
   {
    "id": "switcholed",
@@ -13299,7 +13311,9 @@
      }
     ]
    },
-   "estimate": true
+   "estimate": true,
+   "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Nintendo_Switch_%E2%80%93_OLED-Modell%2C_Konsole_und_Dock_20230506.png/500px-Nintendo_Switch_%E2%80%93_OLED-Modell%2C_Konsole_und_Dock_20230506.png",
+   "image_credit": "Wikimedia Commons"
   },
   {
    "id": "steamdeck",
@@ -13569,7 +13583,9 @@
      }
     ]
    },
-   "estimate": true
+   "estimate": true,
+   "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Steam_Deck_%28front%29.png/500px-Steam_Deck_%28front%29.png",
+   "image_credit": "Wikimedia Commons"
   },
   {
    "id": "allyx",
@@ -13839,7 +13855,9 @@
      }
     ]
    },
-   "estimate": true
+   "estimate": true,
+   "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/ROG_ALLY_-_11.jpg/500px-ROG_ALLY_-_11.jpg",
+   "image_credit": "Wikimedia Commons"
   },
   {
    "id": "legiongos",
@@ -14109,7 +14127,9 @@
      }
     ]
    },
-   "estimate": true
+   "estimate": true,
+   "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Lenovo_Legion_Go.jpg/500px-Lenovo_Legion_Go.jpg",
+   "image_credit": "Wikimedia Commons"
   },
   {
    "id": "quest3s",
@@ -14379,7 +14399,9 @@
      }
     ]
    },
-   "estimate": true
+   "estimate": true,
+   "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Meta_Quest_3S.jpg/500px-Meta_Quest_3S.jpg",
+   "image_credit": "Wikimedia Commons"
   }
  ]
 }
