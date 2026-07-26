@@ -1,5 +1,5 @@
-// GPU Price TH — service worker: ทำให้เปิดออฟไลน์ได้ + โหลดเร็ว
-const CACHE = "pcpriceth-v7";
+// PriceSpec — service worker: ทำให้เปิดออฟไลน์ได้ + โหลดเร็ว
+const CACHE = "pricespec-v9";
 const ASSETS = [
   "./index.html",
   "./manifest.json",

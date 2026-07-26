@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nontanat2610-arch.github.io/pc-price-th/sitemap.xml
+Sitemap: https://pricespec-th.github.io/sitemap.xml
