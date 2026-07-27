@@ -38,6 +38,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script src="data/affiliate.js"></script>
 <script>
 // โหลดข้อมูลราคาแบบสดเสมอ (เลี่ยง HTTP cache ของ GitHub Pages)
 document.write('<script src="data/prices.js?t=' + Math.floor(Date.now()/60000) + '"><\/script>');
@@ -288,6 +289,38 @@ const CATS = [
 ];
 const CATNAME = Object.fromEntries(CATS);
 const fmt = n => n.toLocaleString('th-TH') + ' ฿';
+
+/* ---------- ลิงก์หารายได้ ----------
+   Shopee จ่าย 2% แต่ไม่เกิน 225฿/ออเดอร์ · JIB จ่ายเป็น % ไม่มีเพดาน
+   ของแพงจึงคุ้มกว่าถ้าส่งไป JIB — คำนวณให้อัตโนมัติทุกชิ้น */
+const AFF = window.AFFILIATE || {};
+function affLink(p, price){
+  const aid = AFF.involve_aff_id, oid = AFF.involve_jib_offer_id;
+  const jib = (aid && oid && p.source_url)
+    ? `https://invol.co/aff_m?offer_id=${oid}&aff_id=${aid}&url=${encodeURIComponent(p.source_url)}`
+    : null;
+  const shopee = p.affiliate_url || null;
+  const pay = (rate, cap) => { const v = price * rate; return cap ? Math.min(v, cap) : v; };
+  if (jib && shopee)
+    return pay(AFF.jib_rate ?? .0091, AFF.jib_cap ?? 0) > pay(AFF.shopee_rate ?? .02, AFF.shopee_cap ?? 225)
+      ? jib : shopee;
+  return jib || shopee || p.source_url || '#';
+}
+function affStore(url){ return url.includes('invol.co') ? 'jib' : url.includes('shopee') ? 'shopee' : 'direct'; }
+
+// นับคลิกออกร้าน — ตัวเลขเดียวที่บอกว่าธุรกิจนี้ไปต่อได้ไหม
+if (AFF.ga4_id){
+  const g = document.createElement('script');
+  g.async = true; g.src = 'https://www.googletagmanager.com/gtag/js?id=' + AFF.ga4_id;
+  document.head.appendChild(g);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){ dataLayer.push(arguments); };
+  gtag('js', new Date()); gtag('config', AFF.ga4_id);
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[data-out]');
+    if (a) gtag('event','outbound_click',{item:a.dataset.out, store:a.dataset.store||''});
+  });
+}
 const charts = {};
 let page = location.hash.replace('#','') || 'gpu';
 
@@ -414,6 +447,7 @@ function cardHTML(p){
   const sign = chg<0?'▼':chg>0?'▲':'—';
   const hasHistory = Object.values(p.history).some(s => s.length > 1);
   const slug = p.slug || p.id;
+  const buyUrl = affLink(p, best.mid);
   return `
       <div class="imgbox"><a href="/p/${slug}"><img src="${p.image || 'images/'+p.category+'.svg'}" alt="${p.name}"
         class="${p.image?'':'ph'}" loading="lazy"
@@ -433,7 +467,8 @@ function cardHTML(p){
       :'<div class="meta nohist">เริ่มเก็บราคาแล้ว — กราฟจะขึ้นสัปดาห์หน้า</div>'}
       ${p.estimate?'<div class="meta" style="color:var(--yellow)">⚠ ราคาโดยประมาณ — ยังไม่เชื่อมข้อมูลร้านค้า</div>':''}
       <div class="rowbtn">
-        <a class="btn buy" href="${p.affiliate_url || p.source_url || ('/p/'+slug)}" target="_blank" rel="nofollow noopener">🛒 ดูดีล</a>
+        <a class="btn buy" href="${buyUrl}" target="_blank" rel="nofollow sponsored noopener"
+           data-out="${slug}" data-store="${affStore(buyUrl)}">🛒 ดูดีล</a>
         <button class="btn alert" data-id="${p.id}">🔔 ตั้งเตือน</button>
       </div>
       <div class="alertform" id="f-${p.id}">

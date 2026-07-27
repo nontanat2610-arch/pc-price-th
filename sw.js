@@ -1,9 +1,9 @@
 // PriceSpec — service worker: ทำให้เปิดออฟไลน์ได้ + โหลดเร็ว
-const CACHE = "pricespec-v17";
+const CACHE = "pricespec-v18";
 const ASSETS = [
   "./index.html",
   "./manifest.json",
-  "./data/prices.js",
+  "./data/prices.js", "./data/affiliate.js",
   "./icons/icon-192.png", "./logo-mark.svg", "./favicon.ico", "./icons/apple-touch-icon.png",
   "./icons/icon-512.png",
   "./images/gpu.svg", "./images/cpu.svg", "./images/mainboard.svg", "./images/ram.svg",
