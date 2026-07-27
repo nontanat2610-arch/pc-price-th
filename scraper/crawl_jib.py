@@ -139,7 +139,7 @@ def parse_specs(name, cat):
     elif cat == "monitor":
         m = re.search(r"(\d{2}(?:\.\d)?)\s?(?:\"|INCH|นิ้ว)", n)
         if m:
-            s["size"] = m.group(1) + '"'
+            s["size"] = m.group(1) + " นิ้ว"
         m = re.search(r"(\d{2,3})\s?HZ", n)
         if m:
             s["hz"] = int(m.group(1))
