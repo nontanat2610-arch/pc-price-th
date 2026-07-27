@@ -49,6 +49,7 @@ document.write('<script src="data/prices.js?t=' + Math.floor(Date.now()/60000) +
   --red:#ff6b6b; --yellow:#ffd43b;
 }
 *{box-sizing:border-box;margin:0;padding:0}
+a{color:inherit;text-decoration:none}
 body{
   color:var(--text);font-family:'Segoe UI',Tahoma,sans-serif;line-height:1.5;
   background:
@@ -104,16 +105,38 @@ h1{font-size:1.6rem}
 nav{display:flex;gap:6px;overflow-x:auto;padding:12px 0;position:sticky;top:0;background:rgba(13,17,23,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);z-index:10;-webkit-overflow-scrolling:touch}
 nav button{white-space:nowrap;background:var(--card);border:1px solid var(--border);color:var(--muted);padding:8px 14px;border-radius:20px;font-size:.92rem;cursor:pointer}
 nav button.on{background:var(--accent);color:#0d1117;font-weight:700;border-color:var(--accent)}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
-.toolbar input,.toolbar select{background:var(--card);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:8px;font-size:.95rem}
-.toolbar input{flex:1;min-width:180px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.toolbar input,.toolbar select{background:var(--card);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:9px;font-size:.95rem}
+.toolbar input:focus,.toolbar select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(88,224,140,.13)}
+#search{flex:1;min-width:220px}
+.rangebox{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border);
+  border-radius:9px;padding:0 11px;color:var(--muted);font-size:.85rem}
+.rangebox input{border:none!important;background:transparent!important;width:78px;padding:9px 0!important;box-shadow:none!important}
+.rangebox input:focus{outline:none}
+.chk{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--border);
+  border-radius:9px;padding:9px 13px;color:var(--muted);font-size:.9rem;cursor:pointer;user-select:none}
+.chk input{accent-color:var(--accent);cursor:pointer}
+.resbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+  color:var(--muted);font-size:.88rem;margin:8px 0 14px}
+.resbar b{color:var(--text)}
+.linkbtn{background:none;border:none;color:var(--accent2);cursor:pointer;font-size:.88rem;padding:0}
+.linkbtn:hover{text-decoration:underline}
+.loadmore{display:flex;justify-content:center;margin:22px 0 6px}
+.loadmore .btn{flex:none;padding:11px 30px;font-size:.95rem}
+.nohist{color:#6e7681;font-style:italic}
 .alertbar{background:#2b1d0e;border:1px solid var(--yellow);color:var(--yellow);padding:10px 14px;border-radius:8px;margin-bottom:14px;display:none}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
-.card h3{font-size:1rem}
-.imgbox{height:110px;background:var(--card2);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.imgbox img{max-height:100%;max-width:100%;object-fit:contain}
-.imgbox img.ph{height:80%;opacity:.9}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px}
+.card{background:linear-gradient(160deg,rgba(28,35,48,.92),rgba(19,24,33,.94));
+  border:1px solid var(--border);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;
+  box-shadow:0 14px 34px -24px rgba(0,0,0,.9);transition:border-color .16s,transform .16s}
+.card:hover{border-color:rgba(88,224,140,.42);transform:translateY(-2px)}
+.card h3{font-size:.98rem;line-height:1.4;min-height:2.7em}
+.card h3 a:hover{color:var(--accent)}
+.imgbox{height:140px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.imgbox a{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+.imgbox img{max-height:92%;max-width:92%;object-fit:contain}
+.imgbox img.ph{height:70%;opacity:.85}
+.imgbox:has(img.ph){background:var(--card2)}
 .pricebox{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
 .price{font-size:1.45rem;font-weight:700;color:var(--accent)}
 .store{color:var(--muted);font-size:.85rem}
@@ -184,16 +207,30 @@ footer a:hover{text-decoration:underline}
 <!-- หน้าหมวดสินค้า -->
 <div id="page-cat">
   <div class="toolbar">
-    <input id="search" type="text" placeholder="ค้นหารุ่น...">
+    <input id="search" type="text" placeholder="🔍 ค้นหารุ่น เช่น RTX 5070, DDR5, 27 นิ้ว">
     <select id="sort">
       <option value="price">เรียง: ราคาต่ำ→สูง</option>
+      <option value="pricedesc">เรียง: ราคาสูง→ต่ำ</option>
       <option value="drop">เรียง: ลดราคามากสุด (7 วัน)</option>
       <option value="name">เรียง: ชื่อรุ่น</option>
     </select>
     <select id="f1" style="display:none"></select>
     <select id="f2" style="display:none"></select>
+    <div class="rangebox">
+      <span>งบ</span>
+      <input id="pmin" type="number" inputmode="numeric" placeholder="ต่ำสุด">
+      <span>–</span>
+      <input id="pmax" type="number" inputmode="numeric" placeholder="สูงสุด">
+      <span>฿</span>
+    </div>
+    <label class="chk"><input type="checkbox" id="allcat"> ค้นทุกหมวด</label>
+  </div>
+  <div class="resbar">
+    <span id="rescount">—</span>
+    <button id="clearf" class="linkbtn">ล้างตัวกรอง</button>
   </div>
   <div class="grid" id="grid"></div>
+  <div class="loadmore"><button id="more" class="btn buy" style="display:none">โหลดเพิ่ม</button></div>
 </div>
 
 <!-- หน้าจัดสเปค -->
@@ -328,73 +365,144 @@ function buildFilters(){
   });
 }
 
-function renderCat(){
-  const q = document.getElementById('search').value.toLowerCase();
+/* แสดงทีละชุด — สินค้ามีหลายพันรายการ ถ้าวาดทีเดียวหมดเบราว์เซอร์จะค้าง */
+const PAGE_SIZE = 24;
+let shown = PAGE_SIZE, lastItems = [];
+
+// วาดกราฟเฉพาะการ์ดที่เลื่อนมาถึงจริง ๆ
+const chartObserver = new IntersectionObserver((entries) => {
+  for (const e of entries){
+    if (!e.isIntersecting) continue;
+    const p = lastItems.find(x => x.id === e.target.dataset.pid) ||
+              DATA.products.find(x => x.id === e.target.dataset.pid);
+    if (p) drawChart(p);
+    chartObserver.unobserve(e.target);
+  }
+}, {rootMargin: '250px'});
+
+function filterItems(){
+  const q = document.getElementById('search').value.trim().toLowerCase();
   const sort = document.getElementById('sort').value;
-  const f1 = document.getElementById('f1'), f2 = document.getElementById('f2');
-  let items = DATA.products.filter(p => p.category===page && p.name.toLowerCase().includes(q));
-  for (const el of [f1,f2]){
+  const allcat = document.getElementById('allcat').checked;
+  const pmin = parseInt(document.getElementById('pmin').value) || 0;
+  const pmax = parseInt(document.getElementById('pmax').value) || Infinity;
+  const words = q.split(/\s+/).filter(Boolean);
+
+  let items = DATA.products.filter(p => {
+    if (!allcat && p.category !== page) return false;
+    const n = p.name.toLowerCase();
+    if (!words.every(w => n.includes(w))) return false;
+    const price = currentBest(p).mid;
+    return price >= pmin && price <= pmax;
+  });
+  if (!allcat) for (const el of [document.getElementById('f1'), document.getElementById('f2')]){
     if (el.dataset.key && el.value)
       items = items.filter(p => String(p.specs?.[el.dataset.key]) === el.value);
   }
-  if (sort==='price') items.sort((a,b)=>currentBest(a).price-currentBest(b).price);
-  if (sort==='drop') items.sort((a,b)=>weekChange(a)-weekChange(b));
-  if (sort==='name') items.sort((a,b)=>a.name.localeCompare(b.name));
+  if (sort==='price')     items.sort((a,b)=>currentBest(a).mid-currentBest(b).mid);
+  if (sort==='pricedesc') items.sort((a,b)=>currentBest(b).mid-currentBest(a).mid);
+  if (sort==='drop')      items.sort((a,b)=>weekChange(a)-weekChange(b));
+  if (sort==='name')      items.sort((a,b)=>a.name.localeCompare(b.name));
+  return items;
+}
 
-  const grid = document.getElementById('grid');
-  grid.innerHTML = '';
-  for (const p of items){
-    const best = currentBest(p), chg = weekChange(p);
-    const cls = chg<0?'down':chg>0?'up':'flat';
-    const sign = chg<0?'▼':chg>0?'▲':'—';
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <div class="imgbox"><img src="${p.image || 'images/'+p.category+'.svg'}" alt="${p.name}"
+function cardHTML(p){
+  const best = currentBest(p), chg = weekChange(p);
+  const cls = chg<0?'down':chg>0?'up':'flat';
+  const sign = chg<0?'▼':chg>0?'▲':'—';
+  const hasHistory = Object.values(p.history).some(s => s.length > 1);
+  const slug = p.slug || p.id;
+  return `
+      <div class="imgbox"><a href="/p/${slug}"><img src="${p.image || 'images/'+p.category+'.svg'}" alt="${p.name}"
         class="${p.image?'':'ph'}" loading="lazy"
-        onerror="this.src='images/${p.category}.svg';this.className='ph'"></div>
-      <h3>${p.name}</h3>
+        onerror="this.src='images/${p.category}.svg';this.className='ph'"></a></div>
+      <h3><a href="/p/${slug}">${p.name}</a></h3>
       <div class="pricebox">
         <span class="price">${fmt(best.mid)}</span>
-        <span class="store">ราคาเฉลี่ย ${best.stores.length} ร้าน</span>
-        <span class="chg ${cls}">${sign} ${Math.abs(chg).toLocaleString('th-TH')} ฿ / 7 วัน</span>
+        <span class="store">${best.stores.length>1?'ราคาเฉลี่ย '+best.stores.length+' ร้าน':'ราคาจาก JIB'}</span>
+        ${hasHistory?`<span class="chg ${cls}">${sign} ${Math.abs(chg).toLocaleString('th-TH')} ฿ / 7 วัน</span>`:''}
       </div>
       <div class="stores">
-        ${best.stores.sort((a,b)=>a.price-b.price).map((s,i)=>
-          `<div class="srow${i===0?' cheap':''}"><span>${s.store}${i===0?' 🏆 ถูกสุด':''}</span><span>${fmt(s.price)}</span></div>`).join('')}
+        ${best.stores.slice().sort((a,b)=>a.price-b.price).map((s,i)=>
+          `<div class="srow${i===0&&best.stores.length>1?' cheap':''}"><span>${s.store}${i===0&&best.stores.length>1?' 🏆 ถูกสุด':''}</span><span>${fmt(s.price)}</span></div>`).join('')}
       </div>
-      <div class="meta">ราคากลางต่ำสุดใน 30 วัน: ${fmt(min30(p))}</div>
+      ${hasHistory?`<div class="meta">ราคากลางต่ำสุดใน 30 วัน: ${fmt(min30(p))}</div>
+      <div class="chartbox"><canvas id="c-${p.id}"></canvas></div>`
+      :'<div class="meta nohist">เริ่มเก็บราคาแล้ว — กราฟจะขึ้นสัปดาห์หน้า</div>'}
       ${p.estimate?'<div class="meta" style="color:var(--yellow)">⚠ ราคาโดยประมาณ — ยังไม่เชื่อมข้อมูลร้านค้า</div>':''}
-      <div class="chartbox"><canvas id="c-${p.id}"></canvas></div>
       <div class="rowbtn">
-        <a class="btn buy" href="${p.affiliate_url}" target="_blank" rel="nofollow noopener">🛒 ซื้อเลย</a>
+        <a class="btn buy" href="${p.affiliate_url || p.source_url || ('/p/'+slug)}" target="_blank" rel="nofollow noopener">🛒 ดูดีล</a>
         <button class="btn alert" data-id="${p.id}">🔔 ตั้งเตือน</button>
       </div>
       <div class="alertform" id="f-${p.id}">
         <input type="number" placeholder="เตือนเมื่อต่ำกว่า (บาท)" id="t-${p.id}">
         <button data-set="${p.id}">บันทึก</button>
       </div>`;
-    grid.appendChild(card);
-    drawChart(p);
+}
+
+function paint(items, from, to){
+  const grid = document.getElementById('grid');
+  const frag = document.createDocumentFragment();
+  for (const p of items.slice(from, to)){
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.pid = p.id;
+    card.innerHTML = cardHTML(p);
+    frag.appendChild(card);
+    if (Object.values(p.history).some(s => s.length > 1)) chartObserver.observe(card);
   }
-  grid.querySelectorAll('.btn.alert').forEach(b => b.onclick = () => {
-    const f = document.getElementById('f-'+b.dataset.id);
-    f.style.display = f.style.display==='flex'?'none':'flex';
+  grid.appendChild(frag);
+  bindCardButtons(grid);
+}
+
+function bindCardButtons(grid){
+  grid.querySelectorAll('.btn.alert:not([data-bound])').forEach(b => {
+    b.dataset.bound = 1;
+    b.onclick = () => {
+      const f = document.getElementById('f-'+b.dataset.id);
+      f.style.display = f.style.display==='flex'?'none':'flex';
+    };
   });
-  grid.querySelectorAll('[data-set]').forEach(b => b.onclick = () => {
-    const id = b.dataset.set;
-    const val = parseInt(document.getElementById('t-'+id).value);
-    if (!val) return alert('กรุณากรอกราคาเป้าหมาย');
-    const alerts = getAlerts().filter(a=>a.id!==id);
-    alerts.push({id, target:val});
-    saveAlerts(alerts);
-    document.getElementById('f-'+id).style.display='none';
-    alert('ตั้งเตือนแล้ว — ดูได้ที่แท็บ 🔔 เตือน');
+  grid.querySelectorAll('[data-set]:not([data-bound])').forEach(b => {
+    b.dataset.bound = 1;
+    b.onclick = () => {
+      const id = b.dataset.set;
+      const val = parseInt(document.getElementById('t-'+id).value);
+      if (!val) return alert('กรุณากรอกราคาเป้าหมาย');
+      const alerts = getAlerts().filter(a=>a.id!==id);
+      alerts.push({id, target:val});
+      saveAlerts(alerts);
+      document.getElementById('f-'+id).style.display='none';
+      alert('ตั้งเตือนแล้ว — ดูได้ที่แท็บ 🔔 เตือน');
+    };
   });
+}
+
+function renderCat(reset = true){
+  if (reset) shown = PAGE_SIZE;
+  const items = lastItems = filterItems();
+  const grid = document.getElementById('grid');
+  if (reset){
+    Object.values(charts).forEach(c => c.destroy());
+    for (const k in charts) delete charts[k];
+    grid.innerHTML = '';
+    paint(items, 0, shown);
+  } else {
+    paint(items, shown - PAGE_SIZE, shown);
+  }
+
+  const n = items.length;
+  document.getElementById('rescount').innerHTML = n
+    ? `แสดง <b>${Math.min(shown, n).toLocaleString('th-TH')}</b> จาก <b>${n.toLocaleString('th-TH')}</b> รายการ`
+    : 'ไม่พบสินค้าที่ตรงกับเงื่อนไข — ลองลดตัวกรองหรือขยายช่วงราคา';
+  const more = document.getElementById('more');
+  more.style.display = shown < n ? 'inline-block' : 'none';
+  more.textContent = `โหลดเพิ่มอีก ${Math.min(PAGE_SIZE, n - shown)} รายการ`;
 }
 
 function drawChart(p){
   const ctx = document.getElementById('c-'+p.id);
+  if (!ctx) return;
   if (charts[p.id]) charts[p.id].destroy();
   const colors = {JIB:'#58e08c', Advice:'#4dabf7', iHAVECPU:'#ffd43b'};
   const labels = Object.values(p.history)[0].map(pt=>pt.date.slice(5));
@@ -505,10 +613,23 @@ function renderAlerts(){
 /* ---------- เริ่มต้น ---------- */
 document.getElementById('updated').textContent = DATA.updated;
 document.getElementById('stat-n').textContent = DATA.products.length;
-document.getElementById('search').oninput = renderCat;
-document.getElementById('sort').onchange = renderCat;
-document.getElementById('f1').onchange = renderCat;
-document.getElementById('f2').onchange = renderCat;
+// หน่วงการพิมพ์ไว้เล็กน้อย ไม่ให้กรอง 2,000+ รายการทุกตัวอักษร
+let typeTimer;
+const debounced = () => { clearTimeout(typeTimer); typeTimer = setTimeout(() => renderCat(), 220); };
+document.getElementById('search').oninput = debounced;
+document.getElementById('pmin').oninput = debounced;
+document.getElementById('pmax').oninput = debounced;
+document.getElementById('sort').onchange = () => renderCat();
+document.getElementById('f1').onchange = () => renderCat();
+document.getElementById('f2').onchange = () => renderCat();
+document.getElementById('allcat').onchange = () => renderCat();
+document.getElementById('more').onclick = () => { shown += PAGE_SIZE; renderCat(false); };
+document.getElementById('clearf').onclick = () => {
+  ['search','pmin','pmax'].forEach(id => document.getElementById(id).value = '');
+  ['f1','f2'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('allcat').checked = false;
+  renderCat();
+};
 show();
 renderAlerts();
 
