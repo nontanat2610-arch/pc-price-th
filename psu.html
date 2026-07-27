@@ -20,21 +20,60 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "ItemList", "name": "ราคาพาวเวอร์ซัพพลาย (PSU) ล่าสุดในไทย", "numberOfItems": 4, "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "Product", "name": "Corsair CX650 650W 80+ Bronze", "image": "https://www.jib.co.th/img_master/product/medium/20250917155428_65608_287_1.jpg", "offers": {"@type": "AggregateOffer", "priceCurrency": "THB", "lowPrice": 1650, "highPrice": 1650, "offerCount": 1}}}, {"@type": "ListItem", "position": 2, "item": {"@type": "Product", "name": "Thermaltake Smart BX1 750W 80+ Bronze", "image": "https://www.jib.co.th/img_master/product/medium/2019030615590733172_1.jpg", "offers": {"@type": "AggregateOffer", "priceCurrency": "THB", "lowPrice": 1740, "highPrice": 1990, "offerCount": 2}}}, {"@type": "ListItem", "position": 3, "item": {"@type": "Product", "name": "Corsair RM850e 850W 80+ Gold", "image": "https://www.jib.co.th/img_master/product/medium/20250506155552_75683_287_1.jpg", "offers": {"@type": "AggregateOffer", "priceCurrency": "THB", "lowPrice": 3500, "highPrice": 3690, "offerCount": 3}}}, {"@type": "ListItem", "position": 4, "item": {"@type": "Product", "name": "ASUS TUF Gaming 1000W 80+ Gold", "image": "https://www.jib.co.th/img_master/product/medium/20260203104421_83167_469_1.jpg", "offers": {"@type": "AggregateOffer", "priceCurrency": "THB", "lowPrice": 6590, "highPrice": 6590, "offerCount": 2}}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PriceSpec", "item": "https://pricespec.vercel.app/"}, {"@type": "ListItem", "position": 2, "name": "พาวเวอร์ซัพพลาย", "item": "https://pricespec.vercel.app/psu"}]}]}</script>
 <style>
-:root{--bg:#0d1117;--card:#161b22;--card2:#1c2330;--border:#2d3748;--text:#e6edf3;--muted:#8b949e;--accent:#58e08c}
+:root{--bg:#0d1117;--card:#161b22;--card2:#1c2330;--border:#2d3748;--text:#e6edf3;--muted:#8b949e;--accent:#58e08c;--accent2:#4dabf7}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:'Segoe UI',Tahoma,sans-serif;line-height:1.55}
+body{
+  color:var(--text);font-family:'Segoe UI',Tahoma,sans-serif;line-height:1.55;min-height:100vh;
+  background:
+    radial-gradient(900px 500px at 10% -10%, rgba(88,224,140,.20), transparent 60%),
+    radial-gradient(820px 460px at 90% -6%, rgba(77,171,247,.17), transparent 62%),
+    radial-gradient(700px 500px at 50% 110%, rgba(88,224,140,.07), transparent 65%),
+    linear-gradient(180deg,#0a0f16 0%, var(--bg) 42%);
+  background-attachment:fixed;background-repeat:no-repeat;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.038) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.038) 1px, transparent 1px);
+  background-size:58px 58px;
+  -webkit-mask-image:radial-gradient(120% 70% at 50% 0%, #000 0%, transparent 72%);
+  mask-image:radial-gradient(120% 70% at 50% 0%, #000 0%, transparent 72%);
+}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:1100px;margin:0 auto;padding:16px}
-header{padding:22px 0 8px}
-h1{font-size:1.5rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-h1 .g{color:var(--accent)}
-h2{font-size:1.15rem;margin:18px 0 6px}
-.lead{color:var(--muted);font-size:.95rem;margin-bottom:6px}
-nav{display:flex;gap:6px;overflow-x:auto;padding:12px 0;margin-bottom:6px}
+.wrap{max-width:1100px;margin:0 auto;padding:16px;position:relative;z-index:1}
+.hero{
+  position:relative;overflow:hidden;margin:14px 0 4px;padding:24px 26px 22px;border-radius:22px;
+  background:linear-gradient(145deg, rgba(32,43,58,.78), rgba(15,20,29,.82));
+  border:1px solid rgba(88,224,140,.22);
+  box-shadow:0 26px 70px -30px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.07);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+}
+.hero::after{content:"";position:absolute;width:440px;height:440px;right:-150px;top:-220px;pointer-events:none;
+  background:radial-gradient(circle, rgba(88,224,140,.30), transparent 62%)}
+.hero::before{content:"";position:absolute;width:400px;height:400px;left:-170px;bottom:-250px;pointer-events:none;
+  background:radial-gradient(circle, rgba(77,171,247,.24), transparent 62%)}
+h1{font-size:1.5rem;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:relative}
+h1 img{border-radius:13px;filter:drop-shadow(0 10px 22px rgba(88,224,140,.38))}
+h1 .name{font-size:2.05rem;font-weight:800;letter-spacing:-.6px;line-height:1.1;
+  background:linear-gradient(92deg,#ffffff 0%,#9dfbc4 45%,#4dabf7 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:1.3rem;margin:22px 0 6px}
+.lead{color:var(--muted);font-size:.95rem;margin-bottom:6px;position:relative}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;position:relative}
+.stat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);
+  border-radius:999px;padding:6px 14px;font-size:.83rem;color:var(--muted);white-space:nowrap}
+.stat b{color:var(--accent);font-weight:700}
+.stat.blue b{color:var(--accent2)}
+@media(max-width:560px){.hero{padding:20px 18px;border-radius:18px} h1 .name{font-size:1.65rem}}
+nav{display:flex;gap:6px;overflow-x:auto;padding:12px 0;margin-bottom:6px;position:sticky;top:0;
+  background:rgba(13,17,23,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);z-index:10}
 nav a{white-space:nowrap;background:var(--card);border:1px solid var(--border);color:var(--muted);padding:8px 14px;border-radius:20px;font-size:.92rem}
-nav a.on{background:var(--accent);color:#0d1117;font-weight:700;border-color:var(--accent)}
+nav a.on{background:var(--accent);color:#0d1117;font-weight:700;border-color:var(--accent);box-shadow:0 6px 18px -6px rgba(88,224,140,.7)}
 .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));margin-top:12px}
-.item{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;gap:14px}
+.item{background:linear-gradient(160deg,rgba(28,35,48,.9),rgba(19,24,33,.92));border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;gap:14px;
+  box-shadow:0 14px 34px -22px rgba(0,0,0,.9);transition:border-color .18s, transform .18s}
+.item:hover{border-color:rgba(88,224,140,.45);transform:translateY(-2px)}
 .item img{width:120px;height:120px;object-fit:contain;background:#fff;border-radius:10px;flex:none}
 .info{min-width:0;flex:1}
 .item h3{font-size:1rem;margin-bottom:4px}
@@ -54,10 +93,15 @@ footer a{color:var(--accent)}
 </head>
 <body>
 <div class="wrap">
-<header>
-  <h1><a href="https://pricespec.vercel.app/"><img src="/logo-mark.svg" alt="โลโก้ PriceSpec" width="42" height="42" style="border-radius:10px;vertical-align:middle"></a>
-  <a href="https://pricespec.vercel.app/">Price<span class="g">Spec</span></a></h1>
-  <p class="lead">เช็คราคาอุปกรณ์คอมและเครื่องเกม เทียบ 3 ร้านไทย · อัปเดตล่าสุด 2026-07-25</p>
+<header class="hero">
+  <h1><a href="https://pricespec.vercel.app/"><img src="/logo-mark.svg" alt="โลโก้ PriceSpec" width="58" height="58"></a>
+  <a href="https://pricespec.vercel.app/" class="name">PriceSpec</a></h1>
+  <div class="stats">
+    <span class="stat"><b>4</b> รายการในหมวดพาวเวอร์ซัพพลาย</span>
+    <span class="stat blue"><b>3</b> ร้าน · JIB · Advice · iHAVECPU</span>
+    <span class="stat">ล่าสุด <b>2026-07-25</b></span>
+  </div>
+  <p class="lead" style="margin-top:14px">เช็คราคาอุปกรณ์คอมและเครื่องเกมในไทย เทียบราคาเฉลี่ยพร้อมราคาแยกรายร้าน อัปเดตอัตโนมัติทุกวันเสาร์</p>
 </header>
 <nav><a href="https://pricespec.vercel.app/gpu">🎮 การ์ดจอ</a><a href="https://pricespec.vercel.app/cpu">🧠 ซีพียู</a><a href="https://pricespec.vercel.app/mainboard">🔲 เมนบอร์ด</a><a href="https://pricespec.vercel.app/ram">📏 แรม</a><a href="https://pricespec.vercel.app/ssd">💾 SSD</a><a href="https://pricespec.vercel.app/psu" class="on">🔌 พาวเวอร์ซัพพลาย</a><a href="https://pricespec.vercel.app/case">🖥️ เคสคอม</a><a href="https://pricespec.vercel.app/console">⭐ เครื่องเกม</a></nav>
 <main>

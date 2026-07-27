@@ -49,13 +49,59 @@ document.write('<script src="data/prices.js?t=' + Math.floor(Date.now()/60000) +
   --red:#ff6b6b; --yellow:#ffd43b;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:'Segoe UI',Tahoma,sans-serif;line-height:1.5}
-.wrap{max-width:1100px;margin:0 auto;padding:16px}
-header{padding:24px 0 10px}
+body{
+  color:var(--text);font-family:'Segoe UI',Tahoma,sans-serif;line-height:1.5;
+  background:
+    radial-gradient(900px 500px at 10% -10%, rgba(88,224,140,.20), transparent 60%),
+    radial-gradient(820px 460px at 90% -6%, rgba(77,171,247,.17), transparent 62%),
+    radial-gradient(700px 500px at 50% 110%, rgba(88,224,140,.07), transparent 65%),
+    linear-gradient(180deg,#0a0f16 0%, var(--bg) 42%);
+  background-attachment:fixed;background-repeat:no-repeat;min-height:100vh;
+}
+/* ตารางเส้นจาง ๆ ให้ดูเป็นเทคโนโลยี */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.038) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.038) 1px, transparent 1px);
+  background-size:58px 58px;
+  -webkit-mask-image:radial-gradient(120% 70% at 50% 0%, #000 0%, transparent 72%);
+  mask-image:radial-gradient(120% 70% at 50% 0%, #000 0%, transparent 72%);
+}
+.wrap{max-width:1100px;margin:0 auto;padding:16px;position:relative;z-index:1}
+
+/* ---------- ส่วนหัว (Hero) ---------- */
+.hero{
+  position:relative;overflow:hidden;margin:14px 0 4px;padding:26px 26px 22px;border-radius:22px;
+  background:linear-gradient(145deg, rgba(32,43,58,.78), rgba(15,20,29,.82));
+  border:1px solid rgba(88,224,140,.22);
+  box-shadow:0 26px 70px -30px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.07);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+}
+.hero::after{content:"";position:absolute;width:440px;height:440px;right:-150px;top:-220px;pointer-events:none;
+  background:radial-gradient(circle, rgba(88,224,140,.30), transparent 62%)}
+.hero::before{content:"";position:absolute;width:400px;height:400px;left:-170px;bottom:-250px;pointer-events:none;
+  background:radial-gradient(circle, rgba(77,171,247,.24), transparent 62%)}
+.brand{display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:relative}
+.brand img{border-radius:13px;filter:drop-shadow(0 10px 22px rgba(88,224,140,.38))}
+.brand .name{font-size:2.15rem;font-weight:800;letter-spacing:-.6px;line-height:1.1;
+  background:linear-gradient(92deg,#ffffff 0%,#9dfbc4 45%,#4dabf7 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.brand .tag{font-size:.9rem;color:var(--muted);font-weight:400;
+  border-left:2px solid rgba(88,224,140,.5);padding-left:10px;margin-left:2px}
 h1{font-size:1.6rem}
-h1 span{color:var(--accent)}
-.sub{color:var(--muted);font-size:.92rem;margin-top:4px}
-nav{display:flex;gap:6px;overflow-x:auto;padding:12px 0;position:sticky;top:0;background:var(--bg);z-index:10;-webkit-overflow-scrolling:touch}
+.sub{color:var(--muted);font-size:.92rem;margin-top:4px;position:relative}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px;position:relative}
+.stat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);
+  border-radius:999px;padding:6px 14px;font-size:.83rem;color:var(--muted);white-space:nowrap}
+.stat b{color:var(--accent);font-weight:700}
+.stat.blue b{color:var(--accent2)}
+@media(max-width:560px){
+  .hero{padding:20px 18px;border-radius:18px}
+  .brand .name{font-size:1.7rem}
+  .brand .tag{border-left:none;padding-left:0;margin-left:0;flex-basis:100%}
+}
+nav{display:flex;gap:6px;overflow-x:auto;padding:12px 0;position:sticky;top:0;background:rgba(13,17,23,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);z-index:10;-webkit-overflow-scrolling:touch}
 nav button{white-space:nowrap;background:var(--card);border:1px solid var(--border);color:var(--muted);padding:8px 14px;border-radius:20px;font-size:.92rem;cursor:pointer}
 nav button.on{background:var(--accent);color:#0d1117;font-weight:700;border-color:var(--accent)}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
@@ -112,19 +158,24 @@ footer a:hover{text-decoration:underline}
 </head>
 <body>
 <div class="wrap">
-<header>
-  <h1 style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-    <img src="logo-mark.svg" alt="โลโก้ PriceSpec" width="46" height="46" style="border-radius:11px">
-    <span style="color:var(--text)">Price<span>Spec</span></span>
-    <small style="font-size:.62em;font-weight:400;color:var(--muted)">เช็คราคาการ์ดจอ ซีพียู แรม เทียบ 3 ร้านไทย</small>
+<header class="hero">
+  <h1 class="brand">
+    <img src="logo-mark.svg" alt="โลโก้ PriceSpec" width="60" height="60">
+    <span class="name">PriceSpec</span>
+    <span class="tag">เช็คราคาการ์ดจอ ซีพียู แรม<br>เทียบ 3 ร้านไทยในหน้าเดียว</span>
   </h1>
-  <div class="sub">เทียบราคาจาก JIB · Advice · iHAVECPU · อัปเดตล่าสุด: <span id="updated">—</span></div>
-  <p class="sub" style="margin-top:6px;max-width:760px">
+  <div class="stats">
+    <span class="stat"><b id="stat-n">48</b> สินค้า</span>
+    <span class="stat blue"><b>3</b> ร้าน · JIB · Advice · iHAVECPU</span>
+    <span class="stat"><b>อัปเดตทุกเสาร์</b> ตี 5</span>
+    <span class="stat">ล่าสุด <b id="updated">—</b></span>
+  </div>
+  <p class="sub" style="margin-top:14px;max-width:780px">
     เว็บเช็คราคาอุปกรณ์คอมพิวเตอร์และเครื่องเกมในไทย ดูราคาการ์ดจอ RTX 5070 / 5080 / 5090 และ Radeon RX 9070,
     ซีพียู AMD Ryzen และ Intel Core, แรม DDR4 DDR5, SSD, เมนบอร์ด, PSU, เคส รวมถึง PS5 · Xbox · Nintendo Switch
     พร้อมกราฟราคาย้อนหลัง ตั้งแจ้งเตือนเมื่อราคาลด และจัดสเปคคอมเช็คความเข้ากันได้ ใช้ฟรี
   </p>
-  <button id="installbtn" style="display:none;margin-top:10px" class="btn buy">📲 ติดตั้งแอปลงเครื่อง</button>
+  <button id="installbtn" style="display:none;margin-top:14px;flex:none;padding:9px 18px;position:relative" class="btn buy">📲 ติดตั้งแอปลงเครื่อง</button>
 </header>
 
 <nav id="nav"></nav>
@@ -448,6 +499,7 @@ function renderAlerts(){
 
 /* ---------- เริ่มต้น ---------- */
 document.getElementById('updated').textContent = DATA.updated;
+document.getElementById('stat-n').textContent = DATA.products.length;
 document.getElementById('search').oninput = renderCat;
 document.getElementById('sort').onchange = renderCat;
 document.getElementById('f1').onchange = renderCat;
