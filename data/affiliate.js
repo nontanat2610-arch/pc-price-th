@@ -1,0 +1,1 @@
+window.AFFILIATE = {"involve_aff_id": "", "involve_jib_offer_id": "", "jib_rate": 0.0091, "jib_cap": 0, "shopee_rate": 0.02, "shopee_cap": 225, "ga4_id": ""};
