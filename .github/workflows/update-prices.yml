@@ -36,6 +36,6 @@ jobs:
         run: |
           git config user.name "price-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/ sitemap.xml *.html
+          git add -A data/ sitemap.xml *.html p/
           git diff --staged --quiet || git commit -m "update prices $(date +%F)"
           git push
