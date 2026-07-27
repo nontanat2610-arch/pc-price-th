@@ -228,6 +228,8 @@ footer a:hover{text-decoration:underline}
     <a href="/ssd">ราคา SSD</a> ·
     <a href="/psu">ราคาพาวเวอร์ซัพพลาย</a> ·
     <a href="/case">ราคาเคสคอม</a> ·
+    <a href="/monitor">ราคาจอมอนิเตอร์</a> ·
+    <a href="/cooling">ราคาชุดระบายความร้อน</a> ·
     <a href="/console">ราคาเครื่องเกม</a>
   </div>
   ราคาที่แสดง = ค่าเฉลี่ยจากร้านที่มีข้อมูล (JIB · Advice · iHAVECPU) พร้อมรายละเอียดราคาแยกรายร้าน · กราฟย้อนหลังก่อน 25/07/2026 เป็นข้อมูลจำลอง · สินค้าที่มีเครื่องหมาย ⚠ เป็นราคาโดยประมาณ<br>
@@ -241,6 +243,7 @@ const DATA = window.PRICE_DATA;
 const CATS = [
   ["gpu","🎮 การ์ดจอ"], ["cpu","🧠 ซีพียู"], ["mainboard","🔲 เมนบอร์ด"],
   ["ram","📏 แรม"], ["ssd","💾 SSD"], ["psu","🔌 PSU"], ["case","🖥️ เคส"],
+  ["monitor","🖵 จอมอนิเตอร์"], ["cooling","❄ ชุดระบายความร้อน"],
   ["console","⭐ Special เครื่องเกม"],
   ["builder","🛠️ จัดสเปค"], ["alerts","🔔 เตือน"],
 ];
@@ -303,7 +306,9 @@ const FILTERS = {
   cpu:       [['socket','ซ็อกเก็ต', v=>v]],
   mainboard: [['socket','ซ็อกเก็ต', v=>v], ['ram','รองรับแรม', v=>v]],
   ram:       [['ram','ชนิดแรม', v=>v], ['bus','บัส', v=>v+' MHz']],
-  psu:       [['watt','กำลังไฟ', v=>v+'W']],
+  psu:       [['watt','กำลังไฟ', v=>v+'W'], ['rating','มาตรฐาน', v=>v]],
+  ssd:       [['size','ความจุ', v=>v], ['gen','อินเทอร์เฟซ', v=>v]],
+  monitor:   [['size','ขนาดจอ', v=>v], ['hz','รีเฟรชเรต', v=>v+' Hz']],
 };
 function buildFilters(){
   const defs = FILTERS[page] || [];
