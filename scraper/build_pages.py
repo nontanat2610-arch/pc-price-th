@@ -4,7 +4,7 @@
 สร้างหน้าเว็บแบบ static แยกตามหมวดสินค้า เพื่อให้ Google เก็บข้อมูล (index) ได้
 รันหลัง scraper.py ทุกครั้ง -> จะได้หน้าที่มีราคาล่าสุดฝังอยู่ใน HTML จริง
 """
-import json, os, html, datetime
+import json, os, html, datetime, urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = "https://pricespec.vercel.app"
@@ -109,6 +109,54 @@ SPEC_LABEL = {
     "size": ("ความจุ", ""), "form": ("ขนาด", ""),
     "gen": ("อินเทอร์เฟซ", ""), "rating": ("มาตรฐาน", " 80+"), "hz": ("รีเฟรชเรต", " Hz"),
 }
+
+
+def load_aff():
+    f = os.path.join(ROOT, "data", "affiliate.json")
+    try:
+        with open(f, encoding="utf-8") as fh:
+            return json.load(fh)
+    except Exception:
+        return {}
+
+
+AFF = load_aff()
+
+
+def aff_link(p, price):
+    """เลือกร้านที่จ่ายค่าคอมสูงสุดสำหรับสินค้าชิ้นนั้น
+    Shopee 2% แต่ตันที่ 225฿ · Power Buy 3.15% ไม่มีเพดาน → ของแพงกว่า ~7,143฿ Power Buy ชนะ"""
+    def payout(rate, cap):
+        v = price * (rate or 0)
+        return min(v, cap) if cap else v
+
+    cands = []
+    if p.get("affiliate_url"):
+        cands.append((payout(AFF.get("shopee_rate", .02), AFF.get("shopee_cap", 225)),
+                      p["affiliate_url"], "shopee"))
+
+    aid, oid = AFF.get("involve_aff_id"), AFF.get("involve_powerbuy_offer_id")
+    if aid and oid and p.get("powerbuy_url"):
+        url = (f"https://invol.co/aff_m?offer_id={oid}&aff_id={aid}"
+               f"&url={urllib.parse.quote(p['powerbuy_url'], safe='')}")
+        cands.append((payout(AFF.get("powerbuy_rate", .0315), AFF.get("powerbuy_cap", 0)),
+                      url, "powerbuy"))
+
+    if not cands:
+        return (p.get("source_url") or BASE), "direct"
+    cands.sort(reverse=True)
+    return cands[0][1], cands[0][2]
+
+
+def ga_snippet():
+    gid = AFF.get("ga4_id")
+    if not gid:
+        return ""
+    return (f'<script async src="https://www.googletagmanager.com/gtag/js?id={gid}"></script>\n'
+            f'<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}\n'
+            f'gtag("js",new Date());gtag("config","{gid}");\n'
+            'document.addEventListener("click",function(e){var a=e.target.closest("a[data-out]");'
+            'if(a)gtag("event","outbound_click",{item:a.dataset.out,store:a.dataset.store||""})});</script>')
 
 
 def avg_price(p):
@@ -236,23 +284,40 @@ def build_category(key, cfg, products, updated):
 <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
+{ga_snippet()}
+<script>(function(){{var r=document.documentElement;
+var b=document.createElement('button');b.id='themebtn';b.title='สลับโทนสว่าง/มืด';
+function set(t){{r.dataset.theme=t;b.textContent=t==='light'?'☾':'☀';}}
+var s=null;try{{s=localStorage.getItem('theme');}}catch(e){{}}
+set(s||(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'));
+b.onclick=function(){{var t=r.dataset.theme==='light'?'dark':'light';set(t);try{{localStorage.setItem('theme',t);}}catch(e){{}}}};
+document.addEventListener('DOMContentLoaded',function(){{document.body.appendChild(b);}});}})();</script>
 <style>
-:root{{--bg:#0d1117;--card:#161b22;--card2:#1c2330;--border:#2d3748;--text:#e6edf3;--muted:#8b949e;--accent:#58e08c;--accent2:#4dabf7}}
+:root{{--bg:#0d1117;--card:#161b22;--card2:#1c2330;--border:#2d3748;--text:#e6edf3;--muted:#8b949e;--accent:#58e08c;--accent2:#4dabf7;--glow1:rgba(88,224,140,.20);--glow2:rgba(77,171,247,.17);--bgTop:#0a0f16;--grid:rgba(255,255,255,.038);--heroA:rgba(32,43,58,.78);--heroB:rgba(15,20,29,.82);--heroBd:rgba(88,224,140,.22);--nameA:#ffffff;--navBg:rgba(13,17,23,.88);--cardA:rgba(28,35,48,.9);--cardB:rgba(19,24,33,.92)}}
+html[data-theme="light"]{{--bg:#f4f7fb;--card:#fff;--card2:#eef2f7;--border:#d8e0ea;--text:#101720;
+  --muted:#5b6b7d;--accent:#0f9d58;--accent2:#1668c9;--glow1:rgba(15,157,88,.13);--glow2:rgba(22,104,201,.11);
+  --bgTop:#fff;--grid:rgba(16,23,32,.05);--heroA:rgba(255,255,255,.95);--heroB:rgba(240,246,252,.95);
+  --heroBd:rgba(15,157,88,.28);--nameA:#0b3d2c;--navBg:rgba(244,247,251,.92);--cardA:#fff;--cardB:#f7fafd}}
+html[data-theme="light"] .item img,html[data-theme="light"] .panel img{{background:#fff}}
+html[data-theme="light"] .btn{{color:#fff}}
+#themebtn{{position:fixed;top:14px;right:14px;z-index:50;background:var(--card);border:1px solid var(--border);
+  color:var(--text);width:40px;height:40px;border-radius:11px;cursor:pointer;font-size:1.15rem;line-height:1}}
+#themebtn:hover{{border-color:var(--accent)}}
+
 *{{box-sizing:border-box;margin:0;padding:0}}
 body{{
   color:var(--text);font-family:'Segoe UI',Tahoma,sans-serif;line-height:1.55;min-height:100vh;
   background:
-    radial-gradient(900px 500px at 10% -10%, rgba(88,224,140,.20), transparent 60%),
-    radial-gradient(820px 460px at 90% -6%, rgba(77,171,247,.17), transparent 62%),
-    radial-gradient(700px 500px at 50% 110%, rgba(88,224,140,.07), transparent 65%),
-    linear-gradient(180deg,#0a0f16 0%, var(--bg) 42%);
+    radial-gradient(900px 500px at 10% -10%, var(--glow1), transparent 60%),
+    radial-gradient(820px 460px at 90% -6%, var(--glow2), transparent 62%),
+    linear-gradient(180deg,var(--bgTop) 0%, var(--bg) 42%);
   background-attachment:fixed;background-repeat:no-repeat;
 }}
 body::before{{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
   background-image:
-    linear-gradient(rgba(255,255,255,.038) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.038) 1px, transparent 1px);
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
   background-size:58px 58px;
   -webkit-mask-image:radial-gradient(120% 70% at 50% 0%, #000 0%, transparent 72%);
   mask-image:radial-gradient(120% 70% at 50% 0%, #000 0%, transparent 72%);
@@ -261,8 +326,8 @@ a{{color:inherit;text-decoration:none}}
 .wrap{{max-width:1100px;margin:0 auto;padding:16px;position:relative;z-index:1}}
 .hero{{
   position:relative;overflow:hidden;margin:14px 0 4px;padding:24px 26px 22px;border-radius:22px;
-  background:linear-gradient(145deg, rgba(32,43,58,.78), rgba(15,20,29,.82));
-  border:1px solid rgba(88,224,140,.22);
+  background:linear-gradient(145deg, var(--heroA), var(--heroB));
+  border:1px solid var(--heroBd);
   box-shadow:0 26px 70px -30px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.07);
   -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
 }}
@@ -273,7 +338,7 @@ a{{color:inherit;text-decoration:none}}
 h1{{font-size:1.5rem;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:relative}}
 h1 img{{border-radius:13px;filter:drop-shadow(0 10px 22px rgba(88,224,140,.38))}}
 h1 .name{{font-size:2.05rem;font-weight:800;letter-spacing:-.6px;line-height:1.1;
-  background:linear-gradient(92deg,#ffffff 0%,#9dfbc4 45%,#4dabf7 100%);
+  background:linear-gradient(92deg,var(--nameA) 0%,var(--accent) 48%,var(--accent2) 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent}}
 h2{{font-size:1.3rem;margin:22px 0 6px}}
 .lead{{color:var(--muted);font-size:.95rem;margin-bottom:6px;position:relative}}
@@ -284,11 +349,11 @@ h2{{font-size:1.3rem;margin:22px 0 6px}}
 .stat.blue b{{color:var(--accent2)}}
 @media(max-width:560px){{.hero{{padding:20px 18px;border-radius:18px}} h1 .name{{font-size:1.65rem}}}}
 nav{{display:flex;gap:6px;overflow-x:auto;padding:12px 0;margin-bottom:6px;position:sticky;top:0;
-  background:rgba(13,17,23,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);z-index:10}}
+  background:var(--navBg);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);z-index:10}}
 nav a{{white-space:nowrap;background:var(--card);border:1px solid var(--border);color:var(--muted);padding:8px 14px;border-radius:20px;font-size:.92rem}}
-nav a.on{{background:var(--accent);color:#0d1117;font-weight:700;border-color:var(--accent);box-shadow:0 6px 18px -6px rgba(88,224,140,.7)}}
+nav a.on{{background:var(--accent);color:#fff;font-weight:700;border-color:var(--accent);box-shadow:0 6px 18px -6px rgba(88,224,140,.7)}}
 .grid{{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));margin-top:12px}}
-.item{{background:linear-gradient(160deg,rgba(28,35,48,.9),rgba(19,24,33,.92));border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;gap:14px;
+.item{{background:linear-gradient(160deg,var(--cardA),var(--cardB));border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;gap:14px;
   box-shadow:0 14px 34px -22px rgba(0,0,0,.9);transition:border-color .18s, transform .18s}}
 .item:hover{{border-color:rgba(88,224,140,.45);transform:translateY(-2px)}}
 .item img{{width:120px;height:120px;object-fit:contain;background:#fff;border-radius:10px;flex:none}}
@@ -302,7 +367,7 @@ nav a.on{{background:var(--accent);color:#0d1117;font-weight:700;border-color:va
 .stores{{list-style:none;font-size:.85rem;border-top:1px solid var(--border);padding-top:6px;margin-top:6px}}
 .stores li{{display:flex;justify-content:space-between;padding:2px 0;color:var(--muted)}}
 .stores b{{color:var(--text)}}
-.btn{{display:inline-block;margin-top:8px;background:var(--accent);color:#0d1117;font-weight:700;padding:7px 14px;border-radius:8px;font-size:.85rem}}
+.btn{{display:inline-block;margin-top:8px;background:var(--accent);color:#fff;font-weight:700;padding:7px 14px;border-radius:8px;font-size:.85rem}}
 footer{{margin:34px 0 20px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--border);padding-top:14px}}
 footer a{{color:var(--accent)}}
 .cta{{display:inline-block;margin-top:10px;border:1px solid var(--accent);color:var(--accent);padding:8px 16px;border-radius:8px;font-weight:600}}
@@ -338,7 +403,11 @@ footer a{{color:var(--accent)}}
 </main>
 <footer>
   <p>ราคารวบรวมจาก JIB, Advice และ iHAVECPU อัปเดตอัตโนมัติทุกวันเสาร์ · ราคาอาจเปลี่ยนแปลงได้ โปรดตรวจสอบกับร้านค้าอีกครั้งก่อนสั่งซื้อ</p>
-  <p style="margin-top:8px"><a href="{BASE}/">หน้าแรก</a> · <a href="{BASE}/#builder">จัดสเปคคอม</a> · <a href="{BASE}/#alerts">แจ้งเตือนราคา</a></p>
+  <p style="margin-top:8px"><a href="{BASE}/">หน้าแรก</a> · <a href="{BASE}/#builder">จัดสเปคคอม</a> ·
+     <a href="{BASE}/about">เกี่ยวกับเรา</a> · <a href="{BASE}/privacy">นโยบายความเป็นส่วนตัว</a> ·
+     <a href="{BASE}/contact">ติดต่อเรา</a></p>
+  <p style="margin-top:6px;font-size:.8rem">เว็บนี้มีลิงก์แนะนำ (affiliate) — เราอาจได้ค่าตอบแทนเมื่อคุณซื้อผ่านลิงก์ โดยคุณไม่ต้องจ่ายเพิ่ม
+     <a href="{BASE}/contact#affiliate">อ่านรายละเอียด</a></p>
 </footer>
 </div>
 </body>
@@ -347,22 +416,27 @@ footer a{{color:var(--accent)}}
 
 
 PRODUCT_CSS = """
-:root{--bg:#0d1117;--card:#161b22;--card2:#1c2330;--border:#2d3748;--text:#e6edf3;--muted:#8b949e;--accent:#58e08c;--accent2:#4dabf7}
+:root{--bg:#0d1117;--card:#161b22;--card2:#1c2330;--border:#2d3748;--text:#e6edf3;--muted:#8b949e;--accent:#58e08c;--accent2:#4dabf7;--glow1:rgba(88,224,140,.20);--glow2:rgba(77,171,247,.17);--bgTop:#0a0f16;--heroA:rgba(32,43,58,.78);--heroB:rgba(15,20,29,.85);--heroBd:rgba(88,224,140,.20);--nameA:#ffffff;--cardA:rgba(28,35,48,.9);--cardB:rgba(19,24,33,.92)}
+html[data-theme="light"]{--bg:#f4f7fb;--card:#fff;--card2:#eef2f7;--border:#d8e0ea;--text:#101720;--muted:#5b6b7d;--accent:#0f9d58;--accent2:#1668c9;--glow1:rgba(15,157,88,.13);--glow2:rgba(22,104,201,.11);--bgTop:#fff;--heroA:rgba(255,255,255,.95);--heroB:rgba(240,246,252,.95);--heroBd:rgba(15,157,88,.28);--nameA:#0b3d2c;--cardA:#fff;--cardB:#f7fafd}
+html[data-theme="light"] .btn{color:#fff}
+html[data-theme="light"] .doc p,html[data-theme="light"] .doc ul{color:#2b3947}
+#themebtn{position:fixed;top:14px;right:14px;z-index:50;background:var(--card);border:1px solid var(--border);color:var(--text);width:40px;height:40px;border-radius:11px;cursor:pointer;font-size:1.15rem;line-height:1}
+#themebtn:hover{border-color:var(--accent)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{color:var(--text);font-family:'Segoe UI',Tahoma,sans-serif;line-height:1.55;min-height:100vh;
-  background:radial-gradient(900px 500px at 10% -10%,rgba(88,224,140,.20),transparent 60%),
-    radial-gradient(820px 460px at 90% -6%,rgba(77,171,247,.17),transparent 62%),
-    linear-gradient(180deg,#0a0f16 0%,var(--bg) 42%);
+  background:radial-gradient(900px 500px at 10% -10%,var(--glow1),transparent 60%),
+    radial-gradient(820px 460px at 90% -6%,var(--glow2),transparent 62%),
+    linear-gradient(180deg,var(--bgTop) 0%,var(--bg) 42%);
   background-attachment:fixed;background-repeat:no-repeat}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:900px;margin:0 auto;padding:16px;position:relative;z-index:1}
 .top{display:flex;align-items:center;gap:10px;padding:16px 0 6px}
-.top .name{font-size:1.35rem;font-weight:800;background:linear-gradient(92deg,#fff,#9dfbc4 55%,#4dabf7);
+.top .name{font-size:1.35rem;font-weight:800;background:linear-gradient(92deg,var(--nameA),var(--accent) 55%,var(--accent2));
   -webkit-background-clip:text;background-clip:text;color:transparent}
 .crumb{color:var(--muted);font-size:.85rem;margin:6px 0 14px}
 .crumb a:hover{color:var(--accent)}
-.panel{background:linear-gradient(145deg,rgba(32,43,58,.78),rgba(15,20,29,.85));
-  border:1px solid rgba(88,224,140,.20);border-radius:20px;padding:22px;display:flex;gap:22px;flex-wrap:wrap;
+.panel{background:linear-gradient(145deg,var(--heroA),var(--heroB));
+  border:1px solid var(--heroBd);border-radius:20px;padding:22px;display:flex;gap:22px;flex-wrap:wrap;
   box-shadow:0 26px 70px -34px rgba(0,0,0,.95)}
 .panel img{width:230px;height:230px;object-fit:contain;background:#fff;border-radius:14px;flex:none}
 .info{flex:1;min-width:250px}
@@ -375,12 +449,12 @@ th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--border)}
 th{color:var(--muted);font-weight:500;font-size:.82rem}
 td.p{text-align:right;font-weight:700;white-space:nowrap}
 tr.best td{color:var(--accent)}
-.btn{display:inline-block;margin-top:14px;background:var(--accent);color:#0d1117;font-weight:700;
+.btn{display:inline-block;margin-top:14px;background:var(--accent);color:#fff;font-weight:700;
   padding:10px 20px;border-radius:9px;font-size:.92rem}
 .btn.ghost{background:transparent;border:1px solid var(--accent);color:var(--accent);margin-left:8px}
 h2{font-size:1.05rem;margin:28px 0 8px}
 .rel{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
-.rel li{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:11px 13px;font-size:.86rem}
+.rel li{background:linear-gradient(160deg,var(--cardA),var(--cardB));border:1px solid var(--border);border-radius:11px;padding:11px 13px;font-size:.86rem}
 .rel li:hover{border-color:rgba(88,224,140,.45)}
 .rel b{color:var(--accent);display:block;margin-top:3px}
 footer{margin:34px 0 20px;color:var(--muted);font-size:.83rem;border-top:1px solid var(--border);padding-top:14px}
@@ -407,7 +481,7 @@ def build_product(p, cfg, related, updated):
             BASE, pslug(q), html.escape(q["name"][:60]), fmt(avg_price(q)[0]))
         for q in related)
 
-    buy = p.get("affiliate_url") or p.get("source_url") or BASE
+    buy, store_tag = aff_link(p, mid)
     desc = f"ราคา {p['name']} วันนี้ {fmt(mid)} บาท"
     if len(stores) > 1:
         desc += f" ถูกสุดที่ {cheapest[0]} {fmt(cheapest[1])} บาท เทียบ {len(stores)} ร้าน"
@@ -452,6 +526,14 @@ def build_product(p, cfg, related, updated):
 <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
+{ga_snippet()}
+<script>(function(){{var r=document.documentElement;
+var b=document.createElement('button');b.id='themebtn';b.title='สลับโทนสว่าง/มืด';
+function set(t){{r.dataset.theme=t;b.textContent=t==='light'?'☾':'☀';}}
+var s=null;try{{s=localStorage.getItem('theme');}}catch(e){{}}
+set(s||(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'));
+b.onclick=function(){{var t=r.dataset.theme==='light'?'dark':'light';set(t);try{{localStorage.setItem('theme',t);}}catch(e){{}}}};
+document.addEventListener('DOMContentLoaded',function(){{document.body.appendChild(b);}});}})();</script>
 <style>{PRODUCT_CSS}</style>
 </head>
 <body>
@@ -473,7 +555,8 @@ def build_product(p, cfg, related, updated):
       <thead><tr><th>ร้านค้า</th><th style="text-align:right">ราคา</th></tr></thead>
       <tbody>{rows}</tbody>
     </table>
-    <a class="btn" href="{html.escape(buy)}" rel="nofollow sponsored" target="_blank">ดูดีล / สั่งซื้อ</a>
+    <a class="btn" href="{html.escape(buy)}" rel="nofollow sponsored" target="_blank"
+       data-out="{pslug(p)}" data-store="{store_tag}">ดูดีล / สั่งซื้อ</a>
     <a class="btn ghost" href="{BASE}/#{cfg['slug']}">ตั้งแจ้งเตือนราคาลด</a>
   </div>
 </article>
@@ -484,7 +567,191 @@ def build_product(p, cfg, related, updated):
 <footer>
   <p>ราคารวบรวมจาก JIB, Advice และ iHAVECPU · อัปเดตอัตโนมัติทุกวันเสาร์ · ราคาอาจเปลี่ยนแปลงได้ โปรดตรวจสอบกับร้านค้าก่อนสั่งซื้อ</p>
   <p style="margin-top:8px"><a href="{BASE}/{cfg['slug']}">ดูราคา{html.escape(cfg['name'])}ทั้งหมด</a> ·
-     <a href="{BASE}/#builder">จัดสเปคคอม</a> · <a href="{BASE}/">หน้าแรก</a></p>
+     <a href="{BASE}/">หน้าแรก</a> · <a href="{BASE}/about">เกี่ยวกับเรา</a> ·
+     <a href="{BASE}/privacy">นโยบายความเป็นส่วนตัว</a> · <a href="{BASE}/contact">ติดต่อเรา</a></p>
+  <p style="margin-top:6px;font-size:.8rem">เว็บนี้มีลิงก์แนะนำ (affiliate) — เราอาจได้ค่าตอบแทนเมื่อคุณซื้อผ่านลิงก์ โดยคุณไม่ต้องจ่ายเพิ่ม
+     <a href="{BASE}/contact#affiliate">อ่านรายละเอียด</a></p>
+</footer>
+</div>
+</body>
+</html>
+"""
+
+
+CONTACT_EMAIL = AFF.get("contact_email") or "nontanat2610@gmail.com"
+
+# หน้ามาตรฐานที่เครือข่าย affiliate ตรวจก่อนอนุมัติ (About / นโยบาย / ติดต่อ)
+STATIC_PAGES = {
+    "about": {
+        "title": "เกี่ยวกับ PriceSpec — เว็บเทียบราคาอุปกรณ์คอมในไทย",
+        "desc": "PriceSpec คือเว็บเทียบราคาอุปกรณ์คอมพิวเตอร์และเครื่องเกมในไทย รวบรวมราคาจากร้านค้าไทยอัตโนมัติทุกสัปดาห์ ใช้งานฟรี",
+        "h1": "เกี่ยวกับ PriceSpec",
+        "body": """
+<p>PriceSpec เป็นเว็บไซต์เทียบราคาอุปกรณ์คอมพิวเตอร์และเครื่องเกมสำหรับผู้ซื้อในประเทศไทย
+เกิดจากปัญหาที่เจอเอง — เวลาจะซื้อการ์ดจอหรือประกอบคอมสักเครื่อง ต้องเปิดเว็บร้านทีละร้านเพื่อเทียบราคา
+และไม่มีทางรู้ว่าราคาที่เห็นวันนี้ถูกหรือแพงกว่าสัปดาห์ก่อน</p>
+
+<h2>เราทำอะไร</h2>
+<ul>
+  <li><b>รวบรวมราคาจริงจากร้านค้าไทย</b> — JIB, Advice และ iHAVECPU</li>
+  <li><b>แสดงราคาเฉลี่ยพร้อมราคาแยกรายร้าน</b> ให้เห็นว่าร้านไหนถูกที่สุดในขณะนั้น</li>
+  <li><b>เก็บประวัติราคา</b> เพื่อให้รู้ว่าราคาปัจจุบันถูกจริงหรือแค่ดูเหมือนถูก</li>
+  <li><b>แจ้งเตือนเมื่อราคาต่ำกว่าที่ตั้งไว้</b> — ตั้งค่าเก็บไว้ในเครื่องผู้ใช้เอง</li>
+  <li><b>เครื่องมือจัดสเปคคอม</b> ตรวจความเข้ากันได้ของซ็อกเก็ต ชนิดแรม และกำลังไฟ</li>
+</ul>
+
+<h2>ข้อมูลอัปเดตอย่างไร</h2>
+<p>ระบบดึงราคาอัตโนมัติ<b>ทุกวันเสาร์ เวลา 05:00 น.</b> แล้วสร้างหน้าเว็บใหม่ทั้งหมดเอง
+ไม่มีการแก้ราคาด้วยมือ ราคาที่เห็นจึงเป็นราคาที่ดึงมาจากหน้าเว็บร้านค้าโดยตรง ณ เวลานั้น</p>
+<p>ปัจจุบันมีสินค้าในระบบมากกว่า 2,200 รายการ ใน 10 หมวด ได้แก่ การ์ดจอ ซีพียู เมนบอร์ด แรม SSD
+พาวเวอร์ซัพพลาย เคส จอมอนิเตอร์ ชุดระบายความร้อน และเครื่องเกม</p>
+
+<h2>ข้อจำกัดที่อยากให้ทราบ</h2>
+<p>ราคาอาจเปลี่ยนแปลงระหว่างรอบอัปเดต และบางรายการอาจมีข้อมูลจากร้านเดียว
+<b>โปรดตรวจสอบราคาและสต๊อกกับร้านค้าอีกครั้งก่อนตัดสินใจซื้อเสมอ</b>
+PriceSpec ไม่ได้ขายสินค้าเอง และไม่มีส่วนเกี่ยวข้องกับการสั่งซื้อหรือการจัดส่ง</p>
+
+<h2>ใครทำเว็บนี้</h2>
+<p>PriceSpec ดูแลโดยบุคคลธรรมดาในประเทศไทย ผู้สนใจด้านไอทีและการประกอบคอมพิวเตอร์
+เว็บนี้ใช้งานได้ฟรี ไม่มีค่าสมาชิก และไม่ต้องสมัครบัญชี</p>
+""",
+    },
+    "privacy": {
+        "title": "นโยบายความเป็นส่วนตัว | PriceSpec",
+        "desc": "นโยบายความเป็นส่วนตัวของ PriceSpec — เราไม่เก็บข้อมูลส่วนบุคคล ไม่ต้องสมัครสมาชิก และไม่ขายข้อมูลผู้ใช้",
+        "h1": "นโยบายความเป็นส่วนตัว",
+        "body": """
+<p class="upd">ปรับปรุงล่าสุด: 28 กรกฎาคม 2569</p>
+
+<h2>สรุปสั้น ๆ</h2>
+<p>PriceSpec <b>ไม่ต้องสมัครสมาชิก ไม่ขอข้อมูลส่วนบุคคล และไม่ขายข้อมูลผู้ใช้ให้ใคร</b></p>
+
+<h2>ข้อมูลที่เก็บ</h2>
+<ul>
+  <li><b>ข้อมูลที่เก็บไว้ในเครื่องคุณเอง (Local Storage)</b> — รายการแจ้งเตือนราคาและสเปคคอมที่คุณจัดไว้
+      ข้อมูลนี้อยู่ในเบราว์เซอร์ของคุณเท่านั้น ไม่ถูกส่งมาที่เรา และลบได้เองโดยล้างข้อมูลเว็บไซต์</li>
+  <li><b>สถิติการใช้งานแบบไม่ระบุตัวตน</b> — เราอาจใช้ Google Analytics เพื่อดูจำนวนผู้เข้าชมและหน้าที่ได้รับความนิยม
+      ข้อมูลนี้เป็นภาพรวม ไม่สามารถระบุตัวบุคคลได้</li>
+  <li><b>ข้อมูลทางเทคนิคของผู้ให้บริการโฮสติ้ง</b> — Vercel อาจบันทึกที่อยู่ IP และชนิดเบราว์เซอร์ตามปกติของการให้บริการเว็บ</li>
+</ul>
+
+<h2>ข้อมูลที่ไม่เก็บ</h2>
+<p>เราไม่เก็บชื่อ อีเมล เบอร์โทร ที่อยู่ ข้อมูลบัตรเครดิต หรือข้อมูลการชำระเงินใด ๆ
+เพราะเว็บนี้ไม่มีระบบสมาชิกและไม่มีการขายสินค้า</p>
+
+<h2>คุกกี้และลิงก์ไปเว็บอื่น</h2>
+<p>เมื่อคุณกดลิงก์ไปยังร้านค้า เว็บปลายทางอาจวางคุกกี้ของตัวเองเพื่อบันทึกที่มาของผู้เข้าชม
+ซึ่งอยู่นอกเหนือการควบคุมของเรา โปรดอ่านนโยบายความเป็นส่วนตัวของร้านค้านั้น ๆ</p>
+
+<h2>สิทธิของคุณ</h2>
+<p>ตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล (PDPA) คุณมีสิทธิสอบถาม ขอแก้ไข หรือขอลบข้อมูลของคุณ
+เนื่องจากเราไม่ได้เก็บข้อมูลที่ระบุตัวตน จึงมักไม่มีข้อมูลให้ลบ แต่หากมีข้อสงสัยติดต่อเราได้ตลอด</p>
+
+<h2>การเปลี่ยนแปลงนโยบาย</h2>
+<p>หากมีการแก้ไขนโยบายนี้ เราจะอัปเดตวันที่ด้านบนของหน้า</p>
+""",
+    },
+    "contact": {
+        "title": "ติดต่อเรา และการเปิดเผยเรื่องลิงก์แนะนำ | PriceSpec",
+        "desc": "ช่องทางติดต่อ PriceSpec สำหรับแจ้งราคาผิด เสนอสินค้าที่อยากให้เพิ่ม หรือติดต่อเรื่องธุรกิจ พร้อมการเปิดเผยเรื่องลิงก์ affiliate",
+        "h1": "ติดต่อเรา",
+        "body": """
+<p>มีอะไรอยากบอก ทักมาได้เลย เราอ่านทุกฉบับ</p>
+
+<p class="mail">อีเมล: <a href="mailto:{email}">{email}</a></p>
+
+<h2>เรื่องที่ติดต่อเข้ามาบ่อย</h2>
+<ul>
+  <li><b>ราคาผิดหรือสินค้าไม่มีขายแล้ว</b> — บอกชื่อรุ่นมาได้เลย เราจะตรวจสอบและแก้ในรอบอัปเดตถัดไป</li>
+  <li><b>อยากให้เพิ่มสินค้าหรือหมวดใหม่</b> — ยินดีรับข้อเสนอเสมอ</li>
+  <li><b>ร้านค้าที่อยากให้เพิ่มเข้าระบบเทียบราคา</b></li>
+  <li><b>ติดต่อเรื่องธุรกิจหรือความร่วมมือ</b></li>
+</ul>
+
+<h2 id="affiliate">การเปิดเผยเรื่องลิงก์แนะนำ (Affiliate Disclosure)</h2>
+<p>PriceSpec ให้บริการฟรีและไม่มีค่าสมาชิก เราจึงมีรายได้จาก<b>ลิงก์แนะนำ (affiliate link)</b> เป็นหลัก</p>
+<p>เมื่อคุณกดปุ่มไปยังร้านค้าผ่านเว็บของเราแล้วเกิดการสั่งซื้อ เราอาจได้รับค่าตอบแทนเล็กน้อยจากร้านค้านั้น
+<b>โดยคุณไม่ต้องจ่ายเพิ่มแม้แต่บาทเดียว</b> ราคาที่คุณจ่ายเท่ากับการเข้าเว็บร้านค้าโดยตรง</p>
+<p>สิ่งที่เรายึดถือ:</p>
+<ul>
+  <li>ราคาที่แสดงเป็นราคาที่ดึงจากหน้าเว็บร้านค้าจริง <b>เราไม่แก้ไขหรือจัดอันดับตามค่าตอบแทน</b></li>
+  <li>ร้านที่ถูกที่สุดจะถูกทำเครื่องหมาย 🏆 เสมอ ไม่ว่าร้านนั้นจะจ่ายค่าตอบแทนให้เราหรือไม่</li>
+  <li>ลิงก์แนะนำทุกลิงก์กำกับด้วย <code>rel="nofollow sponsored"</code> ตามแนวทางของ Google</li>
+</ul>
+""",
+    },
+}
+
+
+def build_static(key, cfg, updated):
+    nav_links = "".join(
+        '<a href="{}/{}">{} {}</a>'.format(BASE, c["slug"], c["emoji"], c["name"])
+        for c in CATS.values())
+    body = cfg["body"].replace("{email}", CONTACT_EMAIL)
+    return f"""<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{html.escape(cfg['title'])}</title>
+<meta name="description" content="{html.escape(cfg['desc'])}">
+<link rel="canonical" href="{BASE}/{key}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="th_TH">
+<meta property="og:site_name" content="PriceSpec">
+<meta property="og:title" content="{html.escape(cfg['title'])}">
+<meta property="og:description" content="{html.escape(cfg['desc'])}">
+<meta property="og:url" content="{BASE}/{key}">
+<meta name="theme-color" content="#0d1117">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+{ga_snippet()}
+<script>(function(){{var r=document.documentElement;
+var b=document.createElement('button');b.id='themebtn';b.title='สลับโทนสว่าง/มืด';
+function set(t){{r.dataset.theme=t;b.textContent=t==='light'?'☾':'☀';}}
+var s=null;try{{s=localStorage.getItem('theme');}}catch(e){{}}
+set(s||(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'));
+b.onclick=function(){{var t=r.dataset.theme==='light'?'dark':'light';set(t);try{{localStorage.setItem('theme',t);}}catch(e){{}}}};
+document.addEventListener('DOMContentLoaded',function(){{document.body.appendChild(b);}});}})();</script>
+<style>{PRODUCT_CSS}
+.doc{{background:linear-gradient(145deg,var(--heroA),var(--heroB));
+  border:1px solid var(--heroBd);border-radius:20px;padding:30px 34px;margin-top:6px}}
+.doc h1{{font-size:1.7rem;margin-bottom:14px}}
+.doc h2{{font-size:1.12rem;margin:26px 0 8px;color:var(--accent)}}
+.doc p{{margin:10px 0;color:#c6d2de}}
+.doc ul{{margin:10px 0 10px 20px;color:#c6d2de}}
+.doc li{{margin:7px 0}}
+.doc b{{color:var(--text)}}
+.doc a{{color:var(--accent2)}}
+.doc a:hover{{text-decoration:underline}}
+.doc code{{background:rgba(255,255,255,.07);padding:2px 7px;border-radius:5px;font-size:.88em}}
+.upd{{color:var(--muted);font-size:.86rem}}
+.mail{{font-size:1.15rem;background:rgba(88,224,140,.09);border:1px solid rgba(88,224,140,.3);
+  border-radius:12px;padding:14px 18px;margin:16px 0!important}}
+nav{{display:flex;gap:6px;overflow-x:auto;padding:12px 0;margin-bottom:6px;scrollbar-width:none}}
+nav::-webkit-scrollbar{{height:0}}
+nav a{{white-space:nowrap;background:var(--card);border:1px solid var(--border);color:var(--muted);
+  padding:8px 14px;border-radius:20px;font-size:.92rem}}
+@media(max-width:620px){{.doc{{padding:22px 18px}}}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top">
+  <a href="{BASE}/"><img src="/logo-mark.svg" alt="โลโก้ PriceSpec" width="38" height="38" style="border-radius:9px"></a>
+  <a href="{BASE}/" class="name">PriceSpec</a>
+</div>
+<p class="crumb"><a href="{BASE}/">หน้าแรก</a> › {html.escape(cfg['h1'])}</p>
+<nav>{nav_links}</nav>
+<article class="doc">
+  <h1>{html.escape(cfg['h1'])}</h1>
+  {body}
+</article>
+<footer>
+  <p>ราคารวบรวมจาก JIB, Advice และ iHAVECPU · อัปเดตอัตโนมัติทุกวันเสาร์ · อัปเดตล่าสุด {updated}</p>
+  <p style="margin-top:8px"><a href="{BASE}/">หน้าแรก</a> · <a href="{BASE}/about">เกี่ยวกับเรา</a> ·
+     <a href="{BASE}/privacy">นโยบายความเป็นส่วนตัว</a> · <a href="{BASE}/contact">ติดต่อเรา</a></p>
 </footer>
 </div>
 </body>
@@ -528,6 +795,7 @@ def main():
 
     # sitemap
     urls = ([(BASE + "/", "1.0")] + [(f"{BASE}/{s}", "0.8") for s in made]
+            + [(f"{BASE}/{k}", "0.5") for k in STATIC_PAGES]
             + [(u, "0.6") for u in prod_urls])
     sm = ['<?xml version="1.0" encoding="UTF-8"?>',
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
@@ -535,6 +803,15 @@ def main():
         sm.append(f"  <url>\n    <loc>{loc}</loc>\n    <lastmod>{updated}</lastmod>"
                   f"\n    <changefreq>weekly</changefreq>\n    <priority>{pr}</priority>\n  </url>")
     sm.append("</urlset>\n")
+    for key, cfg in STATIC_PAGES.items():
+        with open(os.path.join(ROOT, key + ".html"), "w", encoding="utf-8") as f:
+            f.write(build_static(key, cfg, updated))
+    print(f"  ✓ /about /privacy /contact")
+
+    pub = {k: v for k, v in AFF.items() if not k.startswith("_")}
+    with open(os.path.join(ROOT, "data", "affiliate.js"), "w", encoding="utf-8") as f:
+        f.write("window.AFFILIATE = " + json.dumps(pub, ensure_ascii=False) + ";")
+
     with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8") as f:
         f.write("\n".join(sm))
     print(f"  ✓ sitemap.xml ({len(urls)} URL)")
