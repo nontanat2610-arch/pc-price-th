@@ -29,706 +29,923 @@
   "description": "เทียบราคาการ์ดจอ ซีพียู แรม SSD เมนบอร์ด เคส และเครื่องเกม จากร้านค้าไทย JIB Advice iHAVECPU"
 }
 </script>
-<meta name="theme-color" content="#0d1117">
+<meta name="theme-color" content="#0D1117">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
 <link rel="icon" type="image/svg+xml" href="/logo-mark.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <script src="data/affiliate.js"></script>
 <script>
-// โหลดข้อมูลราคาแบบสดเสมอ (เลี่ยง HTTP cache ของ GitHub Pages)
 document.write('<script src="data/prices.js?t=' + Math.floor(Date.now()/60000) + '"><\/script>');
 </script>
 <style>
+/* ═══════════ TOKENS ═══════════ */
 :root{
-  --bg:#0d1117; --card:#161b22; --card2:#1c2330; --border:#2d3748;
-  --text:#e6edf3; --muted:#8b949e; --accent:#58e08c; --accent2:#4dabf7;
-  --red:#ff6b6b; --yellow:#ffd43b;
-  --glow1:rgba(88,224,140,.20); --glow2:rgba(77,171,247,.17); --glow3:rgba(88,224,140,.07);
-  --bgTop:#0a0f16; --grid:rgba(255,255,255,.038);
-  --heroA:rgba(32,43,58,.78); --heroB:rgba(15,20,29,.82); --heroBd:rgba(88,224,140,.22);
-  --heroSh:0 26px 70px -30px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.07);
-  --nameA:#ffffff; --navBg:rgba(13,17,23,.88);
-  --cardA:rgba(28,35,48,.92); --cardB:rgba(19,24,33,.94);
-  --cardSh:0 14px 34px -24px rgba(0,0,0,.9); --chip:rgba(255,255,255,.05); --chipBd:rgba(255,255,255,.10);
+  --bg:#0D1117; --surface:#161B22; --surface2:#1B222B; --border:#252C36; --border2:#323B47;
+  --text:#E6EDF3; --text2:#9AA7B4; --text3:#6E7C8C;
+  --accent:#3FB6FF; --accent-ink:#04121C;
+  --down:#3FB950; --up:#F0603E; --warn:#D29922;
+  --downBg:rgba(63,185,80,.12); --upBg:rgba(240,96,62,.12); --warnBg:rgba(210,153,34,.12);
+  --accentBg:rgba(63,182,255,.10);
+  --sk:linear-gradient(90deg,#171D25 0%,#212a35 50%,#171D25 100%);
+  --r-card:12px; --r-btn:8px;
+  --shadow:0 0 0 1px var(--border);
 }
-/* ---------- โทนสว่าง ---------- */
 html[data-theme="light"]{
-  --bg:#f4f7fb; --card:#ffffff; --card2:#eef2f7; --border:#d8e0ea;
-  --text:#101720; --muted:#5b6b7d; --accent:#0f9d58; --accent2:#1668c9;
-  --red:#d93838; --yellow:#b8860b;
-  --glow1:rgba(15,157,88,.13); --glow2:rgba(22,104,201,.11); --glow3:rgba(15,157,88,.05);
-  --bgTop:#ffffff; --grid:rgba(16,23,32,.05);
-  --heroA:rgba(255,255,255,.95); --heroB:rgba(240,246,252,.95); --heroBd:rgba(15,157,88,.28);
-  --heroSh:0 18px 46px -26px rgba(16,40,70,.35), inset 0 1px 0 rgba(255,255,255,.9);
-  --nameA:#0b3d2c; --navBg:rgba(244,247,251,.92);
-  --cardA:#ffffff; --cardB:#f7fafd;
-  --cardSh:0 10px 26px -20px rgba(16,40,70,.4); --chip:rgba(16,23,32,.045); --chipBd:rgba(16,23,32,.10);
+  --bg:#F7F9FC; --surface:#FFFFFF; --surface2:#F1F4F8; --border:#DCE3EC; --border2:#C6D0DC;
+  --text:#0E1620; --text2:#54606E; --text3:#7C8899;
+  --accent:#0A6FC2; --accent-ink:#FFFFFF;
+  --down:#1A7F37; --up:#C2410C; --warn:#8A6100;
+  --downBg:rgba(26,127,55,.10); --upBg:rgba(194,65,12,.10); --warnBg:rgba(138,97,0,.10);
+  --accentBg:rgba(10,111,194,.08);
+  --sk:linear-gradient(90deg,#EDF1F6 0%,#F7FAFD 50%,#EDF1F6 100%);
+  --shadow:0 1px 2px rgba(16,32,52,.06), 0 0 0 1px var(--border);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-a{color:inherit;text-decoration:none}
+html{scroll-behavior:smooth}
 body{
-  color:var(--text);font-family:'Segoe UI',Tahoma,sans-serif;line-height:1.5;
-  background:
-    radial-gradient(900px 500px at 10% -10%, var(--glow1), transparent 60%),
-    radial-gradient(820px 460px at 90% -6%, var(--glow2), transparent 62%),
-    radial-gradient(700px 500px at 50% 110%, var(--glow3), transparent 65%),
-    linear-gradient(180deg,var(--bgTop) 0%, var(--bg) 42%);
-  background-attachment:fixed;background-repeat:no-repeat;min-height:100vh;
+  background:var(--bg); color:var(--text); line-height:1.55;
+  font-family:'IBM Plex Sans Thai','Segoe UI',Tahoma,sans-serif;
+  -webkit-font-smoothing:antialiased;
 }
-/* ตารางเส้นจาง ๆ ให้ดูเป็นเทคโนโลยี */
-body::before{
-  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size:58px 58px;
-  -webkit-mask-image:radial-gradient(120% 70% at 50% 0%, #000 0%, transparent 72%);
-  mask-image:radial-gradient(120% 70% at 50% 0%, #000 0%, transparent 72%);
-}
-.wrap{max-width:1100px;margin:0 auto;padding:16px;position:relative;z-index:1}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+.wrap{max-width:1200px;margin:0 auto;padding:0 16px}
 
-/* ---------- ส่วนหัว (Hero) ---------- */
-.hero{
-  position:relative;overflow:hidden;margin:14px 0 4px;padding:26px 26px 22px;border-radius:22px;
-  background:linear-gradient(145deg, var(--heroA), var(--heroB));
-  border:1px solid var(--heroBd);
-  box-shadow:var(--heroSh);
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
-}
-.hero::after{content:"";position:absolute;width:440px;height:440px;right:-150px;top:-220px;pointer-events:none;
-  background:radial-gradient(circle, rgba(88,224,140,.30), transparent 62%)}
-.hero::before{content:"";position:absolute;width:400px;height:400px;left:-170px;bottom:-250px;pointer-events:none;
-  background:radial-gradient(circle, rgba(77,171,247,.24), transparent 62%)}
-.brand{display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:relative}
-.brand img{border-radius:13px;filter:drop-shadow(0 10px 22px rgba(88,224,140,.38))}
-.brand .name{font-size:2.15rem;font-weight:800;letter-spacing:-.6px;line-height:1.1;
-  background:linear-gradient(92deg,var(--nameA) 0%,var(--accent) 48%,var(--accent2) 100%);
-  -webkit-background-clip:text;background-clip:text;color:transparent}
-.brand .tag{font-size:.9rem;color:var(--muted);font-weight:400;
-  border-left:2px solid rgba(88,224,140,.5);padding-left:10px;margin-left:2px}
-h1{font-size:1.6rem}
-.sub{color:var(--muted);font-size:.92rem;margin-top:4px;position:relative}
-.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px;position:relative}
-.stat{background:var(--chip);border:1px solid var(--chipBd);
-  border-radius:999px;padding:6px 14px;font-size:.83rem;color:var(--muted);white-space:nowrap}
-.stat b{color:var(--accent);font-weight:700}
-.stat.blue b{color:var(--accent2)}
-#themebtn{position:absolute;top:18px;right:18px;z-index:3;background:var(--chip);border:1px solid var(--chipBd);
-  color:var(--text);width:40px;height:40px;border-radius:11px;cursor:pointer;font-size:1.15rem;line-height:1}
-#themebtn:hover{border-color:var(--accent)}
-@media(max-width:560px){
-  .hero{padding:20px 18px;border-radius:18px}
-  .brand .name{font-size:1.7rem}
-  .brand .tag{border-left:none;padding-left:0;margin-left:0;flex-basis:100%}
-}
-nav{display:flex;gap:6px;overflow-x:auto;padding:12px 0;position:sticky;top:0;background:var(--navBg);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);z-index:10;-webkit-overflow-scrolling:touch}
-nav button{white-space:nowrap;background:var(--card);border:1px solid var(--border);color:var(--muted);padding:8px 14px;border-radius:20px;font-size:.92rem;cursor:pointer}
-nav button.on{background:var(--accent);color:#fff;font-weight:700;border-color:var(--accent);box-shadow:0 6px 18px -6px rgba(88,224,140,.7)}
-nav::-webkit-scrollbar{height:0}
-nav{scrollbar-width:none}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
-.toolbar input,.toolbar select{background:var(--card);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:9px;font-size:.95rem}
-.toolbar input:focus,.toolbar select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(88,224,140,.13)}
-#search{flex:1;min-width:220px}
-.rangebox{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border);
-  border-radius:9px;padding:0 11px;color:var(--muted);font-size:.85rem}
-.rangebox input{border:none!important;background:transparent!important;width:78px;padding:9px 0!important;box-shadow:none!important}
-.rangebox input:focus{outline:none}
-.chk{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--border);
-  border-radius:9px;padding:9px 13px;color:var(--muted);font-size:.9rem;cursor:pointer;user-select:none}
-.chk input{accent-color:var(--accent);cursor:pointer}
-.resbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
-  color:var(--muted);font-size:.88rem;margin:8px 0 14px}
+/* ═══════════ HEADER ═══════════ */
+header{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.hbar{display:flex;align-items:center;gap:12px;height:60px}
+.logo{display:flex;align-items:center;gap:9px;flex:none;font-weight:700;font-size:1.05rem;letter-spacing:-.2px}
+.logo img{width:30px;height:30px;border-radius:8px}
+.logo i{color:var(--accent);font-style:normal}
+.searchwrap{position:relative;flex:1;min-width:0}
+#q{width:100%;height:42px;padding:0 40px 0 38px;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r-btn);font-size:.95rem;outline:none}
+#q:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accentBg)}
+#q::placeholder{color:var(--text3)}
+.sicon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text3);pointer-events:none}
+.kbd{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:.7rem;color:var(--text3);
+  border:1px solid var(--border);border-radius:5px;padding:1px 6px}
+#ac{position:absolute;top:48px;left:0;right:0;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r-card);overflow:hidden;display:none;box-shadow:0 16px 40px -18px rgba(0,0,0,.7);max-height:60vh;overflow-y:auto}
+#ac.on{display:block}
+.acrow{display:flex;align-items:center;gap:11px;padding:9px 12px;border-bottom:1px solid var(--border);cursor:pointer}
+.acrow:last-child{border-bottom:none}
+.acrow:hover,.acrow.sel{background:var(--surface2)}
+.acrow img{width:36px;height:36px;object-fit:contain;background:#fff;border-radius:6px;flex:none}
+.acrow .nm{flex:1;min-width:0;font-size:.87rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acrow .pr{font-weight:700;color:var(--accent);font-size:.9rem;flex:none}
+.iconbtn{flex:none;width:40px;height:40px;border:1px solid var(--border);background:var(--surface);
+  border-radius:var(--r-btn);cursor:pointer;font-size:1rem;display:grid;place-items:center}
+.iconbtn:hover{border-color:var(--accent)}
+
+/* ═══════════ HERO ═══════════ */
+.hero{padding:38px 0 6px}
+h1{font-size:1.85rem;font-weight:700;letter-spacing:-.4px;line-height:1.3;max-width:16ch}
+h1 em{font-style:normal;color:var(--accent)}
+.lead{color:var(--text2);margin-top:10px;font-size:.98rem;max-width:52ch}
+.bigsearch{margin:20px 0 0;position:relative;max-width:640px}
+#q2{width:100%;height:54px;padding:0 16px 0 46px;background:var(--surface);border:1px solid var(--border2);
+  border-radius:var(--r-btn);font-size:1rem;outline:none}
+#q2:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accentBg)}
+.bigsearch .sicon{left:16px;font-size:1.1rem}
+/* Trust bar */
+.trust{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:22px 0 0;
+  padding:12px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card)}
+.tchip{display:flex;align-items:center;gap:7px;font-size:.82rem;color:var(--text2);white-space:nowrap}
+.tchip b{color:var(--text);font-weight:600}
+.tsep{width:1px;height:18px;background:var(--border);flex:none}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--down);flex:none;
+  box-shadow:0 0 0 0 var(--down);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(63,185,80,.5)}70%{box-shadow:0 0 0 7px rgba(63,185,80,0)}100%{box-shadow:0 0 0 0 rgba(63,185,80,0)}}
+.slogo{display:inline-flex;align-items:center;height:20px;padding:0 7px;border-radius:4px;
+  font-size:.7rem;font-weight:700;letter-spacing:.2px;border:1px solid var(--border2);color:var(--text2)}
+.slogo.jib{color:#E8442E;border-color:rgba(232,68,46,.45)}
+.slogo.adv{color:#3FB6FF;border-color:rgba(63,182,255,.45)}
+.slogo.ihv{color:#F0A72E;border-color:rgba(240,167,46,.45)}
+
+/* ═══════════ SECTION ═══════════ */
+section{padding:34px 0 0}
+.shead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px}
+h2{font-size:1.15rem;font-weight:700;letter-spacing:-.2px}
+.shead .hint{font-size:.82rem;color:var(--text3)}
+
+/* Deal strip */
+.strip{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory;scrollbar-width:none}
+.strip::-webkit-scrollbar{height:0}
+.deal{flex:none;width:214px;scroll-snap-align:start;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r-card);padding:13px;transition:transform .16s,border-color .16s}
+.deal:hover{transform:translateY(-2px);border-color:var(--border2)}
+.deal .dimg{height:74px;display:grid;place-items:center;margin-bottom:9px}
+.deal .dimg img{max-height:100%;max-width:82%;object-fit:contain}
+.deal .dn{font-size:.8rem;color:var(--text2);height:2.5em;overflow:hidden;line-height:1.25}
+.deal .dp{display:flex;align-items:baseline;gap:7px;margin-top:6px}
+.deal .dp b{font-size:1.05rem;font-weight:700}
+.deal .old{font-size:.76rem;color:var(--text3);text-decoration:line-through}
+.pct{display:inline-block;padding:1px 6px;border-radius:5px;font-size:.72rem;font-weight:700;
+  background:var(--downBg);color:var(--down)}
+
+/* Category grid */
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px}
+.cat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);
+  padding:14px;transition:border-color .16s,transform .16s;cursor:pointer}
+.cat:hover{border-color:var(--accent);transform:translateY(-2px)}
+.cat .ci{font-size:1.35rem;line-height:1}
+.cat .cn{font-weight:600;font-size:.9rem;margin-top:8px}
+.cat .cf{font-size:.76rem;color:var(--text3);margin-top:3px}
+.cat .cf b{color:var(--text2);font-weight:600}
+
+/* ═══════════ FILTER BAR ═══════════ */
+.fbar{position:sticky;top:60px;z-index:50;background:color-mix(in srgb,var(--bg) 92%,transparent);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  padding:10px 0;border-bottom:1px solid var(--border);margin-bottom:16px}
+.frow{display:flex;gap:8px;align-items:center;overflow-x:auto;scrollbar-width:none}
+.frow::-webkit-scrollbar{height:0}
+.pill{flex:none;height:36px;padding:0 13px;background:var(--surface);border:1px solid var(--border);
+  border-radius:99px;font-size:.86rem;color:var(--text2);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.pill:hover{border-color:var(--border2)}
+.pill.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.fsel{flex:none;height:36px;padding:0 30px 0 12px;background:var(--surface) no-repeat right 10px center;
+  border:1px solid var(--border);border-radius:var(--r-btn);font-size:.86rem;cursor:pointer;
+  appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--text3) 50%),linear-gradient(135deg,var(--text3) 50%,transparent 50%);
+  background-size:5px 5px,5px 5px;background-position:calc(100% - 16px) 16px,calc(100% - 11px) 16px}
+.fspacer{flex:1;min-width:4px}
+.vtoggle{flex:none;display:flex;border:1px solid var(--border);border-radius:var(--r-btn);overflow:hidden}
+.vtoggle button{width:38px;height:36px;background:var(--surface);border:none;cursor:pointer;color:var(--text3)}
+.vtoggle button.on{background:var(--surface2);color:var(--accent)}
+.resbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+  font-size:.84rem;color:var(--text3);margin-bottom:12px}
 .resbar b{color:var(--text)}
-.linkbtn{background:none;border:none;color:var(--accent2);cursor:pointer;font-size:.88rem;padding:0}
-.linkbtn:hover{text-decoration:underline}
-.loadmore{display:flex;justify-content:center;margin:22px 0 6px}
-.loadmore .btn{flex:none;padding:11px 30px;font-size:.95rem}
-.nohist{color:#6e7681;font-style:italic}
-.alertbar{background:color-mix(in srgb,var(--yellow) 14%,transparent);border:1px solid var(--yellow);color:var(--yellow);padding:10px 14px;border-radius:8px;margin-bottom:14px;display:none}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px}
-.card{background:linear-gradient(160deg,var(--cardA),var(--cardB));
-  border:1px solid var(--border);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;
-  box-shadow:var(--cardSh);transition:border-color .16s,transform .16s}
-.card:hover{border-color:rgba(88,224,140,.42);transform:translateY(-2px)}
-.card h3{font-size:.98rem;line-height:1.4;min-height:2.7em}
-.card h3 a:hover{color:var(--accent)}
-.imgbox{height:140px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.imgbox a{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
-.imgbox img{max-height:92%;max-width:92%;object-fit:contain}
-.imgbox img.ph{height:70%;opacity:.85}
-.imgbox:has(img.ph){background:var(--card2)}
-.pricebox{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.price{font-size:1.45rem;font-weight:700;color:var(--accent)}
-.store{color:var(--muted);font-size:.85rem}
-.chg{font-size:.83rem;padding:2px 8px;border-radius:20px}
-.chg.down{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
-.chg.up{background:color-mix(in srgb,var(--red) 14%,transparent);color:var(--red)}
-.chg.flat{background:var(--card2);color:var(--muted)}
-.meta{color:var(--muted);font-size:.83rem}
-.stores{background:var(--card2);border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;gap:4px}
-.srow{display:flex;justify-content:space-between;font-size:.86rem;color:var(--muted)}
-.srow.cheap{color:var(--accent);font-weight:700}
-.chartbox{height:105px}
-.rowbtn{display:flex;gap:8px;margin-top:2px}
-.btn{flex:1;text-align:center;padding:9px 10px;border-radius:8px;font-size:.9rem;cursor:pointer;border:none;text-decoration:none}
-.btn.buy{background:var(--accent);color:#fff;font-weight:700}
-.btn.alert{background:var(--card2);color:var(--accent2);border:1px solid var(--border)}
-.alertform{display:none;gap:8px;margin-top:4px}
-.alertform input{flex:1;background:var(--card2);border:1px solid var(--border);color:var(--text);padding:8px 10px;border-radius:8px;width:100%}
-.alertform button{background:var(--accent2);border:none;color:#0d1117;font-weight:700;padding:8px 12px;border-radius:8px;cursor:pointer}
-/* builder */
-.builder{display:grid;gap:12px;margin-top:6px}
-.brow{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;display:grid;grid-template-columns:110px 1fr auto;gap:10px;align-items:center}
-.brow label{color:var(--muted);font-size:.9rem}
-.brow select{width:100%;background:var(--card2);border:1px solid var(--border);color:var(--text);padding:9px 10px;border-radius:8px;font-size:.92rem}
-.brow .p{font-weight:700;color:var(--accent);white-space:nowrap}
-.bsum{background:var(--card);border:1px solid var(--accent);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px}
-.bsum .total{font-size:1.6rem;font-weight:700;color:var(--accent)}
-.warn{color:var(--yellow);font-size:.9rem}
-.ok{color:var(--accent);font-size:.9rem}
-.err{color:var(--red);font-size:.9rem}
-.bbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
-.bbtns .btn{flex:none;padding:9px 16px}
-@media(max-width:560px){.brow{grid-template-columns:1fr;gap:6px}.brow .p{text-align:right}}
-html[data-theme="light"] .imgbox{background:#fff}
-.myalerts table{width:100%;border-collapse:collapse;font-size:.92rem}
-.myalerts th,.myalerts td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--border)}
-.myalerts .hit{color:var(--accent);font-weight:700}
-.myalerts .del{color:var(--red);cursor:pointer;background:none;border:none;font-size:.9rem}
-footer{color:var(--muted);font-size:.82rem;padding:24px 0;border-top:1px solid var(--border);margin-top:26px}
-footer a{color:var(--accent);text-decoration:none}
-footer a:hover{text-decoration:underline}
+.link{background:none;border:none;color:var(--accent);cursor:pointer;font-size:.84rem;padding:0}
+.link:hover{text-decoration:underline}
+
+/* ═══════════ PRODUCT CARD ═══════════ */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(292px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);
+  padding:14px;display:flex;flex-direction:column;gap:9px;transition:transform .16s,border-color .16s}
+.card:hover{transform:translateY(-2px);border-color:var(--border2)}
+.cimg{height:132px;display:grid;place-items:center;background:var(--surface2);border-radius:9px;overflow:hidden}
+.cimg img{max-height:88%;max-width:88%;object-fit:contain;mix-blend-mode:normal}
+.cname{font-size:.9rem;font-weight:600;line-height:1.35;height:2.7em;overflow:hidden;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.cname:hover{color:var(--accent)}
+.priceline{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.price{font-size:1.8rem;font-weight:700;letter-spacing:-.8px;line-height:1.1}
+.price .baht{font-size:1.05rem;font-weight:600;opacity:.55;margin-left:2px}
+.save{font-size:.79rem;font-weight:600;color:var(--down);background:var(--downBg);padding:2px 7px;border-radius:5px}
+.ctx{display:flex;align-items:center;gap:8px}
+.spark{flex:none}
+.badge{font-size:.75rem;font-weight:600;padding:2px 8px;border-radius:5px;white-space:nowrap}
+.badge.low{background:var(--downBg);color:var(--down)}
+.badge.mid{background:var(--surface2);color:var(--text2)}
+.badge.high{background:var(--upBg);color:var(--up)}
+.badge.warn{background:var(--warnBg);color:var(--warn);cursor:help}
+.stores{border-top:1px solid var(--border);padding-top:8px;display:flex;flex-direction:column;gap:5px}
+.srow{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.82rem;color:var(--text2)}
+.srow.best{color:var(--text)}
+.srow.best .sp{color:var(--down);font-weight:700}
+.srow.none{opacity:.42}
+.srow .sp{font-weight:600}
+.stamp{font-size:.72rem;color:var(--text3)}
+.btns{display:flex;gap:8px;margin-top:2px}
+.btn{flex:1;height:42px;border-radius:var(--r-btn);border:1px solid transparent;cursor:pointer;
+  font-size:.88rem;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;border-color:var(--border2);color:var(--text2);flex:none;width:46px}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.aff{font-size:.7rem;color:var(--text3);text-align:center;margin-top:-2px}
+.aff a{color:var(--text3);text-decoration:underline}
+.alertform{display:none;gap:7px;margin-top:2px}
+.alertform.on{display:flex}
+.alertform input{flex:1;min-width:0;height:38px;padding:0 11px;background:var(--surface2);
+  border:1px solid var(--border);border-radius:var(--r-btn);font-size:.85rem;outline:none}
+.alertform button{height:38px;padding:0 14px;background:var(--accent);color:var(--accent-ink);
+  border:none;border-radius:var(--r-btn);font-weight:600;cursor:pointer}
+
+/* ═══════════ TABLE VIEW ═══════════ */
+.tblwrap{border:1px solid var(--border);border-radius:var(--r-card);overflow:hidden;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.87rem;min-width:720px}
+th{text-align:left;font-weight:600;font-size:.78rem;color:var(--text3);padding:11px 14px;
+  background:var(--surface2);border-bottom:1px solid var(--border);white-space:nowrap}
+th.r,td.r{text-align:right}
+td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface)}
+td.best{background:var(--downBg);color:var(--down);font-weight:700}
+td .tn{display:flex;align-items:center;gap:10px}
+td .tn img{width:34px;height:34px;object-fit:contain;background:var(--surface2);border-radius:6px;flex:none}
+td .tn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:34ch;display:block}
+.dim{color:var(--text3)}
+
+/* ═══════════ STATES ═══════════ */
+.sk{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:14px;
+  display:flex;flex-direction:column;gap:9px}
+.skb{background:var(--sk);background-size:200% 100%;animation:shim 1.3s linear infinite;border-radius:6px}
+@keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.empty{text-align:center;padding:46px 20px;border:1px dashed var(--border2);border-radius:var(--r-card);color:var(--text2)}
+.empty h3{font-size:1rem;margin-bottom:6px;color:var(--text)}
+.err{display:flex;gap:11px;align-items:flex-start;padding:13px 15px;background:var(--warnBg);
+  border:1px solid rgba(210,153,34,.35);border-radius:var(--r-card);font-size:.86rem;margin-bottom:14px}
+
+/* ═══════════ FEATURES / TRUST ═══════════ */
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.feat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:16px}
+.feat h3{font-size:.95rem;font-weight:600;margin-bottom:5px}
+.feat p{font-size:.85rem;color:var(--text2)}
+.mock{margin-top:12px;background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:11px;font-size:.78rem}
+.mockrow{display:flex;justify-content:space-between;padding:4px 0;color:var(--text2)}
+.mockrow.b{color:var(--down);font-weight:700}
+.trustsec{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:20px}
+.trustsec h3{font-size:.95rem;margin:16px 0 5px}
+.trustsec h3:first-child{margin-top:0}
+.trustsec p{font-size:.87rem;color:var(--text2)}
+footer{margin-top:44px;border-top:1px solid var(--border);padding:24px 0 34px;font-size:.85rem;color:var(--text3)}
+footer a{color:var(--text2)}
+footer a:hover{color:var(--accent)}
+.fcols{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+
+/* PWA bar */
+#pwa{position:fixed;left:12px;right:12px;bottom:12px;z-index:70;display:none;align-items:center;gap:10px;
+  background:var(--surface);border:1px solid var(--border2);border-radius:var(--r-card);padding:11px 13px;
+  box-shadow:0 14px 40px -18px rgba(0,0,0,.7)}
+#pwa.on{display:flex}
+#pwa .t{flex:1;font-size:.85rem}
+
+/* Bottom sheet (mobile filter) */
+.sheetbg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:80;display:none}
+.sheetbg.on{display:block}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:81;background:var(--surface);
+  border-radius:16px 16px 0 0;padding:8px 16px 24px;transform:translateY(100%);transition:transform .24s ease;
+  max-height:82vh;overflow-y:auto}
+.sheet.on{transform:translateY(0)}
+.grab{width:38px;height:4px;background:var(--border2);border-radius:99px;margin:6px auto 14px}
+.sheet h4{font-size:.8rem;color:var(--text3);font-weight:600;margin:16px 0 8px}
+.sheet h4:first-of-type{margin-top:0}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.range{display:flex;align-items:center;gap:8px}
+.range input{flex:1;min-width:0;height:44px;padding:0 12px;background:var(--surface2);
+  border:1px solid var(--border);border-radius:var(--r-btn);outline:none}
+
+/* Pages */
+.page{display:none}
+.page.on{display:block}
+.loadmore{display:flex;justify-content:center;margin:24px 0 0}
+.loadmore .btn{flex:none;padding:0 32px}
+
+/* Builder / alerts (kept) */
+.brow{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:13px;
+  display:grid;grid-template-columns:120px 1fr auto;gap:10px;align-items:center;margin-bottom:10px}
+.brow label{color:var(--text2);font-size:.87rem}
+.brow select{width:100%;height:40px;padding:0 10px;background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--r-btn);font-size:.88rem}
+.brow .p{font-weight:700;color:var(--accent);white-space:nowrap;font-size:.95rem}
+.bsum{background:var(--surface);border:1px solid var(--accent);border-radius:var(--r-card);padding:16px;margin-top:12px}
+.bsum .total{font-size:1.7rem;font-weight:700;color:var(--accent)}
+.warnl{color:var(--warn);font-size:.87rem}.okl{color:var(--down);font-size:.87rem}.errl{color:var(--up);font-size:.87rem}
+.myalerts table{min-width:0}
+@media(max-width:760px){
+  h1{font-size:1.5rem;max-width:none}
+  .hero{padding:24px 0 4px}
+  .kbd{display:none}
+  .brow{grid-template-columns:1fr}
+  .price{font-size:1.6rem}
+  section{padding:28px 0 0}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-<header class="hero">
-  <button id="themebtn" title="สลับโทนสว่าง/มืด" aria-label="สลับโทนสว่างมืด">☀</button>
-  <h1 class="brand">
-    <img src="logo-mark.svg" alt="โลโก้ PriceSpec" width="60" height="60">
-    <span class="name">PriceSpec</span>
-    <span class="tag">เช็คราคาการ์ดจอ ซีพียู แรม<br>เทียบ 3 ร้านไทยในหน้าเดียว</span>
-  </h1>
-  <div class="stats">
-    <span class="stat"><b id="stat-n">48</b> สินค้า</span>
-    <span class="stat blue"><b>3</b> ร้าน · JIB · Advice · iHAVECPU</span>
-    <span class="stat"><b>อัปเดตทุกเสาร์</b> ตี 5</span>
-    <span class="stat">ล่าสุด <b id="updated">—</b></span>
+
+<header>
+  <div class="wrap hbar">
+    <a href="/" class="logo"><img src="logo-mark.svg" alt="PriceSpec">Price<i>Spec</i></a>
+    <div class="searchwrap">
+      <span class="sicon">🔍</span>
+      <input id="q" type="search" placeholder="ค้นหารุ่น เช่น RTX 5070, DDR5, 27 นิ้ว" autocomplete="off">
+      <span class="kbd">/</span>
+      <div id="ac"></div>
+    </div>
+    <button class="iconbtn" id="themebtn" title="สลับโทนสว่าง/มืด">☀</button>
   </div>
-  <p class="sub" style="margin-top:14px;max-width:780px">
-    เว็บเช็คราคาอุปกรณ์คอมพิวเตอร์และเครื่องเกมในไทย ดูราคาการ์ดจอ RTX 5070 / 5080 / 5090 และ Radeon RX 9070,
-    ซีพียู AMD Ryzen และ Intel Core, แรม DDR4 DDR5, SSD, เมนบอร์ด, PSU, เคส รวมถึง PS5 · Xbox · Nintendo Switch
-    พร้อมกราฟราคาย้อนหลัง ตั้งแจ้งเตือนเมื่อราคาลด และจัดสเปคคอมเช็คความเข้ากันได้ ใช้ฟรี
-  </p>
-  <button id="installbtn" style="display:none;margin-top:14px;flex:none;padding:9px 18px;position:relative" class="btn buy">📲 ติดตั้งแอปลงเครื่อง</button>
 </header>
 
-<nav id="nav"></nav>
-<div class="alertbar" id="alertbar"></div>
+<main class="wrap">
 
-<!-- หน้าหมวดสินค้า -->
-<div id="page-cat">
-  <div class="toolbar">
-    <input id="search" type="text" placeholder="🔍 ค้นหารุ่น เช่น RTX 5070, DDR5, 27 นิ้ว">
-    <select id="sort">
-      <option value="price">เรียง: ราคาต่ำ→สูง</option>
-      <option value="pricedesc">เรียง: ราคาสูง→ต่ำ</option>
-      <option value="drop">เรียง: ลดราคามากสุด (7 วัน)</option>
-      <option value="name">เรียง: ชื่อรุ่น</option>
-    </select>
-    <select id="f1" style="display:none"></select>
-    <select id="f2" style="display:none"></select>
-    <div class="rangebox">
-      <span>งบ</span>
-      <input id="pmin" type="number" inputmode="numeric" placeholder="ต่ำสุด">
-      <span>–</span>
-      <input id="pmax" type="number" inputmode="numeric" placeholder="สูงสุด">
-      <span>฿</span>
-    </div>
-    <label class="chk"><input type="checkbox" id="allcat"> ค้นทุกหมวด</label>
+<!-- ══ HERO ══ -->
+<div class="hero page-home">
+  <h1>รู้ก่อนว่ารุ่นที่หมายตา <em>ร้านไหนถูกที่สุด</em> วันนี้</h1>
+  <p class="lead">เทียบราคาอุปกรณ์คอมและเครื่องเกมจาก 3 ร้านไทยในหน้าเดียว พร้อมราคาย้อนหลังเพื่อดูว่าตอนนี้ถูกจริงหรือแค่ดูเหมือนถูก · ใช้ฟรี ไม่ต้องสมัคร</p>
+
+  <div class="bigsearch">
+    <span class="sicon">🔍</span>
+    <input id="q2" type="search" placeholder="พิมพ์ชื่อรุ่นที่กำลังมองหา…" autocomplete="off">
   </div>
+
+  <div class="trust">
+    <span class="tchip"><b class="num" id="t-count">—</b> รายการ</span>
+    <span class="tsep"></span>
+    <span class="tchip">
+      <span class="slogo jib">JIB</span><span class="slogo adv">Advice</span><span class="slogo ihv">iHAVECPU</span>
+    </span>
+    <span class="tsep"></span>
+    <span class="tchip"><span class="dot"></span> อัปเดตล่าสุด <b id="t-upd">—</b></span>
+    <span class="tsep"></span>
+    <span class="tchip">ไม่มีค่าใช้จ่ายแอบแฝง</span>
+  </div>
+</div>
+
+<!-- ══ DEAL STRIP ══ -->
+<section class="page-home" id="sec-deals">
+  <div class="shead"><h2>ลดแรงสุดใน 7 วัน</h2><span class="hint">เลื่อนดูได้ →</span></div>
+  <div class="strip" id="deals"></div>
+</section>
+
+<!-- ══ CATEGORIES ══ -->
+<section class="page-home">
+  <div class="shead"><h2>เลือกตามหมวด</h2><span class="hint">ราคาเริ่มต้นจริงจากข้อมูลล่าสุด</span></div>
+  <div class="cats" id="cats"></div>
+</section>
+
+<!-- ══ PRODUCTS ══ -->
+<section id="sec-list">
+  <div class="shead"><h2 id="listtitle">สินค้าทั้งหมด</h2></div>
+</section>
+</main>
+
+<div class="fbar" id="fbar">
+  <div class="wrap frow" id="frow"></div>
+</div>
+
+<main class="wrap">
+  <div id="errbox"></div>
   <div class="resbar">
-    <span id="rescount">—</span>
-    <button id="clearf" class="linkbtn">ล้างตัวกรอง</button>
+    <span id="rescount">กำลังโหลด…</span>
+    <button class="link" id="clearf">ล้างตัวกรอง</button>
   </div>
-  <div class="grid" id="grid"></div>
-  <div class="loadmore"><button id="more" class="btn buy" style="display:none">โหลดเพิ่ม</button></div>
-</div>
 
-<!-- หน้าจัดสเปค -->
-<div id="page-builder" style="display:none">
-  <div class="builder" id="brows"></div>
-  <div class="bsum" style="margin-top:12px">
-    <div>ราคารวม: <span class="total" id="btotal">0 ฿</span></div>
-    <div class="meta" id="bwatt"></div>
-    <div id="bchecks"></div>
-    <div class="bbtns">
-      <button class="btn buy" id="bcopy">📋 คัดลอกสเปค</button>
-      <button class="btn alert" id="breset">ล้างสเปค</button>
+  <div class="page on" id="page-list">
+    <div class="grid" id="grid"></div>
+    <div class="tblwrap" id="tblwrap" style="display:none"><table id="tbl"></table></div>
+    <div class="loadmore"><button class="btn primary" id="more" style="display:none"></button></div>
+  </div>
+
+  <div class="page" id="page-builder">
+    <div id="brows"></div>
+    <div class="bsum">
+      <div>ราคารวม <span class="total num" id="btotal">0 ฿</span></div>
+      <div class="stamp" id="bwatt"></div>
+      <div id="bchecks" style="margin-top:8px"></div>
+      <div class="btns" style="max-width:420px">
+        <button class="btn primary" id="bcopy">คัดลอกสเปค</button>
+        <button class="btn ghost" id="breset" style="width:auto;flex:1">ล้าง</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- หน้าแจ้งเตือน -->
-<div id="page-alerts" style="display:none" class="myalerts">
-  <table>
-    <thead><tr><th>สินค้า</th><th>เตือนเมื่อต่ำกว่า</th><th>ราคาปัจจุบัน</th><th>สถานะ</th><th></th></tr></thead>
-    <tbody id="alertrows"></tbody>
-  </table>
-</div>
+  <div class="page myalerts" id="page-alerts">
+    <div class="tblwrap"><table>
+      <thead><tr><th>สินค้า</th><th class="r">เตือนเมื่อต่ำกว่า</th><th class="r">ราคาปัจจุบัน</th><th>สถานะ</th><th></th></tr></thead>
+      <tbody id="alertrows"></tbody>
+    </table></div>
+  </div>
+
+<!-- ══ FEATURES ══ -->
+<section class="page-home">
+  <div class="shead"><h2>เว็บนี้ช่วยอะไร</h2></div>
+  <div class="feats">
+    <div class="feat">
+      <h3>เทียบ 3 ร้านในบรรทัดเดียว</h3>
+      <p>ไม่ต้องเปิดทีละแท็บ เห็นพร้อมกันว่าร้านไหนถูกกว่าเท่าไหร่</p>
+      <div class="mock">
+        <div class="mockrow b"><span>JIB 🏆</span><span class="num">11,300 ฿</span></div>
+        <div class="mockrow"><span>iHAVECPU</span><span class="num">11,490 ฿</span></div>
+        <div class="mockrow"><span>Advice</span><span class="num">12,200 ฿</span></div>
+      </div>
+    </div>
+    <div class="feat">
+      <h3>ราคาย้อนหลัง บอกว่าถูกจริงไหม</h3>
+      <p>ป้ายบนการ์ดเทียบกับ 90 วันที่ผ่านมา ไม่ต้องเดาเอง</p>
+      <div class="mock">
+        <svg viewBox="0 0 200 46" style="width:100%;height:46px">
+          <polyline points="4,10 30,14 56,9 82,20 108,17 134,28 160,24 190,36" fill="none" stroke="var(--down)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <div class="mockrow b" style="justify-content:flex-start"><span class="badge low">ต่ำสุดในรอบ 90 วัน</span></div>
+      </div>
+    </div>
+    <div class="feat">
+      <h3>ตั้งเตือนแล้วไปรอได้</h3>
+      <p>ใส่ราคาเป้าหมาย เก็บไว้ในเครื่องคุณเอง ไม่ต้องสมัครสมาชิก</p>
+      <div class="mock">
+        <div class="mockrow"><span>RTX 5070 12GB</span><span class="num dim">เป้า 20,000 ฿</span></div>
+        <div class="mockrow b"><span>ถึงราคาแล้ว</span><span class="num">19,900 ฿</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TRUST ══ -->
+<section class="page-home">
+  <div class="shead"><h2>ข้อมูลนี้มาจากไหน</h2></div>
+  <div class="trustsec">
+    <h3>เก็บอัตโนมัติทุกวันเสาร์ ตี 5</h3>
+    <p>ระบบดึงราคาจากหน้าเว็บร้านค้าโดยตรง แล้วสร้างหน้าใหม่เอง ไม่มีการแก้ราคาด้วยมือ</p>
+    <h3>ข้อจำกัดที่เรายอมรับตรง ๆ</h3>
+    <p>ราคาอาจเปลี่ยนระหว่างรอบอัปเดต บางรายการมีข้อมูลจากร้านเดียว และกราฟช่วงก่อนวันที่เริ่มเก็บจริงเป็นข้อมูลจำลอง — เราแสดงเป็นเส้นประไว้บนกราฟเสมอ โปรดตรวจสอบกับร้านค้าอีกครั้งก่อนสั่งซื้อ</p>
+    <h3>เรื่องลิงก์แนะนำ</h3>
+    <p>เว็บนี้ฟรี รายได้มาจากลิงก์แนะนำ เมื่อคุณซื้อผ่านลิงก์เราอาจได้ค่าตอบแทนโดยคุณไม่ต้องจ่ายเพิ่ม
+       ราคาที่แสดงดึงจากร้านโดยตรง เราไม่แก้ไขหรือจัดอันดับตามค่าตอบแทน และร้านถูกสุดติดธง 🏆 เสมอ
+       <a href="/contact#affiliate" style="color:var(--accent)">อ่านรายละเอียด</a></p>
+  </div>
+</section>
 
 <footer>
-  <div style="margin-bottom:12px;line-height:2">
-    <b style="color:var(--text)">หน้าราคาแยกตามหมวด:</b><br>
-    <a href="/gpu">ราคาการ์ดจอ</a> ·
-    <a href="/cpu">ราคาซีพียู</a> ·
-    <a href="/mainboard">ราคาเมนบอร์ด</a> ·
-    <a href="/ram">ราคาแรม</a> ·
-    <a href="/ssd">ราคา SSD</a> ·
-    <a href="/psu">ราคาพาวเวอร์ซัพพลาย</a> ·
-    <a href="/case">ราคาเคสคอม</a> ·
-    <a href="/monitor">ราคาจอมอนิเตอร์</a> ·
-    <a href="/cooling">ราคาชุดระบายความร้อน</a> ·
-    <a href="/console">ราคาเครื่องเกม</a>
-  </div>
-  ราคาที่แสดง = ค่าเฉลี่ยจากร้านที่มีข้อมูล (JIB · Advice · iHAVECPU) พร้อมรายละเอียดราคาแยกรายร้าน · กราฟย้อนหลังก่อน 25/07/2026 เป็นข้อมูลจำลอง · สินค้าที่มีเครื่องหมาย ⚠ เป็นราคาโดยประมาณ<br>
-  ลิงก์ "ซื้อ" เป็นลิงก์ affiliate — เจ้าของเว็บได้รับค่าคอมมิชชั่นโดยผู้ซื้อไม่เสียเพิ่ม<br>
-  PriceSpec — สร้างเพื่อคนไทยที่รอของลดราคา<br><br>
-  <a href="/about">เกี่ยวกับเรา</a> ·
-  <a href="/privacy">นโยบายความเป็นส่วนตัว</a> ·
-  <a href="/contact">ติดต่อเรา</a> ·
-  <a href="/contact#affiliate">การเปิดเผยเรื่องลิงก์แนะนำ</a>
+  <div class="fcols" id="fcats"></div>
+  <p>ราคารวบรวมจาก JIB · Advice · iHAVECPU · อัปเดตอัตโนมัติทุกวันเสาร์</p>
+  <p style="margin-top:8px">
+    <a href="/about">เกี่ยวกับเรา</a> ·
+    <a href="/privacy">นโยบายความเป็นส่วนตัว</a> ·
+    <a href="/contact">ติดต่อเรา</a> ·
+    <a href="/contact#affiliate">การเปิดเผยลิงก์แนะนำ</a>
+  </p>
 </footer>
+</main>
+
+<div id="pwa"><span class="t">ติดตั้ง PriceSpec ไว้บนเครื่อง เปิดเร็วกว่าและใช้ออฟไลน์ได้</span>
+  <button class="btn primary" id="pwayes" style="flex:none;padding:0 16px;height:36px">ติดตั้ง</button>
+  <button class="iconbtn" id="pwano" style="width:36px;height:36px">✕</button></div>
+
+<div class="sheetbg" id="sheetbg"></div>
+<div class="sheet" id="sheet">
+  <div class="grab"></div>
+  <h4>งบประมาณ</h4>
+  <div class="range"><input id="pmin" type="number" inputmode="numeric" placeholder="ต่ำสุด"><span>–</span><input id="pmax" type="number" inputmode="numeric" placeholder="สูงสุด"><span>฿</span></div>
+  <h4>เรียงลำดับ</h4>
+  <div class="opts" id="sortopts"></div>
+  <h4 id="spec1h" style="display:none"></h4><div class="opts" id="spec1"></div>
+  <h4 id="spec2h" style="display:none"></h4><div class="opts" id="spec2"></div>
+  <div class="btns" style="margin-top:20px"><button class="btn primary" id="sheetdone">ดูผลลัพธ์</button></div>
 </div>
 
 <script>
-const DATA = window.PRICE_DATA;
-
-/* ---------- โทนสว่าง/มืด ---------- */
-(function(){
-  const root=document.documentElement, btn=document.getElementById('themebtn');
-  const set=t=>{ root.dataset.theme=t; btn.textContent = t==='light'?'☾':'☀';
-    document.querySelector('meta[name=theme-color]').content = t==='light'?'#f4f7fb':'#0d1117'; };
-  let saved; try{ saved=localStorage.getItem('theme'); }catch(e){}
-  set(saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'));
-  btn.onclick=()=>{ const t=root.dataset.theme==='light'?'dark':'light'; set(t);
-    try{ localStorage.setItem('theme',t); }catch(e){}
-    Object.values(charts).forEach(c=>c.destroy()); for(const k in charts) delete charts[k];
-    if(page!=='builder'&&page!=='alerts') renderCat(); };
-})();
-const CATS = [
-  ["gpu","🎮 การ์ดจอ"], ["cpu","🧠 ซีพียู"], ["mainboard","🔲 เมนบอร์ด"],
-  ["ram","📏 แรม"], ["ssd","💾 SSD"], ["psu","🔌 PSU"], ["case","🖥️ เคส"],
-  ["monitor","🖵 จอมอนิเตอร์"], ["cooling","❄ ชุดระบายความร้อน"],
-  ["console","⭐ Special เครื่องเกม"],
-  ["builder","🛠️ จัดสเปค"], ["alerts","🔔 เตือน"],
-];
-const CATNAME = Object.fromEntries(CATS);
-const fmt = n => n.toLocaleString('th-TH') + ' ฿';
-
-/* ---------- ลิงก์หารายได้ ----------
-   Shopee จ่าย 2% แต่ไม่เกิน 225฿/ออเดอร์ · JIB จ่ายเป็น % ไม่มีเพดาน
-   ของแพงจึงคุ้มกว่าถ้าส่งไป JIB — คำนวณให้อัตโนมัติทุกชิ้น */
-const AFF = window.AFFILIATE || {};
-function affLink(p, price){
-  const pay = (rate, cap) => { const v = price * (rate||0); return cap ? Math.min(v, cap) : v; };
-  const c = [];
-  if (p.affiliate_url) c.push([pay(AFF.shopee_rate ?? .02, AFF.shopee_cap ?? 225), p.affiliate_url, 'shopee']);
-  const aid = AFF.involve_aff_id, oid = AFF.involve_powerbuy_offer_id;
-  if (aid && oid && p.powerbuy_url)
-    c.push([pay(AFF.powerbuy_rate ?? .0315, AFF.powerbuy_cap ?? 0),
-            `https://invol.co/aff_m?offer_id=${oid}&aff_id=${aid}&url=${encodeURIComponent(p.powerbuy_url)}`, 'powerbuy']);
-  if (!c.length) return p.source_url || '#';
-  c.sort((a,b)=>b[0]-a[0]);
-  return c[0][1];
-}
-function affStore(url){ return url.includes('invol.co') ? 'powerbuy' : url.includes('shopee') ? 'shopee' : 'direct'; }
-
-// นับคลิกออกร้าน — ตัวเลขเดียวที่บอกว่าธุรกิจนี้ไปต่อได้ไหม
-if (AFF.ga4_id){
-  const g = document.createElement('script');
-  g.async = true; g.src = 'https://www.googletagmanager.com/gtag/js?id=' + AFF.ga4_id;
-  document.head.appendChild(g);
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function(){ dataLayer.push(arguments); };
-  gtag('js', new Date()); gtag('config', AFF.ga4_id);
-  document.addEventListener('click', e => {
-    const a = e.target.closest('a[data-out]');
-    if (a) gtag('event','outbound_click',{item:a.dataset.out, store:a.dataset.store||''});
-  });
-}
-const charts = {};
-let page = location.hash.replace('#','') || 'gpu';
-
-// ราคากลาง = ค่าเฉลี่ยราคาปัจจุบันของทุกร้าน
-function currentBest(p){
-  const now = Object.entries(p.history).map(([store, s]) => ({store, price: s[s.length-1].price}));
-  const mid = Math.round(now.reduce((a,b)=>a+b.price,0) / now.length);
-  const cheapest = now.reduce((a,b)=>b.price<a.price?b:a);
-  return {store: cheapest.store, price: mid, mid, stores: now, cheapest};
-}
-function weekChange(p){
-  const series = Object.values(p.history);
-  const now = Math.round(series.reduce((a,s)=>a+s[s.length-1].price,0)/series.length);
-  const then = Math.round(series.reduce((a,s)=>a+s[Math.max(0,s.length-8)].price,0)/series.length);
-  return now - then;
-}
-function min30(p){
-  const series = Object.values(p.history);
-  const len = Math.min(...series.map(s=>s.length));
-  let m = Infinity;
-  for (let i=0;i<len;i++){
-    const avg = Math.round(series.reduce((a,s)=>a+s[s.length-len+i].price,0)/series.length);
-    m = Math.min(m, avg);
-  }
-  return m;
-}
-function getAlerts(){ try{return JSON.parse(localStorage.getItem('gpuAlerts')||'[]')}catch(e){return []} }
-function saveAlerts(a){ localStorage.setItem('gpuAlerts', JSON.stringify(a)); renderAlerts(); }
-function getBuild(){ try{return JSON.parse(localStorage.getItem('pcBuild')||'{}')}catch(e){return {}} }
-function saveBuild(b){ localStorage.setItem('pcBuild', JSON.stringify(b)); renderBuilder(); }
-
-/* ---------- เมนู ---------- */
-function renderNav(){
-  const nav = document.getElementById('nav');
-  nav.innerHTML = CATS.map(([id,name]) =>
-    `<button class="${id===page?'on':''}" data-p="${id}">${name}</button>`).join('');
-  nav.querySelectorAll('button').forEach(b => b.onclick = () => { location.hash = b.dataset.p; });
-}
-window.addEventListener('hashchange', () => { page = location.hash.replace('#','')||'gpu'; show(); });
-
-function show(){
-  renderNav();
-  document.getElementById('page-cat').style.display = (page!=='builder'&&page!=='alerts')?'block':'none';
-  document.getElementById('page-builder').style.display = page==='builder'?'block':'none';
-  document.getElementById('page-alerts').style.display = page==='alerts'?'block':'none';
-  if (page==='builder') renderBuilder();
-  else if (page==='alerts') renderAlerts();
-  else { buildFilters(); renderCat(); }
-}
-
-/* ---------- หน้าหมวดสินค้า ---------- */
-// ตัวกรองเฉพาะหมวด: [key ใน specs, ป้ายกำกับ, ฟังก์ชันแปลงข้อความ]
-const FILTERS = {
-  gpu:       [['vram','แรมการ์ดจอ', v=>v+' GB']],
-  cpu:       [['socket','ซ็อกเก็ต', v=>v]],
-  mainboard: [['socket','ซ็อกเก็ต', v=>v], ['ram','รองรับแรม', v=>v]],
-  ram:       [['ram','ชนิดแรม', v=>v], ['bus','บัส', v=>v+' MHz']],
-  psu:       [['watt','กำลังไฟ', v=>v+'W'], ['rating','มาตรฐาน', v=>v]],
-  ssd:       [['size','ความจุ', v=>v], ['gen','อินเทอร์เฟซ', v=>v]],
-  monitor:   [['size','ขนาดจอ', v=>v], ['hz','รีเฟรชเรต', v=>v+' Hz']],
-};
-function buildFilters(){
-  const defs = FILTERS[page] || [];
-  [0,1].forEach(i => {
-    const el = document.getElementById('f'+(i+1));
-    const def = defs[i];
-    if (!def){ el.style.display='none'; el.dataset.key=''; return; }
-    const [key,label,fmtv] = def;
-    const vals = [...new Set(DATA.products.filter(p=>p.category===page && p.specs?.[key]!=null)
-      .map(p=>p.specs[key]))].sort((a,b)=> typeof a==='number' ? a-b : String(a).localeCompare(String(b)));
-    if (!vals.length){ el.style.display='none'; el.dataset.key=''; return; }
-    const prev = el.dataset.key===key ? el.value : '';
-    el.dataset.key = key;
-    el.innerHTML = `<option value="">${label}: ทั้งหมด</option>` +
-      vals.map(v=>`<option value="${v}" ${String(v)===prev?'selected':''}>${fmtv(v)}</option>`).join('');
-    el.style.display = 'block';
-  });
-}
-
-/* แสดงทีละชุด — สินค้ามีหลายพันรายการ ถ้าวาดทีเดียวหมดเบราว์เซอร์จะค้าง */
+/* ═════════ CONFIG ═════════ */
+const DATA = window.PRICE_DATA || {products:[],updated:'—'};
+const AFF  = window.AFFILIATE || {};
+const REAL_FROM = '2026-07-25';           // ก่อนวันนี้ = ข้อมูลจำลอง
 const PAGE_SIZE = 24;
-let shown = PAGE_SIZE, lastItems = [];
+const CATS = [
+  ['gpu','การ์ดจอ','🎮'],['cpu','ซีพียู','🧠'],['mainboard','เมนบอร์ด','🔲'],['ram','แรม','📏'],
+  ['ssd','SSD','💾'],['psu','พาวเวอร์ซัพพลาย','🔌'],['case','เคสคอม','🖥️'],['monitor','จอมอนิเตอร์','🖵'],
+  ['cooling','ชุดระบายความร้อน','❄'],['console','เครื่องเกม','⭐'],
+];
+const CATNAME = Object.fromEntries(CATS.map(c=>[c[0],c[1]]));
+const SLOGO = {JIB:'jib', Advice:'adv', iHAVECPU:'ihv'};
+const FILTERS = {
+  gpu:[['vram','แรมการ์ดจอ',v=>v+' GB']], cpu:[['socket','ซ็อกเก็ต',v=>v]],
+  mainboard:[['socket','ซ็อกเก็ต',v=>v],['ram','รองรับแรม',v=>v]],
+  ram:[['ram','ชนิดแรม',v=>v],['bus','บัส',v=>v+' MHz']],
+  psu:[['watt','กำลังไฟ',v=>v+'W'],['rating','มาตรฐาน',v=>v]],
+  ssd:[['size','ความจุ',v=>v],['gen','อินเทอร์เฟซ',v=>v]],
+  monitor:[['size','ขนาดจอ',v=>v],['hz','รีเฟรชเรต',v=>v+' Hz']],
+};
+const SORTS = [['price','ราคาต่ำ→สูง'],['pricedesc','ราคาสูง→ต่ำ'],['drop','ลดราคามากสุด'],['name','ชื่อรุ่น']];
 
-// วาดกราฟเฉพาะการ์ดที่เลื่อนมาถึงจริง ๆ
-const chartObserver = new IntersectionObserver((entries) => {
-  for (const e of entries){
-    if (!e.isIntersecting) continue;
-    const p = lastItems.find(x => x.id === e.target.dataset.pid) ||
-              DATA.products.find(x => x.id === e.target.dataset.pid);
-    if (p) drawChart(p);
-    chartObserver.unobserve(e.target);
+const fmt = n => n.toLocaleString('th-TH');
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+/* ═════════ THEME ═════════ */
+(function(){
+  const r=document.documentElement, b=$('#themebtn');
+  const set=t=>{ r.dataset.theme=t; b.textContent=t==='light'?'☾':'☀';
+    $('meta[name=theme-color]').content = t==='light'?'#F7F9FC':'#0D1117'; };
+  let s=null; try{s=localStorage.getItem('theme')}catch(e){}
+  set(s || (matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'));
+  b.onclick=()=>{ const t=r.dataset.theme==='light'?'dark':'light'; set(t);
+    try{localStorage.setItem('theme',t)}catch(e){}
+    Object.values(charts).forEach(c=>c.destroy()); for(const k in charts) delete charts[k];
+    render(true); };
+})();
+
+/* ═════════ STATS ═════════ */
+function series(p){                       // ราคาเฉลี่ยรายวัน (ใช้ร้านที่ยาวสุด)
+  const arrs = Object.values(p.history).filter(a=>a.length);
+  if(!arrs.length) return [];
+  const len = Math.min(...arrs.map(a=>a.length));
+  const out=[];
+  for(let i=0;i<len;i++){
+    const idx = arrs.map(a=>a[a.length-len+i]);
+    out.push({date:idx[0].date, price:Math.round(idx.reduce((s,x)=>s+x.price,0)/idx.length)});
   }
-}, {rootMargin: '250px'});
+  return out;
+}
+const CACHE = new Map();
+function stat(p){
+  if(CACHE.has(p.id)) return CACHE.get(p.id);
+  const rows = Object.entries(p.history).map(([s,h])=>({store:s, price:h.length?h[h.length-1].price:null, date:h.length?h[h.length-1].date:null}));
+  const ok = rows.filter(r=>r.price);
+  const cheap = ok.length? ok.reduce((a,b)=>b.price<a.price?b:a) : null;
+  const dear  = ok.length? ok.reduce((a,b)=>b.price>a.price?b:a) : null;
+  const ser = series(p), ps = ser.map(x=>x.price);
+  const min = ps.length?Math.min(...ps):0, max = ps.length?Math.max(...ps):0;
+  const avg = ps.length?ps.reduce((a,b)=>a+b,0)/ps.length:0;
+  const now = cheap?cheap.price:0;
+  let badge = {c:'mid', t:'ราคาปกติ'};
+  if(ps.length>3){
+    if(now <= min*1.005)      badge={c:'low', t:'ต่ำสุดในรอบ '+ps.length+' วัน'};
+    else if(now < avg*0.97)   badge={c:'low', t:'ถูกกว่าค่าเฉลี่ย'};
+    else if(now > avg*1.03)   badge={c:'high',t:'แพงกว่าค่าเฉลี่ย'};
+  } else badge={c:'mid', t:'เพิ่งเริ่มเก็บราคา'};
+  const wk = ps.length>7 ? now - ps[ps.length-8] : 0;
+  const o = {rows, ok, cheap, dear, ser, min, max, avg, badge, wk,
+             save: (dear&&cheap)?dear.price-cheap.price:0, hist: ps.length>1};
+  CACHE.set(p.id,o); return o;
+}
+function sparkline(ser, w=76, h=26){
+  if(ser.length<2) return '';
+  const ps=ser.map(x=>x.price), mn=Math.min(...ps), mx=Math.max(...ps), rg=(mx-mn)||1;
+  const X=i=>(i/(ps.length-1))*(w-2)+1, Y=v=>h-1-((v-mn)/rg)*(h-2);
+  const cut = ser.findIndex(x=>x.date>=REAL_FROM);
+  const pt = ps.map((v,i)=>X(i).toFixed(1)+','+Y(v).toFixed(1));
+  const up = ps[ps.length-1] > ps[0];
+  const col = up?'var(--up)':'var(--down)';
+  let s=`<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true">`;
+  if(cut>0) s+=`<polyline points="${pt.slice(0,cut+1).join(' ')}" fill="none" stroke="${col}" stroke-width="1.5" stroke-dasharray="2 2" opacity=".45"/>`;
+  s+=`<polyline points="${pt.slice(cut>0?cut:0).join(' ')}" fill="none" stroke="${col}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  return s;
+}
+function ago(d){
+  if(!d) return '';
+  const days = Math.round((Date.now()-new Date(d))/864e5);
+  if(days<=0) return 'วันนี้'; if(days===1) return 'เมื่อวาน';
+  return days+' วันที่แล้ว';
+}
+function buyLink(p, price){
+  const pay=(r,c)=>{const v=price*(r||0);return c?Math.min(v,c):v};
+  const c=[];
+  if(p.affiliate_url) c.push([pay(AFF.shopee_rate??.02,AFF.shopee_cap??225), p.affiliate_url,'shopee']);
+  const aid=AFF.involve_aff_id, oid=AFF.involve_powerbuy_offer_id;
+  if(aid&&oid&&p.powerbuy_url) c.push([pay(AFF.powerbuy_rate??.0315,AFF.powerbuy_cap??0),
+    `https://invol.co/aff_m?offer_id=${oid}&aff_id=${aid}&url=${encodeURIComponent(p.powerbuy_url)}`,'powerbuy']);
+  if(!c.length) return [p.jib_url||p.source_url||('/p/'+(p.slug||p.id)),'direct'];
+  c.sort((a,b)=>b[0]-a[0]); return [c[0][1],c[0][2]];
+}
 
-function filterItems(){
-  const q = document.getElementById('search').value.trim().toLowerCase();
-  const sort = document.getElementById('sort').value;
-  const allcat = document.getElementById('allcat').checked;
-  const pmin = parseInt(document.getElementById('pmin').value) || 0;
-  const pmax = parseInt(document.getElementById('pmax').value) || Infinity;
-  const words = q.split(/\s+/).filter(Boolean);
+/* ═════════ STATE ═════════ */
+let page='all', shown=PAGE_SIZE, view='grid', items=[], f={q:'',sort:'price',min:0,max:Infinity,s1:'',s2:''};
+const charts={};
 
-  let items = DATA.products.filter(p => {
-    if (!allcat && p.category !== page) return false;
-    const n = p.name.toLowerCase();
-    if (!words.every(w => n.includes(w))) return false;
-    const price = currentBest(p).mid;
-    return price >= pmin && price <= pmax;
+function all(){ return DATA.products; }
+function filtered(){
+  const w = f.q.toLowerCase().split(/\s+/).filter(Boolean);
+  let a = all().filter(p=>{
+    if(page!=='all' && p.category!==page) return false;
+    const n=p.name.toLowerCase(); if(!w.every(x=>n.includes(x))) return false;
+    const pr = stat(p).cheap?.price||0;
+    return pr>=f.min && pr<=f.max;
   });
-  if (!allcat) for (const el of [document.getElementById('f1'), document.getElementById('f2')]){
-    if (el.dataset.key && el.value)
-      items = items.filter(p => String(p.specs?.[el.dataset.key]) === el.value);
-  }
-  if (sort==='price')     items.sort((a,b)=>currentBest(a).mid-currentBest(b).mid);
-  if (sort==='pricedesc') items.sort((a,b)=>currentBest(b).mid-currentBest(a).mid);
-  if (sort==='drop')      items.sort((a,b)=>weekChange(a)-weekChange(b));
-  if (sort==='name')      items.sort((a,b)=>a.name.localeCompare(b.name));
-  return items;
+  const defs = FILTERS[page]||[];
+  if(f.s1 && defs[0]) a=a.filter(p=>String(p.specs?.[defs[0][0]])===f.s1);
+  if(f.s2 && defs[1]) a=a.filter(p=>String(p.specs?.[defs[1][0]])===f.s2);
+  if(f.sort==='price')     a.sort((x,y)=>(stat(x).cheap?.price||0)-(stat(y).cheap?.price||0));
+  if(f.sort==='pricedesc') a.sort((x,y)=>(stat(y).cheap?.price||0)-(stat(x).cheap?.price||0));
+  if(f.sort==='drop')      a.sort((x,y)=>stat(x).wk-stat(y).wk);
+  if(f.sort==='name')      a.sort((x,y)=>x.name.localeCompare(y.name));
+  return a;
 }
 
-function cardHTML(p){
-  const best = currentBest(p), chg = weekChange(p);
-  const cls = chg<0?'down':chg>0?'up':'flat';
-  const sign = chg<0?'▼':chg>0?'▲':'—';
-  const hasHistory = Object.values(p.history).some(s => s.length > 1);
-  const slug = p.slug || p.id;
-  const buyUrl = affLink(p, best.mid);
-  return `
-      <div class="imgbox"><a href="/p/${slug}"><img src="${p.image || 'images/'+p.category+'.svg'}" alt="${p.name}"
-        class="${p.image?'':'ph'}" loading="lazy"
-        onerror="this.src='images/${p.category}.svg';this.className='ph'"></a></div>
-      <h3><a href="/p/${slug}">${p.name}</a></h3>
-      <div class="pricebox">
-        <span class="price">${fmt(best.mid)}</span>
-        <span class="store">${best.stores.length>1?'ราคาเฉลี่ย '+best.stores.length+' ร้าน':'ราคาจาก JIB'}</span>
-        ${hasHistory?`<span class="chg ${cls}">${sign} ${Math.abs(chg).toLocaleString('th-TH')} ฿ / 7 วัน</span>`:''}
-      </div>
-      <div class="stores">
-        ${best.stores.slice().sort((a,b)=>a.price-b.price).map((s,i)=>
-          `<div class="srow${i===0&&best.stores.length>1?' cheap':''}"><span>${s.store}${i===0&&best.stores.length>1?' 🏆 ถูกสุด':''}</span><span>${fmt(s.price)}</span></div>`).join('')}
-      </div>
-      ${hasHistory?`<div class="meta">ราคากลางต่ำสุดใน 30 วัน: ${fmt(min30(p))}</div>
-      <div class="chartbox"><canvas id="c-${p.id}"></canvas></div>`
-      :'<div class="meta nohist">เริ่มเก็บราคาแล้ว — กราฟจะขึ้นสัปดาห์หน้า</div>'}
-      ${p.estimate?'<div class="meta" style="color:var(--yellow)">⚠ ราคาโดยประมาณ — ยังไม่เชื่อมข้อมูลร้านค้า</div>':''}
-      <div class="rowbtn">
-        <a class="btn buy" href="${buyUrl}" target="_blank" rel="nofollow sponsored noopener"
-           data-out="${slug}" data-store="${affStore(buyUrl)}">🛒 ดูดีล</a>
-        <button class="btn alert" data-id="${p.id}">🔔 ตั้งเตือน</button>
-      </div>
-      <div class="alertform" id="f-${p.id}">
-        <input type="number" placeholder="เตือนเมื่อต่ำกว่า (บาท)" id="t-${p.id}">
-        <button data-set="${p.id}">บันทึก</button>
-      </div>`;
-}
-
-function paint(items, from, to){
-  const grid = document.getElementById('grid');
-  const frag = document.createDocumentFragment();
-  for (const p of items.slice(from, to)){
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.dataset.pid = p.id;
-    card.innerHTML = cardHTML(p);
-    frag.appendChild(card);
-    if (Object.values(p.history).some(s => s.length > 1)) chartObserver.observe(card);
-  }
-  grid.appendChild(frag);
-  bindCardButtons(grid);
-}
-
-function bindCardButtons(grid){
-  grid.querySelectorAll('.btn.alert:not([data-bound])').forEach(b => {
-    b.dataset.bound = 1;
-    b.onclick = () => {
-      const f = document.getElementById('f-'+b.dataset.id);
-      f.style.display = f.style.display==='flex'?'none':'flex';
-    };
-  });
-  grid.querySelectorAll('[data-set]:not([data-bound])').forEach(b => {
-    b.dataset.bound = 1;
-    b.onclick = () => {
-      const id = b.dataset.set;
-      const val = parseInt(document.getElementById('t-'+id).value);
-      if (!val) return alert('กรุณากรอกราคาเป้าหมาย');
-      const alerts = getAlerts().filter(a=>a.id!==id);
-      alerts.push({id, target:val});
-      saveAlerts(alerts);
-      document.getElementById('f-'+id).style.display='none';
-      alert('ตั้งเตือนแล้ว — ดูได้ที่แท็บ 🔔 เตือน');
-    };
-  });
-}
-
-function renderCat(reset = true){
-  if (reset) shown = PAGE_SIZE;
-  const items = lastItems = filterItems();
-  const grid = document.getElementById('grid');
-  if (reset){
-    Object.values(charts).forEach(c => c.destroy());
-    for (const k in charts) delete charts[k];
-    grid.innerHTML = '';
-    paint(items, 0, shown);
-  } else {
-    paint(items, shown - PAGE_SIZE, shown);
-  }
-
-  const n = items.length;
-  document.getElementById('rescount').innerHTML = n
-    ? `แสดง <b>${Math.min(shown, n).toLocaleString('th-TH')}</b> จาก <b>${n.toLocaleString('th-TH')}</b> รายการ`
-    : 'ไม่พบสินค้าที่ตรงกับเงื่อนไข — ลองลดตัวกรองหรือขยายช่วงราคา';
-  const more = document.getElementById('more');
-  more.style.display = shown < n ? 'inline-block' : 'none';
-  more.textContent = `โหลดเพิ่มอีก ${Math.min(PAGE_SIZE, n - shown)} รายการ`;
-}
-
-function drawChart(p){
-  const LT = document.documentElement.dataset.theme==='light';
-  const AX = LT?'#5b6b7d':'#8b949e', GRID = LT?'#e3e9f0':'#21262d';
-  const ctx = document.getElementById('c-'+p.id);
-  if (!ctx) return;
-  if (charts[p.id]) charts[p.id].destroy();
-  const colors = {JIB:'#58e08c', Advice:'#4dabf7', iHAVECPU:'#ffd43b'};
-  const labels = Object.values(p.history)[0].map(pt=>pt.date.slice(5));
-  charts[p.id] = new Chart(ctx, {
-    type:'line',
-    data:{ labels, datasets: Object.entries(p.history).map(([store,s])=>({
-      label:store, data:s.map(pt=>pt.price),
-      borderColor:colors[store]||'#aaa', borderWidth:1.6, pointRadius:0, tension:.25
-    }))},
-    options:{ responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{labels:{color:AX,boxWidth:10,font:{size:10}}}},
-      scales:{ x:{display:false}, y:{ticks:{color:AX,font:{size:10},callback:v=>(v/1000)+'k'},grid:{color:GRID}}}}
-  });
-}
-
-/* ---------- หน้าจัดสเปค ---------- */
-const BPARTS = [["cpu","ซีพียู"],["mainboard","เมนบอร์ด"],["ram","แรม"],["gpu","การ์ดจอ"],["ssd","SSD"],["psu","PSU"],["case","เคส"]];
-
-function renderBuilder(){
-  const build = getBuild();
-  const rows = document.getElementById('brows');
-  rows.innerHTML = BPARTS.map(([cat,label]) => {
-    const opts = DATA.products.filter(p=>p.category===cat)
-      .sort((a,b)=>currentBest(a).price-currentBest(b).price)
-      .map(p=>`<option value="${p.id}" ${build[cat]===p.id?'selected':''}>${p.name} — ${fmt(currentBest(p).price)}</option>`).join('');
-    const sel = DATA.products.find(p=>p.id===build[cat]);
-    return `<div class="brow">
-      <label>${label}</label>
-      <select data-cat="${cat}"><option value="">— ยังไม่เลือก —</option>${opts}</select>
-      <span class="p">${sel?fmt(currentBest(sel).price):''}</span>
-    </div>`;
+/* ═════════ CARD ═════════ */
+function card(p){
+  const s = stat(p), slug=p.slug||p.id;
+  const [url,store] = buyLink(p, s.cheap?.price||0);
+  const img = p.image || 'images/'+p.category+'.svg';
+  const rows = ['JIB','Advice','iHAVECPU'].map(name=>{
+    const r = s.rows.find(x=>x.store===name);
+    if(!r||!r.price) return `<div class="srow none"><span>${name}</span><span>ไม่มีข้อมูล</span></div>`;
+    const best = s.cheap && r.store===s.cheap.store && s.ok.length>1;
+    return `<div class="srow${best?' best':''}"><span>${name}${best?' 🏆':''}</span>
+      <span class="sp num">${fmt(r.price)} ฿</span></div>`;
   }).join('');
-  rows.querySelectorAll('select').forEach(s => s.onchange = () => {
-    const b = getBuild();
-    if (s.value) b[s.dataset.cat] = s.value; else delete b[s.dataset.cat];
-    saveBuild(b);
-  });
-
-  // ราคารวม + วัตต์ + ความเข้ากันได้
-  const picked = Object.fromEntries(Object.entries(build)
-    .map(([cat,id])=>[cat, DATA.products.find(p=>p.id===id)]).filter(([,p])=>p));
-  let total = 0;
-  for (const p of Object.values(picked)) total += currentBest(p).price;
-  document.getElementById('btotal').textContent = fmt(total);
-
-  const cpuW = picked.cpu?.specs.tdp||0, gpuW = picked.gpu?.specs.tdp||0;
-  const est = cpuW+gpuW ? cpuW+gpuW+150 : 0;
-  document.getElementById('bwatt').textContent = est ? `กินไฟโดยประมาณ: ${est} W (รวมเผื่อ 150W)` : '';
-
-  const checks = [];
-  if (picked.cpu && picked.mainboard){
-    checks.push(picked.cpu.specs.socket===picked.mainboard.specs.socket
-      ? {t:'ok', m:`✓ ซีพียู (${picked.cpu.specs.socket}) เข้ากับเมนบอร์ดได้`}
-      : {t:'err', m:`✗ ซีพียู ${picked.cpu.specs.socket} ใส่เมนบอร์ด ${picked.mainboard.specs.socket} ไม่ได้!`});
-  }
-  if (picked.ram && picked.mainboard){
-    checks.push(picked.ram.specs.ram===picked.mainboard.specs.ram
-      ? {t:'ok', m:`✓ แรม ${picked.ram.specs.ram} เข้ากับเมนบอร์ดได้`}
-      : {t:'err', m:`✗ แรม ${picked.ram.specs.ram} ใส่เมนบอร์ด ${picked.mainboard.specs.ram} ไม่ได้!`});
-  }
-  if (picked.psu && est){
-    const w = picked.psu.specs.watt;
-    checks.push(w>=est
-      ? {t:'ok', m:`✓ PSU ${w}W เพียงพอ`}
-      : {t:'warn', m:`⚠ PSU ${w}W อาจไม่พอ (ต้องการ ~${est}W) — แนะนำ ${Math.ceil(est/50)*50}W ขึ้นไป`});
-  }
-  document.getElementById('bchecks').innerHTML =
-    checks.map(c=>`<div class="${c.t}">${c.m}</div>`).join('') ||
-    '<div class="meta">เลือกชิ้นส่วนแล้วระบบจะเช็คความเข้ากันได้ให้อัตโนมัติ</div>';
-
-  document.getElementById('bcopy').onclick = () => {
-    const lines = BPARTS.filter(([c])=>picked[c])
-      .map(([c,l])=>`${l}: ${picked[c].name} — ${fmt(currentBest(picked[c]).price)} (${currentBest(picked[c]).store})`);
-    lines.push(`รวม: ${fmt(total)}`);
-    navigator.clipboard.writeText(lines.join('\n')).then(()=>alert('คัดลอกสเปคแล้ว!'));
-  };
-  document.getElementById('breset').onclick = () => { localStorage.removeItem('pcBuild'); renderBuilder(); };
+  return `<article class="card" data-pid="${p.id}">
+    <a class="cimg" href="/p/${slug}"><img src="${img}" alt="${p.name}" loading="lazy"
+       onerror="this.src='images/${p.category}.svg'"></a>
+    <a class="cname" href="/p/${slug}">${p.name}</a>
+    <div class="priceline">
+      <span class="price num" data-to="${s.cheap?.price||0}">0<span class="baht">฿</span></span>
+      ${s.save>0?`<span class="save">ถูกกว่าอีกร้าน ${fmt(s.save)} ฿</span>`:''}
+    </div>
+    <div class="ctx">
+      ${sparkline(s.ser)}
+      <span class="badge ${s.badge.c}">${s.badge.t}</span>
+      ${p.estimate?`<span class="badge warn" title="ราคานี้เป็นการประมาณการ ยังไม่ได้เชื่อมข้อมูลร้านค้าโดยตรง">⚠ ประมาณการ</span>`:''}
+    </div>
+    <div class="stores">${rows}</div>
+    <div class="stamp">ราคาถูกสุดจาก ${s.cheap?s.cheap.store:'—'} · อัปเดต ${ago(s.cheap?.date)}</div>
+    <div class="btns">
+      <a class="btn primary" href="${url}" target="_blank" rel="nofollow sponsored noopener"
+         data-out="${slug}" data-store="${store}">ดูราคา / ซื้อ</a>
+      <button class="btn ghost" data-alert="${p.id}" title="ตั้งแจ้งเตือนราคา">🔔</button>
+    </div>
+    <div class="aff">ลิงก์แนะนำ — <a href="/contact#affiliate">เราอาจได้ค่าตอบแทน คุณไม่จ่ายเพิ่ม</a></div>
+    <div class="alertform" data-form="${p.id}">
+      <input type="number" placeholder="เตือนเมื่อต่ำกว่า (บาท)" data-target="${p.id}">
+      <button data-save="${p.id}">บันทึก</button>
+    </div>
+  </article>`;
 }
-
-/* ---------- หน้าแจ้งเตือน ---------- */
-function renderAlerts(){
-  const rows = document.getElementById('alertrows');
-  const alerts = getAlerts();
-  const bar = document.getElementById('alertbar');
-  if (!alerts.length){
-    rows.innerHTML = '<tr><td colspan="5" style="color:var(--muted)">ยังไม่มีการตั้งเตือน — กดปุ่ม "ตั้งเตือน" ที่การ์ดสินค้า</td></tr>';
-    bar.style.display='none'; return;
-  }
-  let hits = [];
-  rows.innerHTML = alerts.map(a=>{
-    const p = DATA.products.find(x=>x.id===a.id);
-    if (!p) return '';
-    const best = currentBest(p);
-    const hit = best.price <= a.target;
-    if (hit) hits.push(`${p.name} เหลือ ${fmt(best.price)}`);
+function tableRows(list){
+  const head = `<thead><tr><th>สินค้า</th><th class="r">JIB</th><th class="r">Advice</th><th class="r">iHAVECPU</th>
+    <th class="r">ถูกสุด</th><th>สถานะราคา</th><th></th></tr></thead>`;
+  const body = list.map(p=>{
+    const s=stat(p), slug=p.slug||p.id;
+    const [url,store]=buyLink(p,s.cheap?.price||0);
+    const cell = n => { const r=s.rows.find(x=>x.store===n);
+      if(!r||!r.price) return `<td class="r dim">ไม่มีข้อมูล</td>`;
+      const b = s.cheap&&r.store===s.cheap.store&&s.ok.length>1;
+      return `<td class="r num${b?' best':''}">${fmt(r.price)}</td>`; };
     return `<tr>
-      <td>${p.name}</td><td>${fmt(a.target)}</td><td>${fmt(best.price)}</td>
-      <td class="${hit?'hit':''}">${hit?'🎉 ถึงราคาเป้าแล้ว!':'รออยู่...'}</td>
-      <td><button class="del" data-del="${a.id}">ลบ</button></td></tr>`;
+      <td><a class="tn" href="/p/${slug}"><img src="${p.image||'images/'+p.category+'.svg'}" alt="" loading="lazy">
+        <span>${p.name}</span></a></td>
+      ${cell('JIB')}${cell('Advice')}${cell('iHAVECPU')}
+      <td class="r num"><b>${fmt(s.cheap?.price||0)} ฿</b></td>
+      <td><span class="badge ${s.badge.c}">${s.badge.t}</span></td>
+      <td class="r"><a class="btn primary" style="height:34px;padding:0 14px;display:inline-flex"
+        href="${url}" target="_blank" rel="nofollow sponsored noopener" data-out="${slug}" data-store="${store}">ซื้อ</a></td>
+    </tr>`;
   }).join('');
-  rows.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>saveAlerts(getAlerts().filter(a=>a.id!==b.dataset.del)));
-  if (hits.length){
-    bar.style.display='block';
-    bar.textContent = '🎉 ราคาถึงเป้าหมาย: ' + hits.join(' · ');
-  } else bar.style.display='none';
+  return head+'<tbody>'+body+'</tbody>';
 }
 
-/* ---------- เริ่มต้น ---------- */
-document.getElementById('updated').textContent = DATA.updated;
-document.getElementById('stat-n').textContent = DATA.products.length;
-// หน่วงการพิมพ์ไว้เล็กน้อย ไม่ให้กรอง 2,000+ รายการทุกตัวอักษร
-let typeTimer;
-const debounced = () => { clearTimeout(typeTimer); typeTimer = setTimeout(() => renderCat(), 220); };
-document.getElementById('search').oninput = debounced;
-document.getElementById('pmin').oninput = debounced;
-document.getElementById('pmax').oninput = debounced;
-document.getElementById('sort').onchange = () => renderCat();
-document.getElementById('f1').onchange = () => renderCat();
-document.getElementById('f2').onchange = () => renderCat();
-document.getElementById('allcat').onchange = () => renderCat();
-document.getElementById('more').onclick = () => { shown += PAGE_SIZE; renderCat(false); };
-document.getElementById('clearf').onclick = () => {
-  ['search','pmin','pmax'].forEach(id => document.getElementById(id).value = '');
-  ['f1','f2'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('allcat').checked = false;
-  renderCat();
-};
-show();
-renderAlerts();
-
-/* ---------- PWA ---------- */
-if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-  navigator.serviceWorker.register('sw.js');
+/* ═════════ RENDER ═════════ */
+function skeleton(n=6){
+  return Array.from({length:n},()=>`<div class="sk">
+    <div class="skb" style="height:132px"></div><div class="skb" style="height:14px;width:80%"></div>
+    <div class="skb" style="height:28px;width:55%"></div><div class="skb" style="height:52px"></div>
+    <div class="skb" style="height:42px"></div></div>`).join('');
 }
-let deferredPrompt = null;
-const installBtn = document.getElementById('installbtn');
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault(); deferredPrompt = e; installBtn.style.display = 'inline-block';
+function countUp(){
+  $$('.price[data-to]').forEach(el=>{
+    const to=+el.dataset.to; if(!to){el.innerHTML='—';return;}
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){ el.innerHTML=fmt(to)+'<span class="baht">฿</span>'; return; }
+    const t0=performance.now();
+    const tick=t=>{ const k=Math.min(1,(t-t0)/150);
+      el.innerHTML=fmt(Math.round(to*(k<1?k*k*(3-2*k):1)))+'<span class="baht">฿</span>';
+      if(k<1) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick); el.removeAttribute('data-to');
+  });
+}
+
+function render(reset=true){
+  if(reset) shown=PAGE_SIZE;
+  items = filtered();
+  const grid=$('#grid'), tw=$('#tblwrap');
+  const slice = items.slice(0, shown);
+
+  if(!items.length){
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1">
+      <h3>ไม่พบสินค้าที่ตรงกับเงื่อนไข</h3>
+      <p>ลองขยายช่วงราคา หรือล้างตัวกรองแล้วค้นใหม่</p></div>`;
+    tw.style.display='none'; grid.style.display='grid';
+  } else if(view==='table' && innerWidth>=768){
+    tw.style.display='block'; grid.style.display='none';
+    $('#tbl').innerHTML = tableRows(slice);
+  } else {
+    tw.style.display='none'; grid.style.display='grid';
+    grid.innerHTML = slice.map(card).join('');
+    countUp();
+  }
+  $('#rescount').innerHTML = items.length
+    ? `แสดง <b class="num">${fmt(Math.min(shown,items.length))}</b> จาก <b class="num">${fmt(items.length)}</b> รายการ`
+    : 'ไม่พบผลลัพธ์';
+  const m=$('#more');
+  m.style.display = shown<items.length ? 'inline-flex':'none';
+  m.textContent = `โหลดเพิ่มอีก ${Math.min(PAGE_SIZE, items.length-shown)} รายการ`;
+  $('#listtitle').textContent = page==='all' ? 'สินค้าทั้งหมด' : CATNAME[page];
+}
+
+function chips(){
+  const defs = FILTERS[page]||[];
+  const mk=(id,label,arr,cur)=>{
+    const el=$('#'+id), h=$('#'+id+'h');
+    if(!arr.length){ el.innerHTML=''; h.style.display='none'; return; }
+    h.style.display='block'; h.textContent=label;
+    el.innerHTML = `<button class="pill${cur?'':' on'}" data-set="${id}" data-v="">ทั้งหมด</button>` +
+      arr.map(v=>`<button class="pill${String(v)===cur?' on':''}" data-set="${id}" data-v="${v}">${v}</button>`).join('');
+  };
+  [0,1].forEach(i=>{
+    const d=defs[i], id='spec'+(i+1);
+    if(!d){ mk(id,'',[], ''); return; }
+    const vals=[...new Set(all().filter(p=>p.category===page&&p.specs?.[d[0]]!=null).map(p=>p.specs[d[0]]))]
+      .sort((a,b)=>typeof a==='number'?a-b:String(a).localeCompare(String(b))).map(d[2]);
+    const raw=[...new Set(all().filter(p=>p.category===page&&p.specs?.[d[0]]!=null).map(p=>String(p.specs[d[0]])))];
+    mk(id, d[1], raw, i?f.s2:f.s1);
+  });
+  $('#sortopts').innerHTML = SORTS.map(([v,l])=>
+    `<button class="pill${f.sort===v?' on':''}" data-sort="${v}">${l}</button>`).join('');
+}
+function navbar(){
+  $('#frow').innerHTML =
+    `<button class="pill${page==='all'?' on':''}" data-cat="all">ทั้งหมด</button>` +
+    CATS.map(([k,n,i])=>`<button class="pill${page===k?' on':''}" data-cat="${k}">${i} ${n}</button>`).join('') +
+    `<span class="fspacer"></span>
+     <button class="pill" data-go="builder">🛠 จัดสเปค</button>
+     <button class="pill" data-go="alerts">🔔 แจ้งเตือน</button>
+     <button class="pill" id="openf">⚙ ตัวกรอง</button>
+     <select class="fsel" id="sortsel">${SORTS.map(([v,l])=>`<option value="${v}"${f.sort===v?' selected':''}>${l}</option>`).join('')}</select>
+     <span class="vtoggle"><button data-view="grid" class="${view==='grid'?'on':''}">▦</button>
+     <button data-view="table" class="${view==='table'?'on':''}">☰</button></span>`;
+}
+
+/* ═════════ HOME BLOCKS ═════════ */
+function homeBlocks(){
+  $('#t-count').textContent = fmt(all().length);
+  $('#t-upd').textContent = DATA.updated + ' · 05:00';
+  // deals
+  const d = all().filter(p=>stat(p).hist && stat(p).wk<0)
+    .sort((a,b)=>(stat(a).wk/ (stat(a).cheap?.price||1)) - (stat(b).wk/(stat(b).cheap?.price||1))).slice(0,14);
+  $('#deals').innerHTML = d.length ? d.map(p=>{
+    const s=stat(p), old=s.cheap.price-s.wk, pc=Math.round(-s.wk/old*100);
+    return `<a class="deal" href="/p/${p.slug||p.id}">
+      <div class="dimg"><img src="${p.image||'images/'+p.category+'.svg'}" alt="" loading="lazy"></div>
+      <div class="dn">${p.name}</div>
+      <div class="dp"><b class="num">${fmt(s.cheap.price)} ฿</b><span class="old num">${fmt(old)}</span></div>
+      <div style="display:flex;align-items:center;gap:7px;margin-top:6px">
+        <span class="pct">−${pc}%</span>${sparkline(s.ser,58,20)}</div></a>`;
+  }).join('') : `<div class="empty" style="width:100%">ยังไม่มีรายการที่ราคาลดในรอบ 7 วัน — กลับมาดูหลังอัปเดตวันเสาร์</div>`;
+  if(!d.length) $('#sec-deals').querySelector('.hint').textContent='';
+  // categories
+  $('#cats').innerHTML = CATS.map(([k,n,i])=>{
+    const list = all().filter(p=>p.category===k);
+    const from = list.length? Math.min(...list.map(p=>stat(p).cheap?.price||Infinity)) : 0;
+    return `<a class="cat" data-cat="${k}" href="#sec-list"><div class="ci">${i}</div>
+      <div class="cn">${n}</div>
+      <div class="cf">${list.length?`<b class="num">${fmt(list.length)}</b> รายการ · เริ่มต้น <b class="num">${fmt(from)} ฿</b>`:'ยังไม่มีข้อมูล'}</div></a>`;
+  }).join('');
+  $('#fcats').innerHTML = CATS.map(([k,n])=>`<a href="/${k}">ราคา${n}</a>`).join(' · ');
+}
+
+/* ═════════ AUTOCOMPLETE ═════════ */
+function ac(term, box){
+  const w=term.toLowerCase().split(/\s+/).filter(Boolean);
+  if(!w.length){ box.classList.remove('on'); return; }
+  const hit = all().filter(p=>{const n=p.name.toLowerCase();return w.every(x=>n.includes(x))}).slice(0,7);
+  if(!hit.length){ box.innerHTML=`<div class="acrow"><span class="nm">ไม่พบ “${term}”</span></div>`; box.classList.add('on'); return; }
+  box.innerHTML = hit.map(p=>{const s=stat(p);
+    return `<a class="acrow" href="/p/${p.slug||p.id}">
+      <img src="${p.image||'images/'+p.category+'.svg'}" alt="" loading="lazy">
+      <span class="nm">${p.name}</span>
+      <span class="pr num">${fmt(s.cheap?.price||0)} ฿</span></a>`;}).join('');
+  box.classList.add('on');
+}
+
+/* ═════════ EVENTS ═════════ */
+let typing;
+const onType = e=>{ clearTimeout(typing); const v=e.target.value;
+  typing=setTimeout(()=>{ ac(v, $('#ac')); f.q=v; render(); }, 200); };
+$('#q').addEventListener('input', onType);
+$('#q2').addEventListener('input', e=>{ $('#q').value=e.target.value; onType(e); });
+document.addEventListener('click', e=>{ if(!e.target.closest('.searchwrap')) $('#ac').classList.remove('on'); });
+addEventListener('keydown', e=>{ if(e.key==='/' && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)){ e.preventDefault(); $('#q').focus(); }});
+
+document.addEventListener('click', e=>{
+  const go=e.target.closest('[data-go]');
+  if(go){ location.hash=go.dataset.go; return; }
+  const cat=e.target.closest('[data-cat]');
+  if(cat){ page=cat.dataset.cat; f.s1=f.s2=''; navbar(); chips(); render(); showPage('list'); return; }
+  const v=e.target.closest('[data-view]');
+  if(v){ view=v.dataset.view; navbar(); render(false); return; }
+  const st=e.target.closest('[data-sort]');
+  if(st){ f.sort=st.dataset.sort; chips(); navbar(); render(); return; }
+  const sp=e.target.closest('[data-set]');
+  if(sp){ const k=sp.dataset.set==='spec1'?'s1':'s2'; f[k]=sp.dataset.v; chips(); render(); return; }
+  const al=e.target.closest('[data-alert]');
+  if(al){ const fm=document.querySelector(`[data-form="${al.dataset.alert}"]`); fm.classList.toggle('on'); return; }
+  const sv=e.target.closest('[data-save]');
+  if(sv){ const id=sv.dataset.save, val=parseInt(document.querySelector(`[data-target="${id}"]`).value);
+    if(!val) return alert('กรุณากรอกราคาเป้าหมาย');
+    const a=getAlerts().filter(x=>x.id!==id); a.push({id,target:val}); saveAlerts(a);
+    document.querySelector(`[data-form="${id}"]`).classList.remove('on');
+    alert('ตั้งเตือนแล้ว — ดูได้ที่แท็บแจ้งเตือน'); return; }
 });
-installBtn.onclick = async () => {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt(); await deferredPrompt.userChoice;
-  deferredPrompt = null; installBtn.style.display = 'none';
-};
-window.addEventListener('appinstalled', () => installBtn.style.display = 'none');
+$('#more').onclick=()=>{ shown+=PAGE_SIZE; render(false); };
+$('#clearf').onclick=()=>{ f={q:'',sort:'price',min:0,max:Infinity,s1:'',s2:''};
+  $('#q').value=$('#q2').value=''; $('#pmin').value=$('#pmax').value='';
+  navbar(); chips(); render(); };
+document.addEventListener('change', e=>{ if(e.target.id==='sortsel'){ f.sort=e.target.value; chips(); navbar(); render(); }});
+
+/* sheet */
+const sheet=$('#sheet'), sbg=$('#sheetbg');
+const openSheet=()=>{ chips(); sheet.classList.add('on'); sbg.classList.add('on'); };
+const closeSheet=()=>{ sheet.classList.remove('on'); sbg.classList.remove('on'); };
+document.addEventListener('click', e=>{ if(e.target.closest('#openf')) openSheet(); });
+sbg.onclick=closeSheet; $('#sheetdone').onclick=()=>{
+  f.min=parseInt($('#pmin').value)||0; f.max=parseInt($('#pmax').value)||Infinity;
+  render(); closeSheet(); };
+
+function showPage(which){
+  ['list','builder','alerts'].forEach(k=>$('#page-'+k).classList.toggle('on', k===which));
+  $$('.page-home').forEach(el=>el.style.display = which==='list'?'':'none');
+  $('#fbar').style.display = which==='list'?'':'none';
+  if(which==='builder') renderBuilder(); if(which==='alerts') renderAlerts();
+}
+
+/* ═════════ ALERTS / BUILDER ═════════ */
+function getAlerts(){try{return JSON.parse(localStorage.getItem('gpuAlerts')||'[]')}catch(e){return[]}}
+function saveAlerts(a){try{localStorage.setItem('gpuAlerts',JSON.stringify(a))}catch(e){} renderAlerts();}
+window.getAlerts=getAlerts; window.saveAlerts=saveAlerts;
+function renderAlerts(){
+  const a=getAlerts(), tb=$('#alertrows');
+  tb.innerHTML = a.length? a.map(x=>{
+    const p=all().find(y=>y.id===x.id); if(!p) return '';
+    const now=stat(p).cheap?.price||0, hit=now<=x.target;
+    return `<tr><td>${p.name}</td><td class="r num">${fmt(x.target)}</td><td class="r num">${fmt(now)}</td>
+      <td>${hit?'<span class="badge low">ถึงราคาแล้ว</span>':'<span class="badge mid">รออยู่</span>'}</td>
+      <td class="r"><button class="link" onclick="saveAlerts(getAlerts().filter(z=>z.id!=='${x.id}'))">ลบ</button></td></tr>`;
+  }).join('') : `<tr><td colspan="5"><div class="empty" style="border:none">
+      <h3>ยังไม่มีรายการแจ้งเตือน</h3><p>กดปุ่ม 🔔 บนการ์ดสินค้าเพื่อตั้งราคาเป้าหมาย</p></div></td></tr>`;
+}
+const BPARTS=[['cpu','ซีพียู'],['mainboard','เมนบอร์ด'],['ram','แรม'],['gpu','การ์ดจอ'],['ssd','SSD'],['psu','PSU'],['case','เคส']];
+function getBuild(){try{return JSON.parse(localStorage.getItem('pcBuild')||'{}')}catch(e){return{}}}
+function saveBuild(b){try{localStorage.setItem('pcBuild',JSON.stringify(b))}catch(e){} renderBuilder();}
+function renderBuilder(){
+  const b=getBuild();
+  $('#brows').innerHTML = BPARTS.map(([c,l])=>{
+    const list=all().filter(p=>p.category===c).sort((x,y)=>(stat(x).cheap?.price||0)-(stat(y).cheap?.price||0)).slice(0,300);
+    const sel=b[c];
+    return `<div class="brow"><label>${l}</label>
+      <select data-part="${c}"><option value="">— ไม่เลือก —</option>${
+        list.map(p=>`<option value="${p.id}"${sel===p.id?' selected':''}>${p.name} · ${fmt(stat(p).cheap?.price||0)} ฿</option>`).join('')}</select>
+      <span class="p num">${sel?fmt(stat(all().find(p=>p.id===sel)).cheap.price)+' ฿':'—'}</span></div>`;
+  }).join('');
+  $$('#brows select').forEach(s=>s.onchange=()=>{ const b2=getBuild(); b2[s.dataset.part]=s.value; saveBuild(b2); });
+  const chosen=BPARTS.map(([c])=>b[c]).filter(Boolean).map(id=>all().find(p=>p.id===id)).filter(Boolean);
+  const total=chosen.reduce((s,p)=>s+(stat(p).cheap?.price||0),0);
+  $('#btotal').textContent=fmt(total)+' ฿';
+  const watt=chosen.reduce((s,p)=>s+(p.specs?.tdp||0),0);
+  $('#bwatt').textContent = watt?`กำลังไฟโดยประมาณจากซีพียู+การ์ดจอ ${watt} W — แนะนำ PSU อย่างน้อย ${Math.ceil((watt*1.6)/50)*50} W`:'';
+  const cpu=chosen.find(p=>p.category==='cpu'), mb=chosen.find(p=>p.category==='mainboard'), ram=chosen.find(p=>p.category==='ram');
+  const out=[];
+  if(cpu&&mb){ const a=cpu.specs?.socket,c=mb.specs?.socket;
+    out.push(a&&c ? (a===c?`<div class="okl">✓ ซ็อกเก็ตตรงกัน (${a})</div>`:`<div class="errl">✕ ซ็อกเก็ตไม่ตรง — ซีพียู ${a} แต่เมนบอร์ด ${c}</div>`)
+      : `<div class="warnl">! ไม่มีข้อมูลซ็อกเก็ตครบ ตรวจสอบเองอีกครั้ง</div>`); }
+  if(mb&&ram){ const a=mb.specs?.ram,c=ram.specs?.ram;
+    out.push(a&&c ? (a===c?`<div class="okl">✓ ชนิดแรมตรงกัน (${a})</div>`:`<div class="errl">✕ แรมไม่ตรง — เมนบอร์ดรองรับ ${a} แต่เลือก ${c}</div>`) : ''); }
+  $('#bchecks').innerHTML=out.join('');
+}
+$('#bcopy').onclick=()=>{ const b=getBuild();
+  const t=BPARTS.map(([c,l])=>{const p=all().find(x=>x.id===b[c]);return p?`${l}: ${p.name} — ${fmt(stat(p).cheap.price)} ฿`:null})
+    .filter(Boolean).join('\n');
+  navigator.clipboard.writeText(t+'\n\nรวม '+$('#btotal').textContent+'\nจาก pricespec.vercel.app').then(()=>alert('คัดลอกแล้ว')); };
+$('#breset').onclick=()=>saveBuild({});
+
+/* ═════════ PWA ═════════ */
+let deferred;
+addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); deferred=e;
+  let d; try{d=localStorage.getItem('pwaDismiss')}catch(err){}
+  if(!d) setTimeout(()=>$('#pwa').classList.add('on'), 4000); });
+$('#pwayes').onclick=()=>{ $('#pwa').classList.remove('on'); if(deferred){deferred.prompt();deferred=null;} };
+$('#pwano').onclick=()=>{ $('#pwa').classList.remove('on'); try{localStorage.setItem('pwaDismiss','1')}catch(e){} };
+if('serviceWorker' in navigator) addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+
+/* ═════════ GA4 outbound ═════════ */
+if(AFF.ga4_id){
+  const g=document.createElement('script'); g.async=1;
+  g.src='https://www.googletagmanager.com/gtag/js?id='+AFF.ga4_id; document.head.appendChild(g);
+  window.dataLayer=window.dataLayer||[]; window.gtag=function(){dataLayer.push(arguments)};
+  gtag('js',new Date()); gtag('config',AFF.ga4_id);
+  document.addEventListener('click',e=>{ const a=e.target.closest('a[data-out]');
+    if(a) gtag('event','outbound_click',{item:a.dataset.out, store:a.dataset.store||''}); });
+}
+
+/* ═════════ BOOT ═════════ */
+$('#grid').innerHTML = skeleton();
+if(!DATA.products.length){
+  $('#errbox').innerHTML = `<div class="err"><span>⚠</span><div>
+    <b>ดึงข้อมูลราคาไม่สำเร็จรอบนี้</b><br>
+    ระบบกำลังลองใหม่ ลองรีเฟรชอีกครั้งในอีกสักครู่ — ข้อมูลราคาปกติอัปเดตทุกวันเสาร์ตี 5</div></div>`;
+}
+requestAnimationFrame(()=>{
+  homeBlocks(); navbar(); chips(); render();
+  const h=location.hash.replace('#','');
+  if(h==='builder'||h==='alerts') showPage(h);
+  else if(CATNAME[h]){ page=h; navbar(); chips(); render(); }
+});
+addEventListener('hashchange',()=>{ const h=location.hash.replace('#','');
+  if(h==='builder'||h==='alerts') showPage(h);
+  else { showPage('list'); page=CATNAME[h]?h:'all'; navbar(); chips(); render(); } });
 </script>
 </body>
 </html>
