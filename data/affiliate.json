@@ -1,17 +1,25 @@
 {
   "_readme": "ไฟล์เดียวที่คุมลิงก์หารายได้ทั้งเว็บ แก้ที่นี่ที่เดียว ลิงก์ทุกรายการเปลี่ยนตามทันที",
 
-  "involve_aff_id": "",
-  "involve_jib_offer_id": "",
-  "_involve_note": "ได้มาหลังสมัคร involve.asia และโปรแกรม JIB (TH) อนุมัติ · aff_id คือรหัสคุณ · offer_id คือรหัสแคมเปญ JIB",
-
-  "jib_rate": 0.0091,
-  "jib_cap": 0,
-  "_jib_note": "อัตราหมวด DIY จากบล็อก Involve Asia · cap 0 = ไม่มีเพดาน · ตรวจอัตราจริงในระบบหลังอนุมัติแล้วแก้ตรงนี้",
+  "contact_email": "pricespec.th@gmail.com",
 
   "shopee_rate": 0.02,
   "shopee_cap": 225,
-  "_shopee_note": "ยืนยันจาก Shopee Help Center บทความ 123898 (หมวดคอมพิวเตอร์และอุปกรณ์เสริม)",
+  "_shopee_note": "ยืนยันจาก Shopee Help Center บทความ 123898 · หมวดคอมพิวเตอร์และอุปกรณ์เสริม · ดีที่สุดที่มีอยู่ตอนนี้",
+
+  "involve_aff_id": "1095406",
+  "involve_powerbuy_offer_id": "",
+  "powerbuy_rate": 0.0315,
+  "powerbuy_cap": 0,
+  "_powerbuy_note": "Power Buy TH ผ่าน Involve Asia · 3.15% ไม่มีเพดาน · ชนะ Shopee ทุกอย่างที่แพงกว่า 7,143฿ · รอเว็บอนุมัติก่อนจึงกด Apply ได้",
+
+  "accesstrade_advice_link": "https://atth.me/00cxqr002aa9",
+  "advice_rate": 0.0034,
+  "advice_cpu_rate": 0.0007,
+  "advice_cap": 0,
+  "_advice_note": "ตรวจจากหน้าแคมเปญ 925 เมื่อ 28/07/2569 · แพ้ Shopee ทุกกรณี · ไม่คุ้มลงแรงเพิ่ม เก็บไว้เผื่ออัตราขึ้น",
+
+  "_jib_note": "JIB ไม่มีในเครือข่ายไหนเลย · ตรวจแล้วทั้ง Involve Asia และ AccessTrade · โปรแกรมเดิมบน Involve ปิดไปแล้ว",
 
   "ga4_id": "",
   "_ga4_note": "ใส่ G-XXXXXXXXXX เพื่อเริ่มนับคลิกออกร้าน — ตัวเลขเดียวที่ต้องจ้องทุกสัปดาห์"

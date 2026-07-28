@@ -1,1 +1,1 @@
-window.AFFILIATE = {"involve_aff_id": "", "involve_jib_offer_id": "", "jib_rate": 0.0091, "jib_cap": 0, "shopee_rate": 0.02, "shopee_cap": 225, "ga4_id": ""};
+window.AFFILIATE = {"contact_email": "pricespec.th@gmail.com", "shopee_rate": 0.02, "shopee_cap": 225, "involve_aff_id": "1095406", "involve_powerbuy_offer_id": "", "powerbuy_rate": 0.0315, "powerbuy_cap": 0, "accesstrade_advice_link": "https://atth.me/00cxqr002aa9", "advice_rate": 0.0034, "advice_cpu_rate": 0.0007, "advice_cap": 0, "ga4_id": ""};
