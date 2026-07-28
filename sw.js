@@ -1,5 +1,5 @@
 // PriceSpec — service worker: ทำให้เปิดออฟไลน์ได้ + โหลดเร็ว
-const CACHE = "pricespec-v22";
+const CACHE = "pricespec-v23";
 const ASSETS = [
   "./index.html",
   "./manifest.json",
