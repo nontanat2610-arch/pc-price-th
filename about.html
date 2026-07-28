@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>เกี่ยวกับ PriceSpec — เว็บเทียบราคาอุปกรณ์คอมในไทย</title>
+<meta name="description" content="PriceSpec คือเว็บเทียบราคาอุปกรณ์คอมพิวเตอร์และเครื่องเกมในไทย รวบรวมราคาจากร้านค้าไทยอัตโนมัติทุกสัปดาห์ ใช้งานฟรี">
+<link rel="canonical" href="https://pricespec.vercel.app/about">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="th_TH">
+<meta property="og:site_name" content="PriceSpec">
+<meta property="og:title" content="เกี่ยวกับ PriceSpec — เว็บเทียบราคาอุปกรณ์คอมในไทย">
+<meta property="og:description" content="PriceSpec คือเว็บเทียบราคาอุปกรณ์คอมพิวเตอร์และเครื่องเกมในไทย รวบรวมราคาจากร้านค้าไทยอัตโนมัติทุกสัปดาห์ ใช้งานฟรี">
+<meta property="og:url" content="https://pricespec.vercel.app/about">
+<meta name="theme-color" content="#0d1117">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+
+<style>
+:root{--bg:#0d1117;--card:#161b22;--card2:#1c2330;--border:#2d3748;--text:#e6edf3;--muted:#8b949e;--accent:#58e08c;--accent2:#4dabf7}
+*{box-sizing:border-box;margin:0;padding:0}
+body{color:var(--text);font-family:'Segoe UI',Tahoma,sans-serif;line-height:1.55;min-height:100vh;
+  background:radial-gradient(900px 500px at 10% -10%,rgba(88,224,140,.20),transparent 60%),
+    radial-gradient(820px 460px at 90% -6%,rgba(77,171,247,.17),transparent 62%),
+    linear-gradient(180deg,#0a0f16 0%,var(--bg) 42%);
+  background-attachment:fixed;background-repeat:no-repeat}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:900px;margin:0 auto;padding:16px;position:relative;z-index:1}
+.top{display:flex;align-items:center;gap:10px;padding:16px 0 6px}
+.top .name{font-size:1.35rem;font-weight:800;background:linear-gradient(92deg,#fff,#9dfbc4 55%,#4dabf7);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.crumb{color:var(--muted);font-size:.85rem;margin:6px 0 14px}
+.crumb a:hover{color:var(--accent)}
+.panel{background:linear-gradient(145deg,rgba(32,43,58,.78),rgba(15,20,29,.85));
+  border:1px solid rgba(88,224,140,.20);border-radius:20px;padding:22px;display:flex;gap:22px;flex-wrap:wrap;
+  box-shadow:0 26px 70px -34px rgba(0,0,0,.95)}
+.panel img{width:230px;height:230px;object-fit:contain;background:#fff;border-radius:14px;flex:none}
+.info{flex:1;min-width:250px}
+h1{font-size:1.35rem;line-height:1.35;margin-bottom:8px}
+.spec{color:var(--muted);font-size:.88rem;margin-bottom:12px}
+.big{font-size:2.1rem;font-weight:800;color:var(--accent);line-height:1.1}
+.bigsub{color:var(--muted);font-size:.83rem;margin-bottom:12px}
+table{width:100%;border-collapse:collapse;font-size:.92rem;margin-top:6px}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--border)}
+th{color:var(--muted);font-weight:500;font-size:.82rem}
+td.p{text-align:right;font-weight:700;white-space:nowrap}
+tr.best td{color:var(--accent)}
+.btn{display:inline-block;margin-top:14px;background:var(--accent);color:#0d1117;font-weight:700;
+  padding:10px 20px;border-radius:9px;font-size:.92rem}
+.btn.ghost{background:transparent;border:1px solid var(--accent);color:var(--accent);margin-left:8px}
+h2{font-size:1.05rem;margin:28px 0 8px}
+.rel{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.rel li{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:11px 13px;font-size:.86rem}
+.rel li:hover{border-color:rgba(88,224,140,.45)}
+.rel b{color:var(--accent);display:block;margin-top:3px}
+footer{margin:34px 0 20px;color:var(--muted);font-size:.83rem;border-top:1px solid var(--border);padding-top:14px}
+footer a{color:var(--accent)}
+@media(max-width:620px){.panel{padding:16px;gap:14px}.panel img{width:100%;height:200px}}
+
+.doc{background:linear-gradient(145deg,rgba(32,43,58,.72),rgba(15,20,29,.85));
+  border:1px solid rgba(88,224,140,.18);border-radius:20px;padding:30px 34px;margin-top:6px}
+.doc h1{font-size:1.7rem;margin-bottom:14px}
+.doc h2{font-size:1.12rem;margin:26px 0 8px;color:var(--accent)}
+.doc p{margin:10px 0;color:#c6d2de}
+.doc ul{margin:10px 0 10px 20px;color:#c6d2de}
+.doc li{margin:7px 0}
+.doc b{color:var(--text)}
+.doc a{color:var(--accent2)}
+.doc a:hover{text-decoration:underline}
+.doc code{background:rgba(255,255,255,.07);padding:2px 7px;border-radius:5px;font-size:.88em}
+.upd{color:var(--muted);font-size:.86rem}
+.mail{font-size:1.15rem;background:rgba(88,224,140,.09);border:1px solid rgba(88,224,140,.3);
+  border-radius:12px;padding:14px 18px;margin:16px 0!important}
+nav{display:flex;gap:6px;overflow-x:auto;padding:12px 0;margin-bottom:6px;scrollbar-width:none}
+nav::-webkit-scrollbar{height:0}
+nav a{white-space:nowrap;background:var(--card);border:1px solid var(--border);color:var(--muted);
+  padding:8px 14px;border-radius:20px;font-size:.92rem}
+@media(max-width:620px){.doc{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top">
+  <a href="https://pricespec.vercel.app/"><img src="/logo-mark.svg" alt="โลโก้ PriceSpec" width="38" height="38" style="border-radius:9px"></a>
+  <a href="https://pricespec.vercel.app/" class="name">PriceSpec</a>
+</div>
+<p class="crumb"><a href="https://pricespec.vercel.app/">หน้าแรก</a> › เกี่ยวกับ PriceSpec</p>
+<nav><a href="https://pricespec.vercel.app/gpu">🎮 การ์ดจอ</a><a href="https://pricespec.vercel.app/cpu">🧠 ซีพียู</a><a href="https://pricespec.vercel.app/mainboard">🔲 เมนบอร์ด</a><a href="https://pricespec.vercel.app/ram">📏 แรม</a><a href="https://pricespec.vercel.app/ssd">💾 SSD</a><a href="https://pricespec.vercel.app/psu">🔌 พาวเวอร์ซัพพลาย</a><a href="https://pricespec.vercel.app/case">🖥️ เคสคอม</a><a href="https://pricespec.vercel.app/monitor">🖵 จอมอนิเตอร์</a><a href="https://pricespec.vercel.app/cooling">❄ ชุดระบายความร้อน</a><a href="https://pricespec.vercel.app/console">⭐ เครื่องเกม</a></nav>
+<article class="doc">
+  <h1>เกี่ยวกับ PriceSpec</h1>
+  
+<p>PriceSpec เป็นเว็บไซต์เทียบราคาอุปกรณ์คอมพิวเตอร์และเครื่องเกมสำหรับผู้ซื้อในประเทศไทย
+เกิดจากปัญหาที่เจอเอง — เวลาจะซื้อการ์ดจอหรือประกอบคอมสักเครื่อง ต้องเปิดเว็บร้านทีละร้านเพื่อเทียบราคา
+และไม่มีทางรู้ว่าราคาที่เห็นวันนี้ถูกหรือแพงกว่าสัปดาห์ก่อน</p>
+
+<h2>เราทำอะไร</h2>
+<ul>
+  <li><b>รวบรวมราคาจริงจากร้านค้าไทย</b> — JIB, Advice และ iHAVECPU</li>
+  <li><b>แสดงราคาเฉลี่ยพร้อมราคาแยกรายร้าน</b> ให้เห็นว่าร้านไหนถูกที่สุดในขณะนั้น</li>
+  <li><b>เก็บประวัติราคา</b> เพื่อให้รู้ว่าราคาปัจจุบันถูกจริงหรือแค่ดูเหมือนถูก</li>
+  <li><b>แจ้งเตือนเมื่อราคาต่ำกว่าที่ตั้งไว้</b> — ตั้งค่าเก็บไว้ในเครื่องผู้ใช้เอง</li>
+  <li><b>เครื่องมือจัดสเปคคอม</b> ตรวจความเข้ากันได้ของซ็อกเก็ต ชนิดแรม และกำลังไฟ</li>
+</ul>
+
+<h2>ข้อมูลอัปเดตอย่างไร</h2>
+<p>ระบบดึงราคาอัตโนมัติ<b>ทุกวันเสาร์ เวลา 05:00 น.</b> แล้วสร้างหน้าเว็บใหม่ทั้งหมดเอง
+ไม่มีการแก้ราคาด้วยมือ ราคาที่เห็นจึงเป็นราคาที่ดึงมาจากหน้าเว็บร้านค้าโดยตรง ณ เวลานั้น</p>
+<p>ปัจจุบันมีสินค้าในระบบมากกว่า 2,200 รายการ ใน 10 หมวด ได้แก่ การ์ดจอ ซีพียู เมนบอร์ด แรม SSD
+พาวเวอร์ซัพพลาย เคส จอมอนิเตอร์ ชุดระบายความร้อน และเครื่องเกม</p>
+
+<h2>ข้อจำกัดที่อยากให้ทราบ</h2>
+<p>ราคาอาจเปลี่ยนแปลงระหว่างรอบอัปเดต และบางรายการอาจมีข้อมูลจากร้านเดียว
+<b>โปรดตรวจสอบราคาและสต๊อกกับร้านค้าอีกครั้งก่อนตัดสินใจซื้อเสมอ</b>
+PriceSpec ไม่ได้ขายสินค้าเอง และไม่มีส่วนเกี่ยวข้องกับการสั่งซื้อหรือการจัดส่ง</p>
+
+<h2>ใครทำเว็บนี้</h2>
+<p>PriceSpec ดูแลโดยบุคคลธรรมดาในประเทศไทย ผู้สนใจด้านไอทีและการประกอบคอมพิวเตอร์
+เว็บนี้ใช้งานได้ฟรี ไม่มีค่าสมาชิก และไม่ต้องสมัครบัญชี</p>
+
+</article>
+<footer>
+  <p>ราคารวบรวมจาก JIB, Advice และ iHAVECPU · อัปเดตอัตโนมัติทุกวันเสาร์ · อัปเดตล่าสุด 2026-07-25</p>
+  <p style="margin-top:8px"><a href="https://pricespec.vercel.app/">หน้าแรก</a> · <a href="https://pricespec.vercel.app/about">เกี่ยวกับเรา</a> ·
+     <a href="https://pricespec.vercel.app/privacy">นโยบายความเป็นส่วนตัว</a> · <a href="https://pricespec.vercel.app/contact">ติดต่อเรา</a></p>
+</footer>
+</div>
+</body>
+</html>
