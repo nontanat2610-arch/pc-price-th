@@ -14,26 +14,26 @@ CATS = {
         "slug": "gpu",
         "name": "การ์ดจอ",
         "emoji": "🎮",
-        "title": "ราคาการ์ดจอวันนี้ 2026 เทียบ 3 ร้าน JIB Advice iHAVECPU | PriceSpec",
-        "desc": "เช็คราคาการ์ดจอล่าสุด RTX 5060 5070 5070 Ti 5080 5090, Radeon RX 9070 XT, Intel Arc B580 เทียบราคาจาก 3 ร้านไทย พร้อมกราฟราคาย้อนหลังและราคาเฉลี่ย อัปเดตทุกสัปดาห์",
+        "title": "ราคาการ์ดจอวันนี้ 2026 พร้อมกราฟราคาย้อนหลัง | PriceSpec",
+        "desc": "เช็คราคาการ์ดจอล่าสุด RTX 5060 5070 5070 Ti 5080 5090, Radeon RX 9070 XT, Intel Arc B580 จากร้านค้าปลีกไทย พร้อมกราฟราคาย้อนหลังและราคาเฉลี่ย อัปเดตทุกสัปดาห์",
         "h2": "ราคาการ์ดจอล่าสุดในไทย",
-        "intro": "รวมราคาการ์ดจอ NVIDIA GeForce RTX 50 Series, AMD Radeon RX 9000 Series และ Intel Arc จากร้านค้าไทย 3 ร้าน (JIB, Advice, iHAVECPU) แสดงราคาเฉลี่ยพร้อมราคาแยกรายร้าน เพื่อให้เห็นว่าร้านไหนถูกที่สุด",
+        "intro": "รวมราคาการ์ดจอ NVIDIA GeForce RTX 50 Series, AMD Radeon RX 9000 Series และ Intel Arc จากร้านค้าปลีกไทย แสดงราคาเฉลี่ยพร้อมกราฟย้อนหลัง เพื่อให้เห็นว่าราคาตอนนี้อยู่จุดสูงหรือจุดต่ำ",
     },
     "cpu": {
         "slug": "cpu",
         "name": "ซีพียู",
         "emoji": "🧠",
-        "title": "ราคาซีพียู CPU วันนี้ AMD Ryzen / Intel Core เทียบ 3 ร้าน | PriceSpec",
-        "desc": "เช็คราคาซีพียู AMD Ryzen 5600, 9600X, 9800X3D และ Intel Core i5-14400F, Core Ultra 5 245K, i9-14900K เทียบราคา JIB Advice iHAVECPU พร้อมกราฟราคาย้อนหลัง",
+        "title": "ราคาซีพียู CPU วันนี้ AMD Ryzen / Intel Core พร้อมกราฟราคา | PriceSpec",
+        "desc": "เช็คราคาซีพียู AMD Ryzen 5600, 9600X, 9800X3D และ Intel Core i5-14400F, Core Ultra 5 245K, i9-14900K จากร้านค้าปลีกไทย พร้อมกราฟราคาย้อนหลัง",
         "h2": "ราคาซีพียู (CPU) ล่าสุดในไทย",
-        "intro": "รวมราคาซีพียู AMD Ryzen และ Intel Core จากร้านคอมไทย เทียบราคา 3 ร้านในหน้าเดียว ดูซ็อกเก็ตประกอบการเลือกเมนบอร์ดได้ทันที",
+        "intro": "รวมราคาซีพียู AMD Ryzen และ Intel Core จากร้านค้าปลีกไทยในหน้าเดียว พร้อมราคาย้อนหลัง ดูซ็อกเก็ตประกอบการเลือกเมนบอร์ดได้ทันที",
     },
     "mainboard": {
         "slug": "mainboard",
         "name": "เมนบอร์ด",
         "emoji": "🔲",
         "title": "ราคาเมนบอร์ด Mainboard วันนี้ AM4 AM5 LGA1700 | PriceSpec",
-        "desc": "เช็คราคาเมนบอร์ด MSI, ASUS, ASRock ทั้ง B550, B650, X870, B760, B860 เทียบ 3 ร้านไทย พร้อมบอกซ็อกเก็ตและชนิดแรมที่รองรับ",
+        "desc": "เช็คราคาเมนบอร์ด MSI, ASUS, ASRock ทั้ง B550, B650, X870, B760, B860 จากร้านค้าปลีกไทย พร้อมบอกซ็อกเก็ตและชนิดแรมที่รองรับ",
         "h2": "ราคาเมนบอร์ดล่าสุดในไทย",
         "intro": "รวมราคาเมนบอร์ดยอดนิยมทั้งฝั่ง AMD (AM4/AM5) และ Intel (LGA1700/LGA1851) ระบุซ็อกเก็ตและชนิดแรมที่รองรับ ช่วยให้จับคู่กับซีพียูได้ถูกต้อง",
     },
@@ -41,8 +41,8 @@ CATS = {
         "slug": "ram",
         "name": "แรม",
         "emoji": "📏",
-        "title": "ราคาแรม RAM DDR4 DDR5 วันนี้ เทียบ 3 ร้านไทย | PriceSpec",
-        "desc": "เช็คราคาแรม Kingston FURY, Corsair Vengeance, G.SKILL Trident Z5 ทั้ง DDR4 3200 และ DDR5 5600 6000 6400 เทียบราคา JIB Advice iHAVECPU",
+        "title": "ราคาแรม RAM DDR4 DDR5 วันนี้ พร้อมกราฟราคาย้อนหลัง | PriceSpec",
+        "desc": "เช็คราคาแรม Kingston FURY, Corsair Vengeance, G.SKILL Trident Z5 ทั้ง DDR4 3200 และ DDR5 5600 6000 6400 จากร้านค้าปลีกไทย พร้อมกราฟราคาย้อนหลัง",
         "h2": "ราคาแรม (RAM) ล่าสุดในไทย",
         "intro": "รวมราคาแรมคอมพิวเตอร์ DDR4 และ DDR5 หลายบัส พร้อมกรองตามชนิดแรมและความเร็วบัสได้ในหน้าหลัก",
     },
@@ -50,17 +50,17 @@ CATS = {
         "slug": "ssd",
         "name": "SSD",
         "emoji": "💾",
-        "title": "ราคา SSD M.2 NVMe Gen4 วันนี้ 1TB 2TB เทียบ 3 ร้าน | PriceSpec",
-        "desc": "เช็คราคา SSD Kingston NV3, WD Blue SN5000, Samsung 990 PRO, WD Black SN850X ความจุ 1TB และ 2TB เทียบราคาร้านไทย 3 ร้าน",
+        "title": "ราคา SSD M.2 NVMe Gen4 วันนี้ 1TB 2TB พร้อมกราฟราคา | PriceSpec",
+        "desc": "เช็คราคา SSD Kingston NV3, WD Blue SN5000, Samsung 990 PRO, WD Black SN850X ความจุ 1TB และ 2TB จากร้านค้าปลีกไทย พร้อมกราฟราคาย้อนหลัง",
         "h2": "ราคา SSD ล่าสุดในไทย",
-        "intro": "รวมราคา SSD M.2 NVMe Gen4 ความจุ 1TB–2TB จากแบรนด์หลัก เทียบราคาระหว่างร้านได้ทันที",
+        "intro": "รวมราคา SSD M.2 NVMe Gen4 ความจุ 1TB–2TB จากแบรนด์หลัก ดูราคาย้อนหลังได้ทันที",
     },
     "psu": {
         "slug": "psu",
         "name": "พาวเวอร์ซัพพลาย",
         "emoji": "🔌",
         "title": "ราคา Power Supply PSU วันนี้ 650W 750W 850W 1000W | PriceSpec",
-        "desc": "เช็คราคาพาวเวอร์ซัพพลาย Corsair CX650, RM850e, Thermaltake Smart BX1, ASUS TUF Gaming 1000W 80+ Bronze/Gold เทียบ 3 ร้านไทย",
+        "desc": "เช็คราคาพาวเวอร์ซัพพลาย Corsair CX650, RM850e, Thermaltake Smart BX1, ASUS TUF Gaming 1000W 80+ Bronze/Gold จากร้านค้าปลีกไทย พร้อมกราฟราคาย้อนหลัง",
         "h2": "ราคาพาวเวอร์ซัพพลาย (PSU) ล่าสุดในไทย",
         "intro": "รวมราคาพาวเวอร์ซัพพลายตั้งแต่ 650W ถึง 1000W ทั้ง 80+ Bronze และ Gold ใช้คู่กับหน้าจัดสเปคเพื่อคำนวณกำลังไฟที่ต้องใช้",
     },
@@ -68,17 +68,17 @@ CATS = {
         "slug": "case",
         "name": "เคสคอม",
         "emoji": "🖥️",
-        "title": "ราคาเคสคอม PC Case วันนี้ ATX E-ATX เทียบ 3 ร้านไทย | PriceSpec",
-        "desc": "เช็คราคาเคสคอมพิวเตอร์ Montech AIR 1000 LITE, Lian Li LANCOOL 217, NZXT H5 Flow, Thermaltake View 270 TG เทียบราคา 3 ร้าน",
+        "title": "ราคาเคสคอม PC Case วันนี้ ATX E-ATX พร้อมกราฟราคาย้อนหลัง | PriceSpec",
+        "desc": "เช็คราคาเคสคอมพิวเตอร์ Montech AIR 1000 LITE, Lian Li LANCOOL 217, NZXT H5 Flow, Thermaltake View 270 TG จากร้านค้าปลีกไทย พร้อมกราฟราคาย้อนหลัง",
         "h2": "ราคาเคสคอมพิวเตอร์ล่าสุดในไทย",
-        "intro": "รวมราคาเคสคอมยอดนิยมทั้งขนาด ATX และ E-ATX พร้อมราคาเฉลี่ยและราคาแยกรายร้าน",
+        "intro": "รวมราคาเคสคอมยอดนิยมทั้งขนาด ATX และ E-ATX พร้อมราคาเฉลี่ยและกราฟราคาย้อนหลัง",
     },
     "monitor": {
         "slug": "monitor",
         "name": "จอมอนิเตอร์",
         "emoji": "🖵",
         "title": "ราคาจอมอนิเตอร์ วันนี้ 24 27 32 นิ้ว 144Hz 165Hz | PriceSpec",
-        "desc": "เช็คราคาจอคอมพิวเตอร์และจอเกมมิ่ง ASUS, MSI, Gigabyte, LG, Samsung ทั้ง 24, 27, 32 นิ้ว รีเฟรชเรต 144Hz 165Hz 180Hz 240Hz เทียบราคาร้านไทย",
+        "desc": "เช็คราคาจอคอมพิวเตอร์และจอเกมมิ่ง ASUS, MSI, Gigabyte, LG, Samsung ทั้ง 24, 27, 32 นิ้ว รีเฟรชเรต 144Hz 165Hz 180Hz 240Hz จากร้านค้าปลีกไทย พร้อมกราฟราคาย้อนหลัง",
         "h2": "ราคาจอมอนิเตอร์ล่าสุดในไทย",
         "intro": "รวมราคาจอคอมพิวเตอร์และจอเกมมิ่งทุกขนาด พร้อมระบุขนาดหน้าจอและรีเฟรชเรตให้เทียบง่าย",
     },
@@ -87,7 +87,7 @@ CATS = {
         "name": "ชุดระบายความร้อน",
         "emoji": "❄",
         "title": "ราคาชุดน้ำ ชุดระบายความร้อนซีพียู AIO พัดลม CPU | PriceSpec",
-        "desc": "เช็คราคาชุดน้ำ AIO 240 280 360 มม. และฮีตซิงก์พัดลมซีพียู จากแบรนด์ดัง เทียบราคาร้านคอมไทย อัปเดตทุกสัปดาห์",
+        "desc": "เช็คราคาชุดน้ำ AIO 240 280 360 มม. และฮีตซิงก์พัดลมซีพียู จากแบรนด์ดัง จากร้านค้าปลีกไทย พร้อมกราฟราคาย้อนหลัง อัปเดตทุกสัปดาห์",
         "h2": "ราคาชุดระบายความร้อนล่าสุดในไทย",
         "intro": "รวมราคาชุดน้ำปิด (AIO) และฮีตซิงก์ระบายความร้อนด้วยอากาศ สำหรับซีพียูทุกซ็อกเก็ต",
     },
@@ -449,7 +449,7 @@ def shell_footer(updated):
     cats = " · ".join(f'<a href="{BASE}/{c["slug"]}">ราคา{c["name"]}</a>' for c in CATS.values())
     return f"""<footer><div class="wrap">
   <div class="fcols">{cats}</div>
-  <p>ราคารวบรวมจาก JIB · Advice · iHAVECPU · อัปเดตอัตโนมัติทุกวันเสาร์ ตี 5 · อัปเดตล่าสุด {updated}</p>
+  <p>ราคารวบรวมจากร้านค้าปลีกในประเทศไทย · อัปเดตอัตโนมัติทุกวันเสาร์ ตี 5 · อัปเดตล่าสุด {updated}</p>
   <p style="margin-top:8px"><a href="{BASE}/">หน้าแรก</a> · <a href="{BASE}/about">เกี่ยวกับเรา</a> ·
      <a href="{BASE}/privacy">นโยบายความเป็นส่วนตัว</a> · <a href="{BASE}/contact">ติดต่อเรา</a> ·
      <a href="{BASE}/contact#affiliate">การเปิดเผยลิงก์แนะนำ</a></p>
@@ -459,7 +459,7 @@ def shell_footer(updated):
 def trust_bar(n, label, updated):
     return f"""<div class="trust">
   <span class="tchip"><b class="num">{n:,}</b> {label}</span><span class="tsep"></span>
-  <span class="tchip"><span class="slogo jib">JIB</span><span class="slogo adv">Advice</span><span class="slogo ihv">iHAVECPU</span></span>
+  <span class="tchip"><span class="slogo jib">กราฟราคาย้อนหลัง</span><span class="slogo adv">ต่ำสุด 30 วัน</span><span class="slogo ihv">แจ้งเตือนราคา</span></span>
   <span class="tsep"></span>
   <span class="tchip"><span class="dot"></span> อัปเดตล่าสุด <b>{updated} · 05:00</b></span>
   <span class="tsep"></span><span class="tchip">ไม่มีค่าใช้จ่ายแอบแฝง</span>
@@ -660,7 +660,7 @@ STATIC_PAGES = {
 และไม่มีทางรู้ว่าราคาที่เห็นวันนี้ถูกหรือแพงกว่าสัปดาห์ก่อน</p>
 <h2>เราทำอะไร</h2>
 <ul>
-  <li><b>รวบรวมราคาจริงจากร้านค้าไทย</b> — JIB, Advice และ iHAVECPU</li>
+  <li><b>รวบรวมราคาจริงจากร้านค้าปลีกในประเทศไทย</b></li>
   <li><b>แสดงราคาถูกสุดพร้อมราคาแยกรายร้าน</b> ให้เห็นว่าร้านไหนถูกที่สุดในขณะนั้น</li>
   <li><b>เก็บประวัติราคา</b> พร้อมป้ายบอกว่าราคาตอนนี้ถูกจริงหรือแค่ดูเหมือนถูก</li>
   <li><b>แจ้งเตือนเมื่อราคาต่ำกว่าที่ตั้งไว้</b> — เก็บไว้ในเครื่องผู้ใช้เอง</li>
