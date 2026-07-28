@@ -299,18 +299,18 @@ const fmt = n => n.toLocaleString('th-TH') + ' ฿';
    ของแพงจึงคุ้มกว่าถ้าส่งไป JIB — คำนวณให้อัตโนมัติทุกชิ้น */
 const AFF = window.AFFILIATE || {};
 function affLink(p, price){
-  const aid = AFF.involve_aff_id, oid = AFF.involve_jib_offer_id;
-  const jib = (aid && oid && p.source_url)
-    ? `https://invol.co/aff_m?offer_id=${oid}&aff_id=${aid}&url=${encodeURIComponent(p.source_url)}`
-    : null;
-  const shopee = p.affiliate_url || null;
-  const pay = (rate, cap) => { const v = price * rate; return cap ? Math.min(v, cap) : v; };
-  if (jib && shopee)
-    return pay(AFF.jib_rate ?? .0091, AFF.jib_cap ?? 0) > pay(AFF.shopee_rate ?? .02, AFF.shopee_cap ?? 225)
-      ? jib : shopee;
-  return jib || shopee || p.source_url || '#';
+  const pay = (rate, cap) => { const v = price * (rate||0); return cap ? Math.min(v, cap) : v; };
+  const c = [];
+  if (p.affiliate_url) c.push([pay(AFF.shopee_rate ?? .02, AFF.shopee_cap ?? 225), p.affiliate_url, 'shopee']);
+  const aid = AFF.involve_aff_id, oid = AFF.involve_powerbuy_offer_id;
+  if (aid && oid && p.powerbuy_url)
+    c.push([pay(AFF.powerbuy_rate ?? .0315, AFF.powerbuy_cap ?? 0),
+            `https://invol.co/aff_m?offer_id=${oid}&aff_id=${aid}&url=${encodeURIComponent(p.powerbuy_url)}`, 'powerbuy']);
+  if (!c.length) return p.source_url || '#';
+  c.sort((a,b)=>b[0]-a[0]);
+  return c[0][1];
 }
-function affStore(url){ return url.includes('invol.co') ? 'jib' : url.includes('shopee') ? 'shopee' : 'direct'; }
+function affStore(url){ return url.includes('invol.co') ? 'powerbuy' : url.includes('shopee') ? 'shopee' : 'direct'; }
 
 // นับคลิกออกร้าน — ตัวเลขเดียวที่บอกว่าธุรกิจนี้ไปต่อได้ไหม
 if (AFF.ga4_id){
