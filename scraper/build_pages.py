@@ -208,13 +208,14 @@ def stat(p):
     ok = [r for r in rows if r["price"]]
     cheap = min(ok, key=lambda r: r["price"]) if ok else None
     dear = max(ok, key=lambda r: r["price"]) if ok else None
-    ser = series(p)
-    ps = [x["price"] for x in ser]
+    ser = series(p)                                        # ใช้วาดกราฟ (ช่วงจำลองเป็นเส้นประ)
+    rser = [x for x in ser if x["date"] >= REAL_FROM]       # ใช้คำนวณตัวเลขที่กล้าเคลม
+    ps = [x["price"] for x in rser]
     now = cheap["price"] if cheap else 0
-    if len(ps) > 3:
+    if len(ps) >= 4:
         lo, avg = min(ps), sum(ps) / len(ps)
         if now <= lo * 1.005:
-            badge = ("low", f"ต่ำสุดในรอบ {len(ps)} วัน")
+            badge = ("low", "ต่ำสุดตั้งแต่เริ่มเก็บ")
         elif now < avg * 0.97:
             badge = ("low", "ถูกกว่าค่าเฉลี่ย")
         elif now > avg * 1.03:
@@ -224,6 +225,7 @@ def stat(p):
     else:
         badge = ("mid", "เพิ่งเริ่มเก็บราคา")
     return {"rows": rows, "ok": ok, "cheap": cheap, "dear": dear, "ser": ser,
+            "rser": rser, "rpts": len(ps),
             "badge": badge, "save": (dear["price"] - cheap["price"]) if (dear and cheap) else 0,
             "now": now}
 
