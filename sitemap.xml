@@ -103,6 +103,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://pricespec.vercel.app/p/powercolor-fighter-amd-radeon-rx-6500-xt-4gb-gddr6-v3-axrx-6500xt-4gbd</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pricespec.vercel.app/p/leadtek-nvidia-rtx-a400-4gb-gddr6</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -613,6 +619,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://pricespec.vercel.app/p/galax-geforce-rtx-5070-ti-1-click-oc-2x-16gb-gddr7</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pricespec.vercel.app/p/gigabyte-geforce-rtx-5070-ti-windforce-oc-sff-16g-16gb-gddr7</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -680,6 +692,12 @@
   </url>
   <url>
     <loc>https://pricespec.vercel.app/p/gigabyte-geforce-rtx-5070-ti-aero-oc-16g-16gb-gddr7</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pricespec.vercel.app/p/asus-tuf-gaming-geforce-rtx-5070-ti-16gb-gddr7-oc-edition-tuf-rtx5070t</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -794,6 +812,12 @@
   </url>
   <url>
     <loc>https://pricespec.vercel.app/p/gigabyte-aorus-geforce-rtx-5080-xtreme-waterforce-16g-16gb-gddr7-gv-n5</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pricespec.vercel.app/p/asus-turbo-radeon-ai-pro-r9700-32gb-gddr6</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -1142,6 +1166,12 @@
   </url>
   <url>
     <loc>https://pricespec.vercel.app/p/amd-ryzen-7-7800x3d-8c-16t-4-2-5-0ghz-96mb-amd-socket-am5-tray</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pricespec.vercel.app/p/amd-ryzen-7-5800x3d-10th-anniversary-edition-8c-16t-3-4-4-5ghz-96mb-am</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -3595,12 +3625,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pricespec.vercel.app/p/ddr5-5600mhz-ram-corsair-vengeance-rgb-ddr5-intel-xmp-white-cmh32gx5m2</loc>
-    <lastmod>2026-07-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pricespec.vercel.app/p/ddr5-5600mhz-ram-corsair-vengeance-rgb-ddr5-amd-expo-intel-xmp-cl36-co</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -3751,12 +3775,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pricespec.vercel.app/p/ddr5-5600mhz-ram-corsair-vengeance-ddr5-amd-expo-intel-xmp-black-cmk32</loc>
-    <lastmod>2026-07-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pricespec.vercel.app/p/ddr5-5600mhz-ram-corsair-vengeance-ddr5-intel-xmp-white-cmk32gx5m2b560</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -3781,7 +3799,19 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://pricespec.vercel.app/p/ddr5-5600mhz-ram-corsair-vengeance-rgb-ddr5-intel-xmp-white-cmh32gx5m2</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pricespec.vercel.app/p/ddr5-5600mhz-ram-corsair-vengeance-ddr5-amd-expo-intel-xmp-cl36-grey-c</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pricespec.vercel.app/p/ddr5-5600mhz-ram-corsair-vengeance-ddr5-amd-expo-intel-xmp-black-cmk32</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -6163,6 +6193,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://pricespec.vercel.app/p/deepcool-cc550-4f-atx-black</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pricespec.vercel.app/p/montech-x2-mesh-white-atx</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -7375,6 +7411,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://pricespec.vercel.app/p/thermaltake-view-370-tg-argb-atx-black</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pricespec.vercel.app/p/h5flow</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -8167,6 +8209,18 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://pricespec.vercel.app/p/thermaltake-the-tower-600-light-year-green-atx</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pricespec.vercel.app/p/thermaltake-the-tower-600-atx-mint-strawberry</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pricespec.vercel.app/p/lian-li-o11-dynamic-evo-grey-e-atx</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -8713,12 +8767,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pricespec.vercel.app/p/dahua-dhi-lm24-b201s-23-8-inch-ips-fhd-100hz</loc>
-    <lastmod>2026-07-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pricespec.vercel.app/p/lenovo-l22-4e-67d-5kac6th-21-5-inch-ips-fhd-100hz</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -8744,6 +8792,12 @@
   </url>
   <url>
     <loc>https://pricespec.vercel.app/p/aoc-25b40hm-67-24-5-inch-va-fhd-100hz-adaptive-sync</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pricespec.vercel.app/p/dahua-dhi-lm24-b201s-23-8-inch-ips-fhd-100hz</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -8791,6 +8845,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://pricespec.vercel.app/p/acer-sa243y-p1wmix-23-8-inch-ips-fhd-144hz-adaptive-sync</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pricespec.vercel.app/p/msi-pro-mp251-e14l-24-5-inch-ips-fhd-144hz</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -8822,6 +8882,12 @@
   </url>
   <url>
     <loc>https://pricespec.vercel.app/p/gigabyte-gs25f14-24-5-inch-ips-fhd-144hz-amd-freesync</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pricespec.vercel.app/p/acer-nitro-vg240yp6bmipx-23-8-inch-ips-fhd-144hz-amd-freesync</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -8959,6 +9025,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://pricespec.vercel.app/p/lg-ultragear-27g411a-b-27-inch-ips-fhd-144hz-amd-freesync-premium-pro-</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pricespec.vercel.app/p/samsung-odyssey-g3-g30d-ls24dg302eexxt-24-inch-va-fhd-180hz-amd-freesy</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -8989,19 +9061,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pricespec.vercel.app/p/acer-sa243y-p1wmix-23-8-inch-ips-fhd-144hz-adaptive-sync</loc>
-    <lastmod>2026-07-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pricespec.vercel.app/p/acer-ek251qgbmix-24-5-inch-ips-fhd-120hz</loc>
-    <lastmod>2026-07-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pricespec.vercel.app/p/acer-nitro-vg240yp6bmipx-23-8-inch-ips-fhd-144hz-amd-freesync</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -9097,12 +9157,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pricespec.vercel.app/p/aoc-27b36x-67-27-inch-ips-fhd-144hz-adaptive-sync</loc>
-    <lastmod>2026-07-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pricespec.vercel.app/p/lg-u4-27u411b-b-27-inch-ips-fhd-144hz-amd-freesync-premium</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -9163,7 +9217,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pricespec.vercel.app/p/viewsonic-vx24g30-23-8-inch-ips-fhd-240hz-nvidia-g-sync-compatible</loc>
+    <loc>https://pricespec.vercel.app/p/aoc-27b36x-67-27-inch-ips-fhd-144hz-adaptive-sync</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -9337,7 +9391,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pricespec.vercel.app/p/lg-ultragear-27g411a-b-27-inch-ips-fhd-144hz-amd-freesync-premium-pro-</loc>
+    <loc>https://pricespec.vercel.app/p/msi-pro-mp273q-e7-27-inch-ips-2k-75hz-adaptive-sync</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -9362,6 +9416,12 @@
   </url>
   <url>
     <loc>https://pricespec.vercel.app/p/xiaomi-a27i-2026-27-inch-ips-fhd-144hz</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pricespec.vercel.app/p/viewsonic-vx24g30-23-8-inch-ips-fhd-240hz-nvidia-g-sync-compatible</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -9482,12 +9542,6 @@
   </url>
   <url>
     <loc>https://pricespec.vercel.app/p/lenovo-loq-27-10-68f2gacbth-27-inch-ips-fhd-200hz-amd-freesync-premium</loc>
-    <lastmod>2026-07-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pricespec.vercel.app/p/msi-pro-mp273q-e7-27-inch-ips-2k-75hz-adaptive-sync</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -9793,6 +9847,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://pricespec.vercel.app/p/asus-va329he-31-5-inch-ips-fhd-75hz-freesync</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pricespec.vercel.app/p/dell-s2725hsm-27-inch-ips-fhd-144hz-amd-freesync</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -10081,6 +10141,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://pricespec.vercel.app/p/acer-nitro-kg271u-f3bmiipx-27-inch-ips-2k-320hz-oc-amd-freesync-premiu</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pricespec.vercel.app/p/aoc-c27g4z-67-27-inch-va-fhd-280hz-adaptive-sync-curved</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -10106,12 +10172,6 @@
   </url>
   <url>
     <loc>https://pricespec.vercel.app/p/aoc-q27g4-ws-67-27-inch-fast-ips-2k-200hz-adaptive-sync</loc>
-    <lastmod>2026-07-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pricespec.vercel.app/p/acer-nitro-kg271u-f3bmiipx-27-inch-ips-2k-320hz-oc-amd-freesync-premiu</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -10429,12 +10489,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pricespec.vercel.app/p/samsung-odyssey-g5-g50f-32-inch-ips-2k-180hz-amd-freesync-nvidia-g-syn</loc>
-    <lastmod>2026-07-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pricespec.vercel.app/p/aoc-q27g4sl-ws-27-inch-ips-2k-320hz-nvidia-g-sync-compatible</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -10448,12 +10502,6 @@
   </url>
   <url>
     <loc>https://pricespec.vercel.app/p/hp-s5-532sf-31-5-inch-fhd-va-100hz-94f45aa-akl</loc>
-    <lastmod>2026-07-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pricespec.vercel.app/p/xiaomi-a27ui-27-inch-ips-4k-60hz-usb-c-ela6221eu</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -10573,6 +10621,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://pricespec.vercel.app/p/msi-modern-md342cqpw-34-inch-va-uwqhd-120hz-adaptive-sync-curved</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pricespec.vercel.app/p/gigabyte-g27u-27-inch-ips-4k-160hz-fhd-320hz-dual-mode-amd-freesync-pr</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -10604,6 +10658,12 @@
   </url>
   <url>
     <loc>https://pricespec.vercel.app/p/viewsonic-td2223-22-inch-ir-touch-monitor-75-hz-black</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pricespec.vercel.app/p/xiaomi-a27ui-27-inch-ips-4k-60hz-usb-c-ela6221eu</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -10646,6 +10706,12 @@
   </url>
   <url>
     <loc>https://pricespec.vercel.app/p/samsung-odyssey-g5-g50d-ls32dg502eexxt-32-inch-ips-2k-180hz-amd-freesy</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pricespec.vercel.app/p/samsung-odyssey-g5-g50f-32-inch-ips-2k-180hz-amd-freesync-nvidia-g-syn</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -10981,12 +11047,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pricespec.vercel.app/p/asus-proart-pa279cv-27-inch-ips-4k-60hz-usb-c</loc>
-    <lastmod>2026-07-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pricespec.vercel.app/p/asus-rog-strix-xg27ucs-gen2-27-inch-ips-4k-160hz-fhd-324hz-dual-mode-a</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -11006,6 +11066,12 @@
   </url>
   <url>
     <loc>https://pricespec.vercel.app/p/dell-alienware-aw2725qf-27-inch-ips-4k-180hz-fhd-360hz-oc-nvidia-g-syn</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pricespec.vercel.app/p/asus-proart-pa279cv-27-inch-ips-4k-60hz-usb-c</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -11282,6 +11348,12 @@
   </url>
   <url>
     <loc>https://pricespec.vercel.app/p/asus-rog-strix-5k-xg27jcg-27-inch-ips-5k-180hz-oc-2k-330hz-dual-mode-a</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pricespec.vercel.app/p/dell-ultrasharp-u3425we-34-14-inch-ips-2k-120hz-curved-thunderbolt-4</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -12259,12 +12331,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pricespec.vercel.app/p/deepcool-le720-360mm-argb-white</loc>
-    <lastmod>2026-07-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://pricespec.vercel.app/p/id-cooling-fx240-pro-black</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -12584,6 +12650,12 @@
   </url>
   <url>
     <loc>https://pricespec.vercel.app/p/deepcool-lt240-argb-black</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pricespec.vercel.app/p/corsair-nautilus-240-rs-argb-white</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -12925,6 +12997,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://pricespec.vercel.app/p/deepcool-le720-360mm-argb-white</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pricespec.vercel.app/p/montech-hyperflow-argb-240-black</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -13106,12 +13184,6 @@
   </url>
   <url>
     <loc>https://pricespec.vercel.app/p/deepcool-lt360-wh-argb-white</loc>
-    <lastmod>2026-07-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pricespec.vercel.app/p/corsair-nautilus-240-rs-argb-white</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
