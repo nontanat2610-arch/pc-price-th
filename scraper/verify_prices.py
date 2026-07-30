@@ -104,12 +104,13 @@ def main():
                 failed += 1
                 continue
 
+            pts = real_points(p)
+            pts[-1]["checked"] = True               # ตรวจกับหน้าสินค้าแล้ว เชื่อถือได้
             if real == now:
                 confirmed += 1                      # ราคาขยับจริง ปล่อยไว้
             else:
-                pts = real_points(p)
                 pts[-1]["price"] = real             # แก้ราคาในรอบล่าสุด
-                pts[-1]["verified"] = True
+                pts[-1]["corrected"] = True
                 fixed.append({
                     "name": p["name"], "slug": p.get("slug") or p.get("id"),
                     "listing_price": now, "page_price": real, "prev": before,

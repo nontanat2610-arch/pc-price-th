@@ -18,7 +18,7 @@ OUT = os.path.join(ROOT, "data", "movers.json")
 
 REAL_FROM = "2026-07-25"   # วันแรกที่เริ่มเก็บราคาจริง
 TOP_N = 15                 # เก็บอันดับละกี่รายการ
-MAX_PCT = 25               # ขยับเกินกี่ % ถือว่าน่าจะอ่านราคาผิด ไม่เอาไปโพสต์
+MAX_PCT = 25               # ขยับเกินนี้ต้องผ่านการตรวจหน้าสินค้า (ธง checked) ก่อนใช้ทำคอนเทนต์
 
 CAT_NAME = {
     "gpu": "การ์ดจอ", "cpu": "ซีพียู", "mainboard": "เมนบอร์ด", "ram": "แรม",
@@ -44,6 +44,16 @@ def real_series(p):
     return best
 
 
+def checked_dates(p):
+    """วันที่ที่ verify_prices.py เปิดหน้าสินค้าไปตรวจแล้ว — เชื่อตัวเลขได้"""
+    out = set()
+    for rows in (p.get("history") or {}).values():
+        for r in rows or []:
+            if r.get("checked") and r.get("date"):
+                out.add(r["date"])
+    return out
+
+
 def main():
     with open(PRICES, encoding="utf-8") as f:
         data = json.load(f)
@@ -51,10 +61,11 @@ def main():
 
     # หาวันเก็บข้อมูลจริงทั้งหมด เรียงจากเก่าไปใหม่
     all_dates = set()
-    cache = {}
+    cache, chk = {}, {}
     for p in products:
         s = real_series(p)
         cache[id(p)] = s
+        chk[id(p)] = checked_dates(p)
         all_dates.update(s.keys())
     dates = sorted(all_dates)
 
@@ -84,12 +95,13 @@ def main():
             if diff != 0:
                 row = dict(item, prev=before, diff=diff,
                            pct=round(diff / before * 100, 1))
-                # ขยับแรงเกินจริงมักเป็นการอ่านราคาผิด (ราคาผ่อน / รุ่นย่อยสลับกัน)
-                # แยกไว้ต่างหาก ไม่เอาไปทำคอนเทนต์
-                if abs(row["pct"]) > MAX_PCT:
-                    suspicious.append(row)
-                else:
+                # ขยับแรงต้องผ่านการตรวจกับหน้าสินค้าก่อน ถ้ายังไม่ตรวจให้กันไว้
+                trusted = abs(row["pct"]) <= MAX_PCT or latest in chk[id(p)]
+                row["checked"] = latest in chk[id(p)]
+                if trusted:
                     (rises if diff > 0 else drops).append(row)
+                else:
+                    suspicious.append(row)
             else:
                 unchanged += 1
 
@@ -97,9 +109,9 @@ def main():
         vals = list(s.values())
         if len(vals) >= 3 and now == min(vals) and max(vals) > now:
             hi = max(vals)
-            if (hi - now) / hi * 100 <= MAX_PCT:
+            if (hi - now) / hi * 100 <= MAX_PCT or latest in chk[id(p)]:
                 lows.append(dict(item, high=hi, save=hi - now,
-                                 points=len(vals)))
+                                 points=len(vals), checked=latest in chk[id(p)]))
 
     drops.sort(key=lambda r: r["pct"])           # ลดแรงสุดก่อน
     rises.sort(key=lambda r: -r["pct"])          # ขึ้นแรงสุดก่อน
@@ -130,6 +142,7 @@ def main():
             "unchanged": unchanged,
             "new_lows": len(lows),
             "suspicious": len(suspicious),
+            "price_checked": sum(1 for p in products if latest in chk[id(p)]),
         },
         "drops": drops[:TOP_N],
         "rises": rises[:TOP_N],
