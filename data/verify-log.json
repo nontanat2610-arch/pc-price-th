@@ -1,0 +1,24 @@
+{
+ "checked_at": "2026-07-30",
+ "threshold_pct": 12.0,
+ "checked": 50,
+ "corrected": 2,
+ "confirmed_real": 48,
+ "failed": 0,
+ "corrections": [
+  {
+   "name": "DDR4 3200MHz RAM (หน่วยความจำ) HIKSEMI ARMOR DDR4 INTEL XMP - BLACK",
+   "slug": "ddr4-3200mhz-ram-hiksemi-armor-ddr4-intel-xmp-black",
+   "listing_price": 7590,
+   "page_price": 4890,
+   "prev": 4890
+  },
+  {
+   "name": "DDR5 6400MHz RAM (หน่วยความจำ) G.SKILL TRIDENT Z5 RGB (INTEL XMP) (MATTE BLACK) (F5-6400J3239G16GX2-TZ5RK)",
+   "slug": "ddr5-6400mhz-ram-g-skill-trident-z5-rgb-intel-xmp-matte-black-f5-6400j",
+   "listing_price": 23990,
+   "page_price": 19490,
+   "prev": 19490
+  }
+ ]
+}

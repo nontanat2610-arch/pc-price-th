@@ -13,13 +13,13 @@
   "to": "2026-07-30"
  },
  "stats": {
-  "tracked": 2403,
-  "with_price": 2333,
-  "dropped": 12,
-  "rose": 63,
-  "unchanged": 2218,
-  "new_lows": 11,
-  "suspicious": 16
+  "tracked": 2405,
+  "with_price": 2336,
+  "dropped": 13,
+  "rose": 62,
+  "unchanged": 2220,
+  "new_lows": 13,
+  "suspicious": 14
  },
  "drops": [
   {
@@ -98,6 +98,17 @@
    "prev": 10590,
    "diff": -900,
    "pct": -8.5
+  },
+  {
+   "name": "Dell Alienware AW2726DM - 26.5 Inch QD-OLED 2K 240Hz AMD FreeSync Premium",
+   "slug": "dell-alienware-aw2726dm-26-5-inch-qd-oled-2k-240hz-amd-freesync-premiu",
+   "category": "monitor",
+   "category_th": "จอมอนิเตอร์",
+   "now": 11900,
+   "url": "https://pricespec.vercel.app/p/dell-alienware-aw2726dm-26-5-inch-qd-oled-2k-240hz-amd-freesync-premiu",
+   "prev": 12900,
+   "diff": -1000,
+   "pct": -7.8
   },
   {
    "name": "GeForce RTX 5070 Ti 16GB",
@@ -212,17 +223,6 @@
    "pct": 23.4
   },
   {
-   "name": "DDR5 6400MHz RAM (หน่วยความจำ) G.SKILL TRIDENT Z5 RGB (INTEL XMP) (MATTE BLACK) (F5-6400J3239G16GX2-TZ5RK)",
-   "slug": "ddr5-6400mhz-ram-g-skill-trident-z5-rgb-intel-xmp-matte-black-f5-6400j",
-   "category": "ram",
-   "category_th": "แรม",
-   "now": 23990,
-   "url": "https://pricespec.vercel.app/p/ddr5-6400mhz-ram-g-skill-trident-z5-rgb-intel-xmp-matte-black-f5-6400j",
-   "prev": 19490,
-   "diff": 4500,
-   "pct": 23.1
-  },
-  {
    "name": "Acer ProDesigner PE320QK L1smiqpruzx - 31.5 Inch IPS 4K 60Hz AMD FreeSync USB-C",
    "slug": "acer-prodesigner-pe320qk-l1smiqpruzx-31-5-inch-ips-4k-60hz-amd-freesyn",
    "category": "monitor",
@@ -320,6 +320,17 @@
    "prev": 5500,
    "diff": 900,
    "pct": 16.4
+  },
+  {
+   "name": "Viewsonic VA27G1-H - 27 Inch IPS FHD 144Hz",
+   "slug": "viewsonic-va27g1-h-27-inch-ips-fhd-144hz",
+   "category": "monitor",
+   "category_th": "จอมอนิเตอร์",
+   "now": 3550,
+   "url": "https://pricespec.vercel.app/p/viewsonic-va27g1-h-27-inch-ips-fhd-144hz",
+   "prev": 3050,
+   "diff": 500,
+   "pct": 16.4
   }
  ],
  "new_lows": [
@@ -335,6 +346,17 @@
    "points": 3
   },
   {
+   "name": "DDR5 6400MHz RAM (หน่วยความจำ) G.SKILL TRIDENT Z5 RGB (INTEL XMP) (MATTE BLACK) (F5-6400J3239G16GX2-TZ5RK)",
+   "slug": "ddr5-6400mhz-ram-g-skill-trident-z5-rgb-intel-xmp-matte-black-f5-6400j",
+   "category": "ram",
+   "category_th": "แรม",
+   "now": 19490,
+   "url": "https://pricespec.vercel.app/p/ddr5-6400mhz-ram-g-skill-trident-z5-rgb-intel-xmp-matte-black-f5-6400j",
+   "high": 23990,
+   "save": 4500,
+   "points": 3
+  },
+  {
    "name": "LG 32U631A-B - 31.5 Inch IPS 2K 100Hz USB-C",
    "slug": "lg-32u631a-b-31-5-inch-ips-2k-100hz-usb-c",
    "category": "monitor",
@@ -343,6 +365,17 @@
    "url": "https://pricespec.vercel.app/p/lg-32u631a-b-31-5-inch-ips-2k-100hz-usb-c",
    "high": 6950,
    "save": 1150,
+   "points": 3
+  },
+  {
+   "name": "Dell Alienware AW2726DM - 26.5 Inch QD-OLED 2K 240Hz AMD FreeSync Premium",
+   "slug": "dell-alienware-aw2726dm-26-5-inch-qd-oled-2k-240hz-amd-freesync-premiu",
+   "category": "monitor",
+   "category_th": "จอมอนิเตอร์",
+   "now": 11900,
+   "url": "https://pricespec.vercel.app/p/dell-alienware-aw2726dm-26-5-inch-qd-oled-2k-240hz-amd-freesync-premiu",
+   "high": 12900,
+   "save": 1000,
    "points": 3
   },
   {
@@ -446,28 +479,6 @@
   }
  ],
  "suspicious": [
-  {
-   "name": "DDR4 3200MHz RAM (หน่วยความจำ) HIKSEMI ARMOR DDR4 INTEL XMP - BLACK",
-   "slug": "ddr4-3200mhz-ram-hiksemi-armor-ddr4-intel-xmp-black",
-   "category": "ram",
-   "category_th": "แรม",
-   "now": 7590,
-   "url": "https://pricespec.vercel.app/p/ddr4-3200mhz-ram-hiksemi-armor-ddr4-intel-xmp-black",
-   "prev": 4890,
-   "diff": 2700,
-   "pct": 55.2
-  },
-  {
-   "name": "TRANSCEND PCIe Gen4x4 NVMe 3D TLC with Dram (Graphene Heatsink) M.2 2280 (TCN-TS1TMTE250S)",
-   "slug": "transcend-pcie-gen4x4-nvme-3d-tlc-with-dram-graphene-heatsink-m-2-2280",
-   "category": "ssd",
-   "category_th": "SSD",
-   "now": 8590,
-   "url": "https://pricespec.vercel.app/p/transcend-pcie-gen4x4-nvme-3d-tlc-with-dram-graphene-heatsink-m-2-2280",
-   "prev": 5350,
-   "diff": 3240,
-   "pct": 60.6
-  },
   {
    "name": "DEEPCOOL LE720 360MM ARGB WHITE",
    "slug": "deepcool-le720-360mm-argb-white",
@@ -610,6 +621,17 @@
    "prev": 4700,
    "diff": 1200,
    "pct": 25.5
+  },
+  {
+   "name": "CORSAIR NAUTILUS 240 RS ARGB (WHITE)",
+   "slug": "corsair-nautilus-240-rs-argb-white",
+   "category": "cooling",
+   "category_th": "ชุดระบายความร้อน",
+   "now": 2390,
+   "url": "https://pricespec.vercel.app/p/corsair-nautilus-240-rs-argb-white",
+   "prev": 3290,
+   "diff": -900,
+   "pct": -27.4
   }
  ],
  "cheapest_by_category": {
