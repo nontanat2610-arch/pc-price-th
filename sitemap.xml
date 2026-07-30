@@ -403,6 +403,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://pricespec.vercel.app/p/sapphire-pure-amd-radeon-rx-9060-xt-16gb-gddr6</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pricespec.vercel.app/p/gigabyte-radeon-rx-7700-xt-gaming-oc-12g-12gb-gddr6-gv-r77xtgaming-oc-</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -565,6 +571,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://pricespec.vercel.app/p/sapphire-pulse-amd-radeon-rx-9070-xt-gpu-16gb-gddr6</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pricespec.vercel.app/p/asus-dual-geforce-rtx-5070-12gb-gddr7-oc-edition</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -608,6 +620,12 @@
   </url>
   <url>
     <loc>https://pricespec.vercel.app/p/gigabyte-aorus-geforce-rtx-5070-master-12g-12gb-gddr7</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pricespec.vercel.app/p/sapphire-nitro-amd-radeon-rx-9070-xt-gpu-16gb-gddr6</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -7891,6 +7909,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://pricespec.vercel.app/p/zalman-p60-atx-black</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pricespec.vercel.app/p/zalman-p50-ds-white-atx</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -10333,6 +10357,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://pricespec.vercel.app/p/asus-proart-display-pa248qv-gen2-pa248qfv-24-1-inch-ips-wuxga-100hz-ad</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://pricespec.vercel.app/p/msi-pro-max-271qphw-e14-27-inch-ips-2k-144hz-usb-c</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -10382,12 +10412,6 @@
   </url>
   <url>
     <loc>https://pricespec.vercel.app/p/msi-mag-274qrfw-x32-27-inch-ips-2k-320hz-adaptive-sync</loc>
-    <lastmod>2026-07-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pricespec.vercel.app/p/asus-proart-display-pa248qv-gen2-pa248qfv-24-1-inch-ips-wuxga-100hz-ad</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
