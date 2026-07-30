@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>เช็คราคาการ์ดจอ CPU แรม อุปกรณ์คอม พร้อมกราฟราคาย้อนหลัง | PriceSpec</title>
 <meta name="description" content="เช็คราคาการ์ดจอ RTX 5070 5080 5090, ซีพียู, แรม DDR5, SSD, เมนบอร์ด, เคส และเครื่องเกม PS5 Switch จากร้านค้าปลีกไทย พร้อมกราฟราคาย้อนหลัง แจ้งเตือนเมื่อลดราคา และจัดสเปคคอมเช็คความเข้ากันได้ ฟรี">
-<meta name="keywords" content="เช็คราคาการ์ดจอ, ราคาการ์ดจอวันนี้, เทียบราคาคอม, ราคา RTX 5070, ราคา RTX 5080, จัดสเปคคอม, ราคาซีพียู, ราคาแรม DDR5, เช็คราคาอุปกรณ์คอม, กราฟราคาย้อนหลังอุปกรณ์คอม, ราคาต่ำสุดในรอบ 30 วัน">
+<meta name="keywords" content="เช็คราคาการ์ดจอ, ราคาการ์ดจอวันนี้, เทียบราคาคอม, ราคา RTX 5070, ราคา RTX 5080, จัดสเปคคอม, ราคาซีพียู, ราคาแรม DDR5, เช็คราคาอุปกรณ์คอม, กราฟราคาย้อนหลังอุปกรณ์คอม, ราคาต่ำสุดของสินค้าไอที">
 <link rel="canonical" href="https://pricespec.vercel.app/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="th_TH">
@@ -370,7 +370,7 @@ footer a:hover{color:var(--accent)}
 
 <!-- ══ DEAL STRIP ══ -->
 <section class="page-home" id="sec-deals">
-  <div class="shead"><h2>ลดแรงสุดใน 7 วัน</h2><span class="hint">เลื่อนดูได้ →</span></div>
+  <div class="shead"><h2>ราคาลดจากรอบก่อน</h2><span class="hint" id="deals-note">เลื่อนดูได้ →</span></div>
   <div class="strip" id="deals"></div>
 </section>
 
@@ -443,7 +443,7 @@ footer a:hover{color:var(--accent)}
         <svg viewBox="0 0 200 46" style="width:100%;height:46px">
           <polyline points="4,10 30,14 56,9 82,20 108,17 134,28 160,24 190,36" fill="none" stroke="var(--down)" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        <div class="mockrow b" style="justify-content:flex-start"><span class="badge low">ต่ำสุดในรอบ 90 วัน</span></div>
+        <div class="mockrow b" style="justify-content:flex-start"><span class="badge low">ต่ำสุดตั้งแต่เริ่มเก็บ</span></div>
       </div>
     </div>
     <div class="feat">
@@ -559,19 +559,27 @@ function stat(p){
   const ok = rows.filter(r=>r.price);
   const cheap = ok.length? ok.reduce((a,b)=>b.price<a.price?b:a) : null;
   const dear  = ok.length? ok.reduce((a,b)=>b.price>a.price?b:a) : null;
-  const ser = series(p), ps = ser.map(x=>x.price);
+  const ser = series(p);                                  // ใช้วาดกราฟ (ช่วงจำลองเป็นเส้นประ)
+  const rser = ser.filter(x=>x.date>=REAL_FROM);          // ใช้คำนวณตัวเลขที่กล้าเคลม
+  const ps = rser.map(x=>x.price);
   const min = ps.length?Math.min(...ps):0, max = ps.length?Math.max(...ps):0;
   const avg = ps.length?ps.reduce((a,b)=>a+b,0)/ps.length:0;
   const now = cheap?cheap.price:0;
   let badge = {c:'mid', t:'ราคาปกติ'};
-  if(ps.length>3){
-    if(now <= min*1.005)      badge={c:'low', t:'ต่ำสุดในรอบ '+ps.length+' วัน'};
+  if(ps.length>=4){
+    if(now <= min*1.005)      badge={c:'low', t:'ต่ำสุดตั้งแต่เริ่มเก็บ'};
     else if(now < avg*0.97)   badge={c:'low', t:'ถูกกว่าค่าเฉลี่ย'};
     else if(now > avg*1.03)   badge={c:'high',t:'แพงกว่าค่าเฉลี่ย'};
   } else badge={c:'mid', t:'เพิ่งเริ่มเก็บราคา'};
-  const wk = ps.length>7 ? now - ps[ps.length-8] : 0;
-  const o = {rows, ok, cheap, dear, ser, min, max, avg, badge, wk,
-             save: (dear&&cheap)?dear.price-cheap.price:0, hist: ps.length>1};
+  // ส่วนต่างจากรอบเก็บก่อนหน้า (ข้อมูลจริงเท่านั้น) ตัดที่ขยับเกิน 25% ทิ้ง เพราะมักอ่านราคาผิด
+  let wk = 0;
+  if(ps.length>=2){
+    const before = ps[ps.length-2];
+    const d = now - before;
+    if(before>0 && Math.abs(d/before) <= 0.25) wk = d;
+  }
+  const o = {rows, ok, cheap, dear, ser, rser, rpts: ps.length, min, max, avg, badge, wk,
+             save: (dear&&cheap)?dear.price-cheap.price:0, hist: ser.length>1};
   CACHE.set(p.id,o); return o;
 }
 function sparkline(ser, w=76, h=26){
@@ -774,7 +782,7 @@ function homeBlocks(){
   $('#t-count').textContent = fmt(all().length);
   $('#t-upd').textContent = DATA.updated + ' · 05:00';
   // deals
-  const d = all().filter(p=>stat(p).hist && stat(p).wk<0)
+  const d = all().filter(p=>stat(p).rpts>=2 && stat(p).wk<0)
     .sort((a,b)=>(stat(a).wk/ (stat(a).cheap?.price||1)) - (stat(b).wk/(stat(b).cheap?.price||1))).slice(0,14);
   $('#deals').innerHTML = d.length ? d.map(p=>{
     const s=stat(p), old=s.cheap.price-s.wk, pc=Math.round(-s.wk/old*100);
@@ -784,8 +792,12 @@ function homeBlocks(){
       <div class="dp"><b class="num">${fmt(s.cheap.price)} ฿</b><span class="old num">${fmt(old)}</span></div>
       <div style="display:flex;align-items:center;gap:7px;margin-top:6px">
         <span class="pct">−${pc}%</span>${sparkline(s.ser,58,20)}</div></a>`;
-  }).join('') : `<div class="empty" style="width:100%">ยังไม่มีรายการที่ราคาลดในรอบ 7 วัน — กลับมาดูหลังอัปเดตวันเสาร์</div>`;
-  if(!d.length) $('#sec-deals').querySelector('.hint').textContent='';
+  }).join('') : `<div class="empty" style="width:100%">รอบล่าสุดยังไม่มีรายการที่ราคาลด — เราอัปเดตราคาใหม่ทุกเช้า 05:00 น.</div>`;
+  const rd=[...new Set(all().flatMap(p=>stat(p).rser.map(x=>x.date)))].sort();
+  const note=$('#deals-note');
+  if(note) note.textContent = d.length
+    ? (rd.length>=2 ? `เทียบ ${rd[rd.length-2]} → ${rd[rd.length-1]}` : '')
+    : '';
   // categories
   $('#cats').innerHTML = CATS.map(([k,n,i])=>{
     const list = all().filter(p=>p.category===k);
