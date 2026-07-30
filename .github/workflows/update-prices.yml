@@ -2,7 +2,7 @@ name: Update GPU prices daily
 
 on:
   schedule:
-    - cron: "0 22 * * 5"  # ทุกวันเสาร์ 05:00 น. เวลาไทย (ศุกร์ 22:00 UTC)
+    - cron: "0 22 * * *"  # ทุกวัน 05:00 น. เวลาไทย (22:00 UTC วันก่อนหน้า)
   workflow_dispatch:        # กดรันเองได้จากหน้า Actions
 
 permissions:
@@ -28,6 +28,9 @@ jobs:
 
       - name: Crawl JIB catalog (ทั้งหมวด)
         run: python scraper/crawl_jib.py
+
+      - name: Build price movers (ราคาขึ้น/ลง รายวัน)
+        run: python scraper/build_movers.py
 
       - name: Build SEO category pages
         run: python scraper/build_pages.py
