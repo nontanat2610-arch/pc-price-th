@@ -18,6 +18,7 @@ OUT = os.path.join(ROOT, "data", "movers.json")
 
 REAL_FROM = "2026-07-25"   # วันแรกที่เริ่มเก็บราคาจริง
 TOP_N = 15                 # เก็บอันดับละกี่รายการ
+MAX_PCT = 25               # ขยับเกินกี่ % ถือว่าน่าจะอ่านราคาผิด ไม่เอาไปโพสต์
 
 CAT_NAME = {
     "gpu": "การ์ดจอ", "cpu": "ซีพียู", "mainboard": "เมนบอร์ด", "ram": "แรม",
@@ -60,7 +61,7 @@ def main():
     latest = dates[-1] if dates else None
     prev = dates[-2] if len(dates) >= 2 else None
 
-    drops, rises, lows, unchanged = [], [], [], 0
+    drops, rises, lows, unchanged, suspicious = [], [], [], 0, []
 
     for p in products:
         s = cache[id(p)]
@@ -83,16 +84,22 @@ def main():
             if diff != 0:
                 row = dict(item, prev=before, diff=diff,
                            pct=round(diff / before * 100, 1))
-                (rises if diff > 0 else drops).append(row)
+                # ขยับแรงเกินจริงมักเป็นการอ่านราคาผิด (ราคาผ่อน / รุ่นย่อยสลับกัน)
+                # แยกไว้ต่างหาก ไม่เอาไปทำคอนเทนต์
+                if abs(row["pct"]) > MAX_PCT:
+                    suspicious.append(row)
+                else:
+                    (rises if diff > 0 else drops).append(row)
             else:
                 unchanged += 1
 
         # ต่ำสุดตั้งแต่เริ่มเก็บจริง (ต้องมีอย่างน้อย 3 จุด กันสัญญาณหลอก)
         vals = list(s.values())
         if len(vals) >= 3 and now == min(vals) and max(vals) > now:
-            lows.append(dict(item, high=max(vals),
-                             save=max(vals) - now,
-                             points=len(vals)))
+            hi = max(vals)
+            if (hi - now) / hi * 100 <= MAX_PCT:
+                lows.append(dict(item, high=hi, save=hi - now,
+                                 points=len(vals)))
 
     drops.sort(key=lambda r: r["pct"])           # ลดแรงสุดก่อน
     rises.sort(key=lambda r: -r["pct"])          # ขึ้นแรงสุดก่อน
@@ -122,10 +129,12 @@ def main():
             "rose": len(rises),
             "unchanged": unchanged,
             "new_lows": len(lows),
+            "suspicious": len(suspicious),
         },
         "drops": drops[:TOP_N],
         "rises": rises[:TOP_N],
         "new_lows": lows[:TOP_N],
+        "suspicious": suspicious[:TOP_N],
         "cheapest_by_category": cheapest,
     }
 
@@ -134,7 +143,7 @@ def main():
 
     print(f"movers.json: เทียบ {prev} → {latest} · "
           f"ลด {len(drops)} · ขึ้น {len(rises)} · เท่าเดิม {unchanged} · "
-          f"ต่ำสุดใหม่ {len(lows)}")
+          f"ต่ำสุดใหม่ {len(lows)} · น่าสงสัย {len(suspicious)}")
 
 
 if __name__ == "__main__":
