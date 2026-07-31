@@ -14,17 +14,150 @@
   "to": "2026-07-31"
  },
  "stats": {
-  "tracked": 2409,
-  "with_price": 2189,
-  "dropped": 0,
-  "rose": 8,
-  "unchanged": 2181,
-  "new_lows": 13,
+  "tracked": 2416,
+  "with_price": 2333,
+  "dropped": 6,
+  "rose": 15,
+  "unchanged": 2303,
+  "new_lows": 20,
   "suspicious": 0,
-  "price_checked": 2
+  "price_checked": 10
  },
- "drops": [],
+ "drops": [
+  {
+   "name": "Asus TUF Gaming VG279QE5A - 27 Inch IPS FHD 146Hz Adaptive Sync",
+   "slug": "asus-tuf-gaming-vg279qe5a-27-inch-ips-fhd-146hz-adaptive-sync",
+   "category": "monitor",
+   "category_th": "จอมอนิเตอร์",
+   "now": 3000,
+   "url": "https://pricespec.vercel.app/p/asus-tuf-gaming-vg279qe5a-27-inch-ips-fhd-146hz-adaptive-sync",
+   "prev": 4250,
+   "diff": -1250,
+   "pct": -29.4,
+   "checked": true
+  },
+  {
+   "name": "LG Ultragear 27G440A-B - 27 Inch IPS FHD 240Hz AMD FreeSync Premium G-Sync Compatible",
+   "slug": "lg-ultragear-27g440a-b-27-inch-ips-fhd-240hz-amd-freesync-premium-g-sy",
+   "category": "monitor",
+   "category_th": "จอมอนิเตอร์",
+   "now": 4700,
+   "url": "https://pricespec.vercel.app/p/lg-ultragear-27g440a-b-27-inch-ips-fhd-240hz-amd-freesync-premium-g-sy",
+   "prev": 5900,
+   "diff": -1200,
+   "pct": -20.3,
+   "checked": true
+  },
+  {
+   "name": "MSI MAG 255PXF - 24.5 Inch Rapid IPS FHD 300Hz AMD FreeSync Premium",
+   "slug": "msi-mag-255pxf-24-5-inch-rapid-ips-fhd-300hz-amd-freesync-premium",
+   "category": "monitor",
+   "category_th": "จอมอนิเตอร์",
+   "now": 4950,
+   "url": "https://pricespec.vercel.app/p/msi-mag-255pxf-24-5-inch-rapid-ips-fhd-300hz-amd-freesync-premium",
+   "prev": 5650,
+   "diff": -700,
+   "pct": -12.4,
+   "checked": true
+  },
+  {
+   "name": "Dahua DHI-LM24-B201S - 23.8 Inch IPS FHD 100Hz",
+   "slug": "dahua-dhi-lm24-b201s-23-8-inch-ips-fhd-100hz",
+   "category": "monitor",
+   "category_th": "จอมอนิเตอร์",
+   "now": 2150,
+   "url": "https://pricespec.vercel.app/p/dahua-dhi-lm24-b201s-23-8-inch-ips-fhd-100hz",
+   "prev": 2450,
+   "diff": -300,
+   "pct": -12.2,
+   "checked": true
+  },
+  {
+   "name": "BE QUIET PURE POWER 13 M 1000W - 1000W 80 PLUS GOLD BLACK ATX",
+   "slug": "be-quiet-pure-power-13-m-1000w-1000w-80-plus-gold-black-atx",
+   "category": "psu",
+   "category_th": "พาวเวอร์ซัพพลาย",
+   "now": 4590,
+   "url": "https://pricespec.vercel.app/p/be-quiet-pure-power-13-m-1000w-1000w-80-plus-gold-black-atx",
+   "prev": 4990,
+   "diff": -400,
+   "pct": -8.0,
+   "checked": false
+  },
+  {
+   "name": "MSI Pro MP273W E14A - 27 Inch IPS FHD 144Hz AMD FreeSync",
+   "slug": "msi-pro-mp273w-e14a-27-inch-ips-fhd-144hz-amd-freesync",
+   "category": "monitor",
+   "category_th": "จอมอนิเตอร์",
+   "now": 3350,
+   "url": "https://pricespec.vercel.app/p/msi-pro-mp273w-e14a-27-inch-ips-fhd-144hz-amd-freesync",
+   "prev": 3600,
+   "diff": -250,
+   "pct": -6.9,
+   "checked": false
+  }
+ ],
  "rises": [
+  {
+   "name": "LG 32U631A-B - 31.5 Inch IPS 2K 100Hz USB-C",
+   "slug": "lg-32u631a-b-31-5-inch-ips-2k-100hz-usb-c",
+   "category": "monitor",
+   "category_th": "จอมอนิเตอร์",
+   "now": 6950,
+   "url": "https://pricespec.vercel.app/p/lg-32u631a-b-31-5-inch-ips-2k-100hz-usb-c",
+   "prev": 5800,
+   "diff": 1150,
+   "pct": 19.8,
+   "checked": true
+  },
+  {
+   "name": "Acer EK251Q P6 - 24.5 Inch IPS FHD 144Hz AMD FreeSync",
+   "slug": "acer-ek251q-p6-24-5-inch-ips-fhd-144hz-amd-freesync",
+   "category": "monitor",
+   "category_th": "จอมอนิเตอร์",
+   "now": 3150,
+   "url": "https://pricespec.vercel.app/p/acer-ek251q-p6-24-5-inch-ips-fhd-144hz-amd-freesync",
+   "prev": 2650,
+   "diff": 500,
+   "pct": 18.9,
+   "checked": true
+  },
+  {
+   "name": "ID-COOLING FX360 LCD - WHITE",
+   "slug": "id-cooling-fx360-lcd-white",
+   "category": "cooling",
+   "category_th": "ชุดระบายความร้อน",
+   "now": 3390,
+   "url": "https://pricespec.vercel.app/p/id-cooling-fx360-lcd-white",
+   "prev": 2990,
+   "diff": 400,
+   "pct": 13.4,
+   "checked": true
+  },
+  {
+   "name": "Radeon RX 9060 XT 16GB",
+   "slug": "rx9060xt",
+   "category": "gpu",
+   "category_th": "การ์ดจอ",
+   "now": 15600,
+   "url": "https://pricespec.vercel.app/p/rx9060xt",
+   "prev": 13900,
+   "diff": 1700,
+   "pct": 12.2,
+   "checked": false
+  },
+  {
+   "name": "Philips 49B2U5900CH/00 - 48.8 Inch VA DQHD 75Hz Adaptive Sync USB-C Curved",
+   "slug": "philips-49b2u5900ch-00-48-8-inch-va-dqhd-75hz-adaptive-sync-usb-c-curv",
+   "category": "monitor",
+   "category_th": "จอมอนิเตอร์",
+   "now": 30500,
+   "url": "https://pricespec.vercel.app/p/philips-49b2u5900ch-00-48-8-inch-va-dqhd-75hz-adaptive-sync-usb-c-curv",
+   "prev": 27900,
+   "diff": 2600,
+   "pct": 9.3,
+   "checked": false
+  },
   {
    "name": "AMD Ryzen 7 9800X3D",
    "slug": "r79800x3d",
@@ -47,6 +180,18 @@
    "prev": 15990,
    "diff": 910,
    "pct": 5.7,
+   "checked": false
+  },
+  {
+   "name": "Benq MA320U - 31.5 Inch IPS 4K 60Hz USB-C",
+   "slug": "benq-ma320u-31-5-inch-ips-4k-60hz-usb-c",
+   "category": "monitor",
+   "category_th": "จอมอนิเตอร์",
+   "now": 22490,
+   "url": "https://pricespec.vercel.app/p/benq-ma320u-31-5-inch-ips-4k-60hz-usb-c",
+   "prev": 21290,
+   "diff": 1200,
+   "pct": 5.6,
    "checked": false
   },
   {
@@ -86,18 +231,6 @@
    "checked": false
   },
   {
-   "name": "DDR5 6000MHz RAM (หน่วยความจำ) CORSAIR VENGEANCE DDR5 - INTEL XMP CL36 BLACK CMK32GX5M2E6000C36",
-   "slug": "ddr5-6000mhz-ram-corsair-vengeance-ddr5-intel-xmp-cl36-black-cmk32gx5m",
-   "category": "ram",
-   "category_th": "แรม",
-   "now": 16500,
-   "url": "https://pricespec.vercel.app/p/ddr5-6000mhz-ram-corsair-vengeance-ddr5-intel-xmp-cl36-black-cmk32gx5m",
-   "prev": 15900,
-   "diff": 600,
-   "pct": 3.8,
-   "checked": false
-  },
-  {
    "name": "DDR5 5600MHz RAM (หน่วยความจำ) CORSAIR VENGEANCE DDR5 (INTEL XMP) (BLACK) (CMK32GX5M2B5600C40)",
    "slug": "ddr5-5600mhz-ram-corsair-vengeance-ddr5-intel-xmp-black-cmk32gx5m2b560",
    "category": "ram",
@@ -107,6 +240,30 @@
    "prev": 15900,
    "diff": 600,
    "pct": 3.8,
+   "checked": false
+  },
+  {
+   "name": "Dell U3225QE - 31.5 Inch IPS 4K 120Hz USB-C Thunderbolt 4",
+   "slug": "dell-u3225qe-31-5-inch-ips-4k-120hz-usb-c-thunderbolt-4",
+   "category": "monitor",
+   "category_th": "จอมอนิเตอร์",
+   "now": 27500,
+   "url": "https://pricespec.vercel.app/p/dell-u3225qe-31-5-inch-ips-4k-120hz-usb-c-thunderbolt-4",
+   "prev": 26500,
+   "diff": 1000,
+   "pct": 3.8,
+   "checked": false
+  },
+  {
+   "name": "GIGABYTE B860M AORUS ELITE (REV. 1.0) - INTEL SOCKET 1851 DDR5 MICRO-ATX",
+   "slug": "gigabyte-b860m-aorus-elite-rev-1-0-intel-socket-1851-ddr5-micro-atx",
+   "category": "mainboard",
+   "category_th": "เมนบอร์ด",
+   "now": 4990,
+   "url": "https://pricespec.vercel.app/p/gigabyte-b860m-aorus-elite-rev-1-0-intel-socket-1851-ddr5-micro-atx",
+   "prev": 4840,
+   "diff": 150,
+   "pct": 3.1,
    "checked": false
   },
   {
@@ -148,6 +305,18 @@
    "checked": true
   },
   {
+   "name": "TRANSCEND PCIe Gen4x4 NVMe 3D TLC with Dram (Graphene Heatsink) M.2 2280 (TCN-TS1TMTE250S)",
+   "slug": "transcend-pcie-gen4x4-nvme-3d-tlc-with-dram-graphene-heatsink-m-2-2280",
+   "category": "ssd",
+   "category_th": "SSD",
+   "now": 5350,
+   "url": "https://pricespec.vercel.app/p/transcend-pcie-gen4x4-nvme-3d-tlc-with-dram-graphene-heatsink-m-2-2280",
+   "high": 8590,
+   "save": 3240,
+   "points": 4,
+   "checked": true
+  },
+  {
    "name": "DDR4 3200MHz RAM (หน่วยความจำ) HIKSEMI ARMOR DDR4 INTEL XMP - BLACK",
    "slug": "ddr4-3200mhz-ram-hiksemi-armor-ddr4-intel-xmp-black",
    "category": "ram",
@@ -160,16 +329,28 @@
    "checked": true
   },
   {
-   "name": "LG 32U631A-B - 31.5 Inch IPS 2K 100Hz USB-C",
-   "slug": "lg-32u631a-b-31-5-inch-ips-2k-100hz-usb-c",
+   "name": "Asus TUF Gaming VG279QE5A - 27 Inch IPS FHD 146Hz Adaptive Sync",
+   "slug": "asus-tuf-gaming-vg279qe5a-27-inch-ips-fhd-146hz-adaptive-sync",
    "category": "monitor",
    "category_th": "จอมอนิเตอร์",
-   "now": 5800,
-   "url": "https://pricespec.vercel.app/p/lg-32u631a-b-31-5-inch-ips-2k-100hz-usb-c",
-   "high": 6950,
-   "save": 1150,
+   "now": 3000,
+   "url": "https://pricespec.vercel.app/p/asus-tuf-gaming-vg279qe5a-27-inch-ips-fhd-146hz-adaptive-sync",
+   "high": 4250,
+   "save": 1250,
    "points": 4,
-   "checked": false
+   "checked": true
+  },
+  {
+   "name": "LG Ultragear 27G440A-B - 27 Inch IPS FHD 240Hz AMD FreeSync Premium G-Sync Compatible",
+   "slug": "lg-ultragear-27g440a-b-27-inch-ips-fhd-240hz-amd-freesync-premium-g-sy",
+   "category": "monitor",
+   "category_th": "จอมอนิเตอร์",
+   "now": 4700,
+   "url": "https://pricespec.vercel.app/p/lg-ultragear-27g440a-b-27-inch-ips-fhd-240hz-amd-freesync-premium-g-sy",
+   "high": 5900,
+   "save": 1200,
+   "points": 4,
+   "checked": true
   },
   {
    "name": "Dell Alienware AW2726DM - 26.5 Inch QD-OLED 2K 240Hz AMD FreeSync Premium",
@@ -220,6 +401,18 @@
    "checked": false
   },
   {
+   "name": "MSI MAG 255PXF - 24.5 Inch Rapid IPS FHD 300Hz AMD FreeSync Premium",
+   "slug": "msi-mag-255pxf-24-5-inch-rapid-ips-fhd-300hz-amd-freesync-premium",
+   "category": "monitor",
+   "category_th": "จอมอนิเตอร์",
+   "now": 4950,
+   "url": "https://pricespec.vercel.app/p/msi-mag-255pxf-24-5-inch-rapid-ips-fhd-300hz-amd-freesync-premium",
+   "high": 5650,
+   "save": 700,
+   "points": 4,
+   "checked": true
+  },
+  {
    "name": "LG Ultragear 27G411A-B - 27 Inch IPS FHD 144Hz AMD FreeSync Premium Pro G-Sync Compatible",
    "slug": "lg-ultragear-27g411a-b-27-inch-ips-fhd-144hz-amd-freesync-premium-pro-",
    "category": "monitor",
@@ -228,6 +421,18 @@
    "url": "https://pricespec.vercel.app/p/lg-ultragear-27g411a-b-27-inch-ips-fhd-144hz-amd-freesync-premium-pro-",
    "high": 3650,
    "save": 650,
+   "points": 4,
+   "checked": false
+  },
+  {
+   "name": "DDR5 6000MHz RAM (หน่วยความจำ) CORSAIR VENGEANCE DDR5 - INTEL XMP CL36 BLACK CMK32GX5M2E6000C36",
+   "slug": "ddr5-6000mhz-ram-corsair-vengeance-ddr5-intel-xmp-cl36-black-cmk32gx5m",
+   "category": "ram",
+   "category_th": "แรม",
+   "now": 15900,
+   "url": "https://pricespec.vercel.app/p/ddr5-6000mhz-ram-corsair-vengeance-ddr5-intel-xmp-cl36-black-cmk32gx5m",
+   "high": 16500,
+   "save": 600,
    "points": 4,
    "checked": false
   },
@@ -244,38 +449,14 @@
    "checked": false
   },
   {
-   "name": "MSI Pro MP241W E14V - 23.8 Inch VA FHD 144Hz Adaptive Sync",
-   "slug": "msi-pro-mp241w-e14v-23-8-inch-va-fhd-144hz-adaptive-sync",
-   "category": "monitor",
-   "category_th": "จอมอนิเตอร์",
-   "now": 2600,
-   "url": "https://pricespec.vercel.app/p/msi-pro-mp241w-e14v-23-8-inch-va-fhd-144hz-adaptive-sync",
-   "high": 2950,
-   "save": 350,
-   "points": 4,
-   "checked": false
-  },
-  {
-   "name": "MSI PRO MP273QW E14 - 27 Inch IPS 2K 144Hz AMD FreeSync",
-   "slug": "msi-pro-mp273qw-e14-27-inch-ips-2k-144hz-amd-freesync",
-   "category": "monitor",
-   "category_th": "จอมอนิเตอร์",
-   "now": 4650,
-   "url": "https://pricespec.vercel.app/p/msi-pro-mp273qw-e14-27-inch-ips-2k-144hz-amd-freesync",
-   "high": 4850,
-   "save": 200,
-   "points": 4,
-   "checked": false
-  },
-  {
-   "name": "Aoc 24B36X/67 - 23.8 Inch IPS FHD 144Hz Adaptive Sync",
-   "slug": "aoc-24b36x-67-23-8-inch-ips-fhd-144hz-adaptive-sync",
-   "category": "monitor",
-   "category_th": "จอมอนิเตอร์",
-   "now": 2550,
-   "url": "https://pricespec.vercel.app/p/aoc-24b36x-67-23-8-inch-ips-fhd-144hz-adaptive-sync",
-   "high": 2650,
-   "save": 100,
+   "name": "BE QUIET PURE POWER 13 M 1000W - 1000W 80 PLUS GOLD BLACK ATX",
+   "slug": "be-quiet-pure-power-13-m-1000w-1000w-80-plus-gold-black-atx",
+   "category": "psu",
+   "category_th": "พาวเวอร์ซัพพลาย",
+   "now": 4590,
+   "url": "https://pricespec.vercel.app/p/be-quiet-pure-power-13-m-1000w-1000w-80-plus-gold-black-atx",
+   "high": 4990,
+   "save": 400,
    "points": 4,
    "checked": false
   }
