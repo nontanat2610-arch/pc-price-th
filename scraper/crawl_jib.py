@@ -21,6 +21,7 @@ DATA_FILE = ROOT / "data" / "prices.json"
 JS_FILE = ROOT / "data" / "prices.js"
 TODAY = str(datetime.date.today())
 MAX_HISTORY_DAYS = 90
+MIN_COVERAGE = 0.95     # ครอบได้ต่ำกว่านี้เทียบรอบก่อน = ถือว่ารอบเสีย ไม่เขียนทับ
 BASE = "https://www.jib.co.th"
 
 # (คีย์หมวดในเว็บเรา, กลุ่ม/รหัสหมวด JIB, ชื่อไทย, จำนวนหน้าสูงสุด)
@@ -146,18 +147,36 @@ def parse_specs(name, cat):
     return s
 
 
-def crawl(page, path, max_pages):
-    rows, seen = [], set()
-    for i in range(max_pages):
-        offset = i * PER_PAGE
-        url = f"{BASE}/web/product/product_list/{path}" + (f"/{offset}" if offset else "")
+RETRIES = 3          # ลองใหม่กี่ครั้งต่อหน้า ก่อนยอมแพ้
+RETRY_WAIT = 3000    # ms รอระหว่างการลองใหม่
+
+
+def fetch_page(page, url):
+    """โหลดหน้าหมวดหนึ่งหน้า ลองใหม่ได้ถ้าล้ม — คืน list หรือ None ถ้าล้มทุกครั้ง"""
+    for attempt in range(1, RETRIES + 1):
         try:
             page.goto(url, timeout=60000, wait_until="domcontentloaded")
             page.wait_for_selector("div.reladiv", timeout=20000)
             page.wait_for_timeout(1200)
-            batch = page.evaluate(EXTRACT_JS)
+            return page.evaluate(EXTRACT_JS)
         except Exception as e:
-            print(f"    ! หน้า {i+1} ล้มเหลว: {type(e).__name__}", file=sys.stderr)
+            print(f"      ลองครั้งที่ {attempt}/{RETRIES} ล้มเหลว: {type(e).__name__}",
+                  file=sys.stderr)
+            if attempt < RETRIES:
+                page.wait_for_timeout(RETRY_WAIT * attempt)
+    return None
+
+
+def crawl(page, path, max_pages):
+    """คืน (rows, ok) — ok=False แปลว่าหมวดนี้ครอบไม่ครบ อย่าเอาไปตัดสินว่าสินค้าหาย"""
+    rows, seen, ok = [], set(), True
+    for i in range(max_pages):
+        offset = i * PER_PAGE
+        url = f"{BASE}/web/product/product_list/{path}" + (f"/{offset}" if offset else "")
+        batch = fetch_page(page, url)
+        if batch is None:
+            print(f"    ! หน้า {i+1} ล้มเหลวถาวร — หมวดนี้ครอบไม่ครบ", file=sys.stderr)
+            ok = False
             break
         fresh = [b for b in batch if b["name"] not in seen]
         for b in fresh:
@@ -166,7 +185,7 @@ def crawl(page, path, max_pages):
         print(f"    หน้า {i+1}: {len(batch)} รายการ (ใหม่ {len(fresh)})")
         if len(batch) < PER_PAGE or not fresh:
             break
-    return rows
+    return rows, ok
 
 
 def main():
@@ -182,9 +201,13 @@ def main():
         page = browser.new_page(user_agent=(
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
             "(KHTML, like Gecko) Chrome/126.0 Safari/537.36"))
+        incomplete = []
         for cat, path, label, max_pages in CATEGORIES:
             print(f"  → {label} ({cat}) …")
-            for r in crawl(page, path, max_pages):
+            rows_cat, cat_ok = crawl(page, path, max_pages)
+            if not cat_ok:
+                incomplete.append(label)
+            for r in rows_cat:
                 name = clean_name(r["name"])
                 price = to_price(r["price"])
                 if not price or price < 200:
@@ -219,6 +242,36 @@ def main():
                     products.append(p)
                     by_slug[slug] = p
                     added += 1
+
+    # ── ด่านตรวจความครบถ้วน ─────────────────────────────────────────
+    # ถ้ารอบนี้ครอบได้น้อยกว่าเกณฑ์เทียบกับรอบก่อน แปลว่าร้านตอบไม่ครบ
+    # ให้ทิ้งข้อมูลรอบนี้ไปเลย ดีกว่าเขียนข้อมูลพร่องแล้วรายงานราคาผิด
+    prev_dates = sorted({h["date"] for p in products
+                         for h in (p.get("history", {}).get("JIB") or [])
+                         if h["date"] < TODAY})
+    prev_day = prev_dates[-1] if prev_dates else None
+    prev_count = sum(1 for p in products
+                     if any(h["date"] == prev_day
+                            for h in (p.get("history", {}).get("JIB") or []))) if prev_day else 0
+    today_count = sum(1 for p in products
+                      if any(h["date"] == TODAY
+                             for h in (p.get("history", {}).get("JIB") or [])))
+
+    if prev_count:
+        coverage = today_count / prev_count
+        print(f"\n  ความครบถ้วน: {today_count}/{prev_count} = {coverage:.1%} "
+              f"(เทียบรอบ {prev_day})")
+        bad = []
+        if coverage < MIN_COVERAGE:
+            bad.append(f"ครอบได้ {coverage:.1%} ต่ำกว่าเกณฑ์ {MIN_COVERAGE:.0%}")
+        if incomplete:
+            bad.append("หมวดที่ครอบไม่ครบ (ลองใหม่ครบ 3 รอบแล้ว): " + ", ".join(incomplete))
+        if bad:
+            print("\n  ✗ รอบนี้ข้อมูลไม่น่าเชื่อถือ — ยกเลิกการเขียน ข้อมูลเดิมยังอยู่ครบ",
+                  file=sys.stderr)
+            for b in bad:
+                print(f"    · {b}", file=sys.stderr)
+            sys.exit(1)
 
     # ตัดประวัติที่เก่าเกินกำหนด
     cutoff = str(datetime.date.today() - datetime.timedelta(days=MAX_HISTORY_DAYS))
