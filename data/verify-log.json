@@ -1,9 +1,9 @@
 {
- "checked_at": "2026-07-30",
+ "checked_at": "2026-07-31",
  "threshold_pct": 12.0,
- "checked": 50,
+ "checked": 10,
  "corrected": 2,
- "confirmed_real": 48,
+ "confirmed_real": 8,
  "failed": 0,
  "corrections": [
   {
