@@ -2,7 +2,8 @@ name: Update GPU prices daily
 
 on:
   schedule:
-    - cron: "0 22 * * *"  # ทุกวัน 05:00 น. เวลาไทย (22:00 UTC วันก่อนหน้า)
+    - cron: "0 22 * * *"  # รอบหลัก — ทุกวัน 05:00 น. เวลาไทย (22:00 UTC วันก่อนหน้า)
+    - cron: "0 4 * * *"   # รอบสำรอง — 11:00 น. เวลาไทย เผื่อ GitHub ข้ามรอบเช้า
   workflow_dispatch:        # กดรันเองได้จากหน้า Actions
 
 permissions:
